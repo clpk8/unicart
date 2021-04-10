@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  server:
+    image: unicart-server
+    container_name: unicart-server
+    build: ./server
+    ports:
+      - "3001:3001"
+    restart: always
+
+    networks:
+      - unicart-network
+
+  client:
+    image: unicart-client
+    container_name: unicart-client
+    build: ./client
+    ports:
+      - "80:80"
+    restart: always
+    links:
+      - server
+    networks:
+      - unicart-network
+
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    volumes:
+    - ./data-node:/data/db
+    ports:
+    - 27017:27017
+    command: mongod --noauth --smallfiles
+    networks:
+      - unicart-network
+
+networks:
+  unicart-network:
+    driver: bridge

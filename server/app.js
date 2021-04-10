@@ -8,6 +8,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
+const port = 3001;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +19,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-app.listen(3000, () => {
-    console.log(`Todo-App listening on localhost:${3000}`);
+app.listen(port, () => {
+    console.log(`Todo-App listening on localhost:${port}`);
 });
