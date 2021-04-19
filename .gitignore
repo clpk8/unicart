@@ -40,6 +40,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+/.pnp
+.pnp.js
 
 # TypeScript v1 declaration files
 typings/
@@ -107,3 +109,12 @@ dist
 ./client/package-lock.json
 
 **/.DS_Store
+
+
+# production
+/build
+
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
