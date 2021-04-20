@@ -13,7 +13,8 @@ import Account from './pages/account';
   
 function App() {
   return (
-    <Router>
+	<div className='App'>
+		<Router>
       <Navbar />
       <Switch>
         <Route path='/' exact component={Home} />
@@ -23,7 +24,8 @@ function App() {
         <Route path='/forSale' component={ForSale} />
         <Route path='/account' component={Account} />
       </Switch>
-    </Router>
+		</Router>
+	</div>
   );
 }
   

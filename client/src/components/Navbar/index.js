@@ -1,45 +1,23 @@
-import React from 'react';
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  NavBtn,
-  NavBtnLink,
-} from './NavbarElements';
+import React, { Component } from 'react';
 
-//see https://www.geeksforgeeks.org/create-a-responsive-navbar-using-reactjs/ 
-//for tutorial
+class Navbar extends Component {
+  render () {
+    return (
+    <header id='home'>
+      <nav id='nav-wrap'>
+      <a className='mobile-btn' href='#nav-wrap' title='Show navigation'>Show navigation</a>
+      <a className='mobile-btn' href='#home' title='Hide navigation'>Hide navigation</a>
   
-const Navbar = () => {
-  return (
-    <>
-      <Nav>
-        <Bars />
-  
-        <NavMenu>
-          <NavLink to='/buy' activeStyle>
-            Buy
-          </NavLink>
-          <NavLink to='/sell' activeStyle>
-            Sell
-          </NavLink>
-          <NavLink to='/transactions' activeStyle>
-            Transactions
-          </NavLink>
-          <NavLink to='/forSale' activeStyle>
-            For Sale
-          </NavLink>
-          <NavLink to='/account' activeStyle>
-            Account
-          </NavLink>
-        </NavMenu>
-        <NavBtn>
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-        </NavBtn>
-      </Nav>
-    </>
-  );
-};
-  
+      <ul id='nav' className='nav'>
+        <li className='current'><a className='smoothscroll' href='/home'>Home</a></li>
+        <li><a className='smoothscroll' href='/sell'>Sell</a></li>
+        <li><a className='smoothscroll' href='/login'>Log In</a></li>
+        <li><a className='smoothscroll' href='/signup'>Sign Up</a></li>
+      </ul>
+      </nav>
+    </header>
+    )
+  }
+}
+
 export default Navbar;
