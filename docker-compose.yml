@@ -1,5 +1,16 @@
-version: '3'
+version: "3"
 services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    volumes:
+      - ./data-node:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --noauth
+    networks:
+      - unicart-network
 
   server:
     image: unicart-server
@@ -8,7 +19,8 @@ services:
     ports:
       - "3001:3001"
     restart: always
-
+    environment:
+      - DB_CONNECTION=mongodb://mongo:27017/unicart
     networks:
       - unicart-network
 
@@ -21,18 +33,6 @@ services:
     restart: always
     links:
       - server
-    networks:
-      - unicart-network
-
-  mongodb:
-    image: mongo
-    restart: always
-    container_name: mongodb
-    volumes:
-    - ./data-node:/data/db
-    ports:
-    - 27017:27017
-    command: mongod --noauth --smallfiles
     networks:
       - unicart-network
 

@@ -7,14 +7,11 @@ const ProductSchema = mongoose.Schema({
   datePosted: Date,
   dateSold: Date,
   description: String,
-  id: String,
+  _id: String,
   paidFor: Boolean,
   price: Number,
-  photos: Array,
-  buyer: {
-    name: String,
-    id: String,
-  },
+  photos: [String],
+  buyerId: String,
 });
 
 module.exports = mongoose.model("Products", ProductSchema);

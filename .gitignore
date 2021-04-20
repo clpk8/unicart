@@ -110,6 +110,13 @@ dist
 
 **/.DS_Store
 
+server/product_photos/*
+
+.idea/
+.vscode/
+
+client/package-lock.json
+server/package-lock.json
 
 # production
 /build
