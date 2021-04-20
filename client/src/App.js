@@ -1,11 +1,13 @@
 
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
-import Home from './pages';
 import Footer from './components/Footer';
+
+import Home from './pages';
+import Login from './pages/LogIn'
 // import Buy from './pages/buy';
 // import Sell from './pages/sell';
 // import Transactions from './pages/transactions';
@@ -17,16 +19,16 @@ function App() {
 	<div className='App'>
 		<Router>
       <Navbar />
-      <Home />
 
-      {/* <Switch>
+      <Switch>
         <Route path='/' exact component={Home} />
-        <Route path='/buy' component={Buy} />
+        <Route path='/login' component={Login} />
+        {/* <Route path='/buy' component={Buy} />
         <Route path='/sell' component={Sell} />
         <Route path='/transactions' component={Transactions} />
         <Route path='/forSale' component={ForSale} />
-        <Route path='/account' component={Account} />
-      </Switch> */}
+        <Route path='/account' component={Account} /> */}
+      </Switch>
       <Footer />
 		</Router>
 	</div>

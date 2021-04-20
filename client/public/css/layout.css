@@ -200,12 +200,15 @@ border-radius: 25px;
 /* ------------------------------------------------------------------ */
 
 footer {
-  padding-top: 48px;
-  margin-bottom: 48px;
+  padding-top: 24px;
+  margin-bottom: 12px;
   color: #696969;
   font-size: 14px;
   text-align: center;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 footer a,
