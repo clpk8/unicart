@@ -1,9 +1,13 @@
-import React from 'react'
-
-const Sell = () => {
+import React, { Component } from 'react'
+import Banner from '../components/Banner'
+class Sell extends Component {
+  render () {
     return (
-        <div></div>
-    );
-};
-    
-export default Sell;
+      <div id='home'>
+        <Banner />
+      </div>
+    )
+  }
+}
+
+export default Sell
