@@ -1,0 +1,263 @@
+/* Roy Xu 2021 */
+/* Modified from Styleshout.com */
+
+/* ------------------------------------------------------------------ */
+/* General Styles
+/* ------------------------------------------------------------------ */
+
+body {
+background: #fff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Header Styles
+/* ------------------------------------------------------------------ */
+
+header {
+position: relative;
+height: 800px;
+min-height: 500px;
+width: 100%;
+background: url(../assets/background.jpeg) no-repeat top center;
+background-size: cover !important;
+-webkit-background-size: cover !important;
+text-align: center;
+overflow: hidden;
+}
+
+/* vertically center banner section */
+header:before {
+content: "";
+display: inline-block;
+vertical-align: middle;
+height: 100%;
+}
+
+header .banner {
+display: inline-block;
+vertical-align: middle;
+margin: 0 auto;
+width: 85%;
+padding-bottom: 30px;
+text-align: center;
+}
+
+header .banner-text {
+width: 100%;
+}
+header .banner-text h1 {
+font-style: normal;
+color: #424242;
+letter-spacing: -1px;
+margin: 0 auto 18px auto;
+}
+header .banner-text h3 {
+font: 18px/1.9em "Poiret One", cursive;
+color: #000;
+margin: 0 auto;
+width: 70%;
+text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+}
+header .banner-text h3 span,
+header .banner-text h3 a {
+color: #000;
+}
+header .banner-text hr {
+width: 60%;
+margin: 18px auto 24px auto;
+border-color: #2f2d2e;
+border-color: rgba(150, 150, 150, 0.1);
+}
+
+/* header social links */
+header .social {
+margin: 24px 0;
+padding: 0;
+font-size: 30px;
+text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+}
+header .social li {
+display: inline-block;
+margin: 0 15px;
+padding: 0;
+}
+header .social li a {
+color: #fff;
+}
+header .social li a:hover {
+color: #149414;
+}
+
+/* scrolldown link */
+header .scrolldown a {
+position: absolute;
+bottom: 30px;
+left: 50%;
+margin-left: -29px;
+color: #000;
+display: block;
+height: 42px;
+width: 42px;
+font-size: 42px;
+line-height: 42px;
+border-radius: 100%;
+
+-webkit-transition: all 0.3s ease-in-out;
+-moz-transition: all 0.3s ease-in-out;
+-o-transition: all 0.3s ease-in-out;
+transition: all 0.3s ease-in-out;
+}
+header .scrolldown a:hover {
+color: #149414;
+}
+
+.tagline {
+padding-top: 75px;
+padding-bottom: 50px;
+}
+
+/* primary navigation
+--------------------------------------------------------------------- */
+#nav-wrap ul,
+#nav-wrap li,
+#nav-wrap a {
+margin: 0;
+padding: 0;
+border: none;
+outline: none;
+}
+
+/* nav-wrap */
+#nav-wrap {
+font: 12px "opensans-bold", sans-serif;
+width: 100%;
+text-transform: none;
+letter-spacing: 1.2px;
+margin: 0 auto;
+z-index: 100;
+position: fixed;
+left: 0;
+top: 0;
+}
+.opaque {
+background-color: #333;
+}
+/* hide toggle button */
+#nav-wrap > a.mobile-btn {
+background-color: #149414;
+display: none;
+}
+
+ul#nav {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-right: 20px;
+min-height: 48px;
+width: auto;
+text-align: right;
+border-bottom: 1px solid #D3D3D3;
+}
+ul#nav li {
+position: relative;
+list-style: none;
+height: 48px;
+display: inline-block;
+}
+
+/* Nav bar links */
+ul#nav li a {
+/* 8px padding top + 8px padding bottom + 32px line-height = 48px */
+
+display: inline-block;
+padding: 8px 13px;
+line-height: 32px;
+text-decoration: none;
+text-align: left;
+color: #000;
+
+-webkit-transition: color 0.2s ease-in-out;
+-moz-transition: color 0.2s ease-in-out;
+-o-transition: color 0.2s ease-in-out;
+-ms-transition: color 0.2s ease-in-out;
+transition: color 0.2s ease-in-out;
+}
+
+ul#nav li a:active {
+background-color: transparent !important;
+}
+ul#nav li.current a {
+color: #000;
+}
+
+ul#nav li a#login-button {
+border: 1px solid #000;
+border-radius: 25px;
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Footer
+/* ------------------------------------------------------------------ */
+
+footer {
+  padding-top: 24px;
+  margin-bottom: 12px;
+  color: #696969;
+  font-size: 14px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+footer a,
+footer a:visited {
+  color: #c0c0c0;
+}
+footer a:hover,
+footer a:focus {
+  color: #fff;
+}
+
+/* copyright */
+footer .copyright {
+  margin: 0;
+  padding: 0;
+}
+footer .copyright li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 24px;
+}
+.ie footer .copyright li {
+  display: inline;
+}
+footer .copyright li:before {
+  content: "\2022";
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #c0c0c0;
+}
+footer .copyright li:first-child:before {
+  display: none;
+}
+
+/* social links */
+footer .social-links {
+  margin: 18px 0 30px 0;
+  padding: 0;
+  font-size: 30px;
+}
+footer .social-links li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-left: 42px;
+  color: #149414;
+}
+
+footer .social-links li:first-child {
+  margin-left: 0;
+}
