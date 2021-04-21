@@ -77,14 +77,12 @@ router.get("/:productId", async (req, res) => {
  * Request must be a /multipart/form-data, you could try it out in postman
  */
 router.post("/", upload.array("photos"), (req, res) => {
-  console.log(req.files);
   let photoPaths = [];
   req.files.forEach((file) => {
     photoPaths.push(file.path);
   });
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
-    acceptVenmo: req.body.acceptVenmo,
     category: req.body.category,
     condition: req.body.condition,
     description: req.body.description,
@@ -92,6 +90,9 @@ router.post("/", upload.array("photos"), (req, res) => {
     price: req.body.price,
     buyerId: req.body.buyerId,
     photos: photoPaths,
+    sellerId: req.body.sellerId,
+    title: req.body.title,
+    tags: req.body.tags,
   });
   try {
     product.save().then((savedProduct) => {
