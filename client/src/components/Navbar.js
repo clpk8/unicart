@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Navbar extends Component {
   render() {
     return (
