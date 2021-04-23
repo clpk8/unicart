@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Product = require("./Product");
+const mongoose = require('mongoose');
+// const Product = require('./Product');
 
 const UserSchema = mongoose.Schema({
   firstName: String,
@@ -19,4 +19,4 @@ const UserSchema = mongoose.Schema({
   selling: [String],
 });
 
-module.exports = mongoose.model("Users", UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
