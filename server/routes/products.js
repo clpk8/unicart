@@ -1,17 +1,18 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
-const Product = require("../models/Product");
-const mongoose = require("mongoose");
-const multer = require("multer");
+const mongoose = require('mongoose');
+const multer = require('multer');
+const Product = require('../models/Product');
 
 /**
  * Change the name of the file to the date + the original name
  */
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./product_photos/");
+  destination(req, file, cb) {
+    cb(null, './product_photos/');
   },
-  filename: function (req, file, cb) {
+  filename(req, file, cb) {
     cb(null, new Date().toISOString() + file.originalname);
   },
 });
@@ -24,7 +25,7 @@ const storage = multer.diskStorage({
  */
 const fileFilter = (req, file, cb) => {
   // reject a file
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
   } else {
     cb(null, false);
@@ -35,15 +36,15 @@ const fileFilter = (req, file, cb) => {
  * use multer with the storage and fileFilter above, with a file limitation
  */
 const upload = multer({
-  storage: storage,
+  storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
-  fileFilter: fileFilter,
+  fileFilter,
 });
 
 /* GET products listing. */
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
     res.status(200).json(products);
@@ -57,7 +58,7 @@ router.get("/", async (req, res) => {
  * Example: curl -X GET localhost:3001/products/607b36e6f153b21c4f6e7499
  * where 607b36e6f153b21c4f6e7499 is the ID
  */
-router.get("/:productId", async (req, res) => {
+router.get('/:productId', async (req, res) => {
   try {
     console.log(req.params.productId);
     const product = await Product.findById(req.params.productId);
@@ -76,8 +77,8 @@ router.get("/:productId", async (req, res) => {
  *
  * Request must be a /multipart/form-data, you could try it out in postman
  */
-router.post("/", upload.array("photos"), (req, res) => {
-  let photoPaths = [];
+router.post('/', upload.array('photos'), (req, res) => {
+  const photoPaths = [];
   req.files.forEach((file) => {
     photoPaths.push(file.path);
   });
@@ -106,7 +107,7 @@ router.post("/", upload.array("photos"), (req, res) => {
 /**
  * Delete a product
  */
-router.delete("/:productId", async (req, res) => {
+router.delete('/:productId', async (req, res) => {
   try {
     const removedProduct = await Product.remove({ _id: req.params.productId });
     res.status(200).json(removedProduct);
