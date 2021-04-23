@@ -5,6 +5,6 @@ const store = createStore({
   setCart: action((state, payload) => {
     state.cart = payload;
   }),
-})
+});
 
-export default store
+export default store;
