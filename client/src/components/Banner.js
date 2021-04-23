@@ -9,7 +9,7 @@ class Banner extends Component {
             <h1 className='responsive-headline'>College Buy & Sell</h1>
             <h1 className='responsive-headline'>Made Simple</h1>
             <hr />
-            <button type='button' class='btn btn-success'><a href='/signup'>Sign Up</a></button>
+            <button type='button' className='btn btn-success'><a href='/signup'>Sign Up</a></button>
           </div>
         </div>
       </header>
