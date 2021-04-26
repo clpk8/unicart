@@ -1,13 +1,15 @@
-import React, { Component } from 'react'
-import Banner from '../components/Banner'
+import React, { Component } from 'react';
+import Banner from '../components/Banner';
+
+// eslint-disable-next-line react/prefer-stateless-function
 class Home extends Component {
-  render () {
+  render() {
     return (
-      <div id='home'>
+      <div id="home">
         <Banner />
       </div>
-    )
+    );
   }
 }
 
-export default Home
+export default Home;
