@@ -135,7 +135,7 @@ text-transform: none;
 letter-spacing: 1.2px;
 margin: 0 auto;
 z-index: 100;
-position: fixed;
+position: sticky;
 left: 0;
 top: 0;
 }
