@@ -18,7 +18,7 @@ mongoose.connect(
   () => {
     console.log('Connected to DB!!');
     console.log(process.env.DB_CONNECTION);
-  }
+  },
 );
 
 const app = express();

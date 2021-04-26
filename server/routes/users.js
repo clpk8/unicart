@@ -28,8 +28,8 @@ router.get('/:userId', async (req, res) => {
 
 /* POST a single user, allow a photo upload for profile image */
 router.post('/', upload.single('photo'), (req, res) => {
-  const email = req.body.email;
-  User.findOne({ email: email }, (err, obj) => {
+  const { email } = req.body;
+  User.findOne({ email }, (err, obj) => {
     if (obj === null) {
       const user = new User({
         _id: new mongoose.Types.ObjectId(),
@@ -46,8 +46,8 @@ router.post('/', upload.single('photo'), (req, res) => {
         user.save().then((savedUser) => {
           res.status(200).json(savedUser);
         });
-      } catch (err) {
-        res.status(400).json({ message: err });
+      } catch (saveErr) {
+        res.status(400).json({ message: saveErr });
       }
     } else {
       res
