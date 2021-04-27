@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const ForSale = () => {
-    return (
-        <div></div>
-    );
-};
-    
+const ForSale = () => (
+  <div />
+);
+
 export default ForSale;

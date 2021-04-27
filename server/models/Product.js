@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const ProductSchema = mongoose.Schema({
-  acceptVenmo: Boolean,
   category: String,
   condition: String,
   datePosted: Date,
@@ -12,6 +11,9 @@ const ProductSchema = mongoose.Schema({
   price: Number,
   photos: [String],
   buyerId: String,
+  sellerId: String,
+  title: String,
+  tags: [String],
 });
 
-module.exports = mongoose.model("Products", ProductSchema);
+module.exports = mongoose.model('Products', ProductSchema);
