@@ -118,8 +118,14 @@ padding-bottom: 50px;
 
 /* primary navigation
 --------------------------------------------------------------------- */
-nav h3 {
+nav h5 {
   color: #fff;
+}
+
+nav .logo-img {
+  height: 42px;
+  width: auto;
+  margin-top: 12px;
 }
 
 #nav-wrap ul,
