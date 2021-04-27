@@ -15,6 +15,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    padding: '20vh 0 0 0',
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -44,7 +45,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign In
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -77,22 +78,22 @@ export default function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="#696969"
             className={classes.submit}
             component={RouterLink}
-            to="/dashboard"
+            to="/products"
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/home" variant="body2">
+              <Link href="/forgotpassord" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/home" variant="body2">
-                Sign Up
+              <Link href="/signup" variant="body2">
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
