@@ -274,10 +274,6 @@ footer .social-links li:first-child {
   padding-top: 10vh;
 }
 
-#sell .title {
-	font-size: 36px;
-  }
-  
 #sell .grid-container {
 display: grid;
 grid-template-columns: auto auto;
@@ -303,14 +299,8 @@ text-align: center;
 
 #sell .preview-box{
   margin-top: 42px;
-  border: 4px solid rgba(10, 132, 176, 0.8);
   height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#sell .post-button {
-  position: relative;
-  text-align: right;
 }
