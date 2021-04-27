@@ -10,6 +10,7 @@ require('dotenv/config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
+const authRouter = require('./routes/auth');
 
 // connect to database
 mongoose.connect(
@@ -24,14 +25,18 @@ mongoose.connect(
 const app = express();
 const port = 3001;
 
+// middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// route middlewares
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/api/user', authRouter);
 app.use('/images', express.static(`${__dirname}/images`));
 
 app.listen(port, () => {
