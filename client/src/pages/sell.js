@@ -5,6 +5,9 @@ class Sell extends Component {
   render () {
     return (
       <form>
+        <div class="title">
+          Sell an Item
+        </div>
         <div class="grid-container">
         <div class="grid-item"><img src={image1} /></div>
         <div class="grid-item">
