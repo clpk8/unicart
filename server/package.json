@@ -8,10 +8,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^17.4.0",
     "mongoose": "^5.12.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
