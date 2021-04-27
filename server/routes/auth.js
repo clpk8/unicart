@@ -10,13 +10,13 @@ router.post('/register', async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    school: req.body.school
-  })
+    school: req.body.school,
+  });
 
   try {
     const savedUser = await user.save();
     res.send(savedUser);
-  } catch(err) {
+  } catch (err) {
     res.status(400).send(err);
   }
 });
