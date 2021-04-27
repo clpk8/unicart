@@ -118,6 +118,10 @@ padding-bottom: 50px;
 
 /* primary navigation
 --------------------------------------------------------------------- */
+nav h3 {
+  color: #fff;
+}
+
 #nav-wrap ul,
 #nav-wrap li,
 #nav-wrap a {
@@ -138,7 +142,7 @@ z-index: 100;
 position: fixed;
 left: 0;
 top: 0;
-background-color: rgb(104, 195, 255);
+background-color: #4285F4;
 }
 .opaque {
 background-color: #333;
@@ -153,34 +157,34 @@ ul#nav {
   padding-top: 10px;
   padding-bottom: 5px;
   padding-right: 20px;
-min-height: 48px;
-width: auto;
-text-align: right;
-border-bottom: 1px solid #D3D3D3;
+  min-height: 48px;
+  width: auto;
+  text-align: right;
+  border-bottom: 1px solid #D3D3D3;
 }
 ul#nav li {
-position: relative;
-list-style: none;
-height: 48px;
-display: inline-block;
+  position: relative;
+  list-style: none;
+  height: 48px;
+  display: inline-block;
 }
 
 /* Nav bar links */
 ul#nav li a {
 /* 8px padding top + 8px padding bottom + 32px line-height = 48px */
 
-display: inline-block;
-padding: 8px 13px;
-line-height: 32px;
-text-decoration: none;
-text-align: left;
-color: #000;
+  display: inline-block;
+  padding: 8px 13px;
+  line-height: 32px;
+  text-decoration: none;
+  text-align: left;
+  color: #000;
 
--webkit-transition: color 0.2s ease-in-out;
--moz-transition: color 0.2s ease-in-out;
--o-transition: color 0.2s ease-in-out;
--ms-transition: color 0.2s ease-in-out;
-transition: color 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+  -moz-transition: color 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out;
+  -ms-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
 ul#nav li a:active {
@@ -195,15 +199,13 @@ border: 1px solid #000;
 border-radius: 25px;
 }
 
-
 /* ------------------------------------------------------------------ */
 /* Footer
 /* ------------------------------------------------------------------ */
 
 footer {
-  padding-top: 24px;
-  margin-bottom: 12px;
-  color: #696969;
+  background-color: #4285F4;
+  color: #fff;
   font-size: 14px;
   text-align: center;
   position: fixed;

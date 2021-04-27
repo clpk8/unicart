@@ -12,7 +12,7 @@ class Navbar extends Component {
         <ul id="nav" className="nav">
           <li className="current"><a className="smoothscroll" href="/home"><h3>Home</h3></a></li>
           <li><a className="smoothscroll" href="/sell"><h3>Sell</h3></a></li>
-          <li><a className="smoothscroll" href="/login"><h3>Log In</h3></a></li>
+          <li><a className="smoothscroll" href="/signin"><h3>Log In</h3></a></li>
           <li><a className="smoothscroll" href="/signup"><h3>Sign Up</h3></a></li>
         </ul>
       </nav>
