@@ -6,6 +6,7 @@ const User = require('../models/User');
 
 router.post('/register', async (req, res) => {
   const user = new User({
+    _id: new mongoose.Types.ObjectId(),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
@@ -17,7 +18,7 @@ router.post('/register', async (req, res) => {
     const savedUser = await user.save();
     res.send(savedUser);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
