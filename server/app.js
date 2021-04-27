@@ -32,8 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
-console.log(`${__dirname}/product_photos`);
-app.use('/product_photos', express.static(`${__dirname}/product_photos`));
+app.use('/images', express.static(`${__dirname}/images`));
 
 app.listen(port, () => {
   console.log(`Unicart backend listening on localhost:${port}`);
