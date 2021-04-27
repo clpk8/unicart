@@ -7,11 +7,11 @@ import Footer from './components/Footer';
 
 import Home from './pages';
 import Login from './pages/LogIn';
-// import Buy from './pages/buy';
-// import Sell from './pages/sell';
-// import Transactions from './pages/transactions';
-// import ForSale from './pages/forSale';
-// import Account from './pages/account';
+import Buy from './pages/buy';
+import Sell from './pages/Sell';
+import Transactions from './pages/transactions';
+import ForSale from './pages/forSale';
+import Account from './pages/account';
 
 function App() {
   return (
@@ -21,12 +21,13 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
-          {/* <Route path='/buy' component={Buy} />
-        <Route path='/sell' component={Sell} />
-        <Route path='/transactions' component={Transactions} />
-        <Route path='/forSale' component={ForSale} />
-        <Route path='/account' component={Account} /> */}
+          <Route path="/buy" component={Buy} />
+          <Route path="/sell" component={Sell} />
+          <Route path="/transactions" component={Transactions} />
+          <Route path="/forSale" component={ForSale} />
+          <Route path="/account" component={Account} />
         </Switch>
         <Footer />
       </Router>
