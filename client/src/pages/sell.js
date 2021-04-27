@@ -1,47 +1,49 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import image1 from './book.jpg';
-import '../App.css'
+import '../App.css';
+
+// eslint-disable-next-line react/prefer-stateless-function
 class Sell extends Component {
-  render () {
+  render() {
     return (
       <form>
-        <div class="title">
+        <div className="title">
           Sell an Item
         </div>
-        <div class="grid-container">
-        <div class="grid-item-img">
-          <div class="image-box">
-            <img src={image1} />
+        <div className="grid-container">
+          <div className="grid-item-img">
+            <div className="image-box">
+              <img src={image1} alt="" />
+            </div>
+          </div>
+          <div className="grid-item">
+            <label htmlFor="title">
+              Item Title:
+              <input type="text" id="title" />
+            </label>
+            <label htmlFor="shortDescription">
+              Short Description:
+              <input type="text" id="shortDescription" />
+            </label>
+            <label htmlFor="price">
+              Price:
+              <input type="text" id="price" />
+            </label>
+
+          </div>
+          <div className="grid-item">
+            <label htmlFor="fullDescription">
+              Full Description:
+              <textarea type="text" id="fullDescription" />
+            </label>
+          </div>
+          <div className="grid-item">
+            <input type="submit" value="Post" />
           </div>
         </div>
-        <div class="grid-item">
-            <label>
-              Item Title:
-              <input type="text" name="title" />
-            </label>
-            <label>
-              Short Description:
-              <input type="text" name="shortDescription" />
-            </label>
-            <label>
-              Price:
-              <input type="text" name="price" />
-            </label>
-          
-        </div>
-        <div class="grid-item">
-          <label>
-            Full Description:
-            <textarea type="text" name="fullDescription" />
-          </label>
-        </div>
-        <div class="grid-item">
-          <input type="submit" value="Post" />
-        </div>
-        </div>
       </form>
-    )
+    );
   }
 }
 
-export default Sell
+export default Sell;
