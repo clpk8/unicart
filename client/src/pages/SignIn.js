@@ -1,4 +1,7 @@
 import React from 'react';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
+// import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -11,10 +14,10 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    padding: '20vh 0 0 0',
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -36,6 +39,39 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
+  const loginInfo = useStoreState((state) => state.loginInfo);
+  const setLoginEmail = useStoreActions((actions) => actions.setLoginEmail);
+  const setLoginPassword = useStoreActions((actions) => actions.setLoginPassword);
+  const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
+
+  let signedIn = false;
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    await fetch('http://localhost:3001/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(loginInfo),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          alert('Please check your email and password.');
+        } else {
+          signedIn = true;
+        }
+
+        return response.text();
+      })
+      .then((token) => {
+        setAuthToken(token);
+        if (signedIn) window.location.href = '/home';
+      });
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -44,9 +80,9 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign In
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -57,6 +93,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(event) => setLoginEmail(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -68,6 +105,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(event) => setLoginPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -79,20 +117,20 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            component={RouterLink}
-            to="/dashboard"
+            // component={RouterLink}
+            // to="/products"
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/home" variant="body2">
+              <Link href="/forgotpassord" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/home" variant="body2">
-                Sign Up
+              <Link href="/signup" variant="body2">
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

@@ -1,4 +1,4 @@
-/*
+/* 
 =====================================================================
 *   Ceevee v1.0 Default Stylesheet
 *   url: styleshout.com
@@ -137,7 +137,7 @@ table {
 }
 
 html {
-   font-size: 62.5%;
+   /* font-size: 62.5%; */
    -webkit-font-smoothing: antialiased;
 }
 
@@ -288,7 +288,7 @@ hr { border: solid #E3E3E3; border-width: 1px 0 0; clear: both; margin: 11px 0 3
 a, a:visited {
    text-decoration: none;
    outline: 0;
-   color: #000;
+   color: #696969;
 
    -webkit-transition: color .3s ease-in-out;
    -moz-transition: color .3s ease-in-out;
@@ -523,68 +523,6 @@ input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
-
-
-/*  7. Forms  --------------------------------------------------------- */
-
-form { margin-bottom: 24px; }
-fieldset { margin-bottom: 24px; }
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea,
-select {
-  display: block;
-  padding: 18px 15px;
-  margin: auto;
-  border: 0;
-  outline: none;
-  vertical-align: middle;
-  min-width: 225px;
-  max-width: 100%;  
-  font-size: 24px;
-  line-height: 24px;
-  color: #000;
-  background: #D3D9D9;
-  text-align: center;
-  border-radius: 20px;
-}
-
-/* select { padding: 0;
-   width: 220px;
-   } */
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-  color: #fff;
-  background-color: #3d4145;
-}
-
-textarea { min-height: 220px; }
-
-label,
-legend {
-   font: 16px/24px 'opensans-bold', sans-serif;
-  margin: 12px 0;
-   color: #3d4145;
-   display: block;
-}
-label span,
-legend span {
-  color: #8B9798;
-   font: 14px/24px 'opensans-regular', sans-serif;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-    font-size: 15px;
-    color: #737373;
-}
-
-input[type="checkbox"] { display: inline; }
 
 /* ------------------------------------------------------------------ */
 /* d. Grid
