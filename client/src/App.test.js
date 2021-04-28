@@ -1,15 +1,25 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { StoreProvider } from 'easy-peasy';
+import { createStore, StoreProvider } from 'easy-peasy';
 import App from './App';
 import store from './services/store';
 
+const model = {
+  authToken: '',
+};
+
+const store = createStore(model, {
+  mockActions: true,
+});
+
 test('renders learn react link', () => {
-  render(
+  const app = (
     <StoreProvider store={store}>
       <App />
-    </StoreProvider>,
+    </StoreProvider>
   );
-  const linkElement = screen.getByText(/Home/i);
-  expect(linkElement).toBeInTheDocument();
+
+  render(app);
+  const element = screen.getByText(/Log in/i);
+  expect(element).toBeInTheDocument();
 });

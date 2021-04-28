@@ -5,7 +5,8 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages';
-import Login from './pages/LogIn';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
@@ -32,7 +33,8 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/products" component={Products} />
           <Route path="/home" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
           <Route path="/buy" component={Buy} />
           <Route path="/sell" component={Sell} />
           <Route path="/transactions" component={Transactions} />
