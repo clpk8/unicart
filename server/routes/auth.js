@@ -18,10 +18,17 @@ const schema = Joi.object({
 })
 
 router.post('/register', async (req, res) => {
+  // Validation
   const { error } = schema.validate(req.body);
-  
   if (error) return res.status(400).send(error.details[0].message);
 
+  // Check for duplicates
+  const emailExist = await User.findOne({
+    email: req.body.email
+  })
+  if (emailExist) return res.status(400).send("Email already exists in database")
+
+  // Create new user
   const user = new User({
     _id: new mongoose.Types.ObjectId(),
     firstName: req.body.firstName,
