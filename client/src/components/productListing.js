@@ -32,7 +32,7 @@ function ProductListing(props) {
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image="../../public/assets/noImageAvailable.jpg"
+        image="../../assets/noImageAvailable.jpg"
         title="Contemplative Reptile"
       />
     );
