@@ -1,5 +1,5 @@
 import {
-  createStore, action, thunk, debug, // persist,
+  createStore, action, thunk, debug, persist,
 } from 'easy-peasy';
 
 const store = createStore(
@@ -51,7 +51,7 @@ const store = createStore(
     setCondition: action((state, payload) => {
       state.condition = payload;
     }),
-    
+
     // cart (might not be necessary)
     cart: [],
     setCart: action((state, payload) => {
