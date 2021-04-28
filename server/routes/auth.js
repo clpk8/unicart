@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+require('dotenv/config');
 
 const userJoiSchema = Joi.object({ 
   firstName: Joi.string().min(2).max(15).required(),
@@ -73,7 +76,9 @@ router.post('/login', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid password");
 
-  res.send("User logged in!");
+  // Create and assign JWT
+  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+  res.header('auth-token', token).send(token);
 });
 
 module.exports = router;
