@@ -1,4 +1,7 @@
 import React from 'react';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
+// import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -11,7 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +39,40 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
+  const loginInfo = useStoreState((state) => state.loginInfo);
+  const setLoginEmail = useStoreActions((actions) => actions.setLoginEmail);
+  const setLoginPassword = useStoreActions((actions) => actions.setLoginPassword);
+  const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
+
+  let signedIn = false;
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    await fetch('http://localhost:3001/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(loginInfo),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          alert('Please check your email and password.');
+        } else {
+          signedIn = true;
+        }
+
+        return response.text();
+      })
+      .then((token) => {
+        setAuthToken(token);
+        if (signedIn) window.location.href = '/home';
+      })
+      .catch((error) => console.log(error));
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -47,7 +83,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -58,6 +94,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(event) => setLoginEmail(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -69,6 +106,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(event) => setLoginPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -80,8 +118,8 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            component={RouterLink}
-            to="/products"
+            // component={RouterLink}
+            // to="/products"
           >
             Sign In
           </Button>

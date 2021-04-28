@@ -1,38 +1,58 @@
-import { createStore, action } from 'easy-peasy';
+import { createStore, action, persist } from 'easy-peasy';
 
-const store = createStore({
-  registerInfo: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    school: '',
+const store = createStore(
+  persist({
+    // Sign up and Log in
+    registerInfo: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      school: '',
+    },
+    loginInfo: {
+      email: '',
+      password: '',
+    },
+    setFirstName: action((state, payload) => {
+      state.registerInfo.firstName = payload;
+    }),
+    setLastName: action((state, payload) => {
+      state.registerInfo.lastName = payload;
+    }),
+    setEmail: action((state, payload) => {
+      state.registerInfo.email = payload;
+    }),
+    setPassword: action((state, payload) => {
+      state.registerInfo.password = payload;
+    }),
+    setSchool: action((state, payload) => {
+      state.registerInfo.school = payload;
+    }),
+    setLoginEmail: action((state, payload) => {
+      state.loginInfo.email = payload;
+    }),
+    setLoginPassword: action((state, payload) => {
+      state.loginInfo.password = payload;
+    }),
+
+    // Auth Token
+    authToken: '',
+    setAuthToken: action((state, payload) => {
+      state.authToken = payload;
+    }),
+
+    // Sell
+    setCategory: action((state, payload) => {
+      state.category = payload;
+    }),
+    setCondition: action((state, payload) => {
+      state.condition = payload;
+    }),
   },
-  setFirstName: action((state, payload) => {
-    state.registerInfo.firstName = payload;
+  {
+    allow: ['authToken'],
   }),
-  setLastName: action((state, payload) => {
-    state.registerInfo.lastName = payload;
-  }),
-  setEmail: action((state, payload) => {
-    state.registerInfo.email = payload;
-  }),
-  setPassword: action((state, payload) => {
-    state.registerInfo.password = payload;
-  }),
-  setSchool: action((state, payload) => {
-    state.registerInfo.school = payload;
-  }),
-
-  setCart: action((state, payload) => {
-    state.cart = payload;
-  }),
-  setCategory: action((state, payload) => {
-    state.category = payload;
-  }),
-  setCondition: action((state, payload) => {
-    state.condition = payload;
-  }),
-});
+);
 
 export default store;
