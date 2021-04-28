@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages';
 import Login from './pages/LogIn';
 import Products from './pages/products';
-import {useStoreActions, useStoreState} from 'easy-peasy';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Buy from './pages/buy';
 // import Sell from './pages/sell';
@@ -15,11 +15,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Account from './pages/account';
 
 function App() {
-  const getProductListings = useStoreActions((actions) => actions.getProductListings);
+  const getProducts = useStoreActions((actions) => actions.getProductListings);
 
   useEffect(() => {
-    getProductListings();
-  }, [getProductListings]);
+    getProducts();
+  }, [getProducts]);
 
   const products = useStoreState((state) => state.products);
   console.log('Loaded products:', products);
@@ -32,7 +32,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
-          <Route path='/products' component={Products} />
+          <Route path="/products" component={Products} />
           {/* <Route path='/buy' component={Buy} />
         <Route path='/sell' component={Sell} />
         <Route path='/transactions' component={Transactions} />

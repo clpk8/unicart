@@ -1,7 +1,6 @@
 {
     "products": [
         {
-            "acceptVenmo": true,
             "category": "TV",
             "condition": "new",
             "datePosted": "2021-04-20T18:25:43.511Z",
@@ -11,10 +10,12 @@
             "paidFor": false,
             "price": 100,
             "photos": ["https://target.scene7.com/is/image/Target/GUEST_194094b2-af7c-4c2b-ad2c-2dd85f75995e"],
-            "buyerId": null
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "Panasonic TV",
+            "tags": []
         },
         {
-            "acceptVenmo": true,
             "category": "Textbook",
             "condition": "new",
             "datePosted": "2021-04-20T18:25:43.511Z",
@@ -24,10 +25,12 @@
             "paidFor": false,
             "price": 30,
             "photos": ["https://images-na.ssl-images-amazon.com/images/I/51qdyLZH6eL._SX381_BO1,204,203,200_.jpg"],
-            "buyerId": null
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "New Bio Textbook",
+            "tags": []
         },
         {
-            "acceptVenmo": true,
             "category": "Car",
             "condition": "used",
             "datePosted": "2021-04-19T18:25:43.511Z",
@@ -37,7 +40,10 @@
             "paidFor": false,
             "price": 3500,
             "photos": ["https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2013/08/85538491.jpg&w=800&h=400"],
-            "buyerId": null
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "2010 Red Pontiac",
+            "tags": []
         }
     ]
 }

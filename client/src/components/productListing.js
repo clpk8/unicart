@@ -1,16 +1,21 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import Col from 'react-bootstrap/Col';
+import Grid from '@material-ui/core/Grid';
 
 function ProductListing(props) {
-    const product = props.product;
+  const { product } = props;
+  console.log('Product:', product);
 
-    return (
-        <Col xs={3} className="productListing">
-            <h3>Product Name</h3>
-            <h5>${product.price}</h5>
-            <p>{product.description}</p>
-        </Col>
-    )
+  return (
+    <Grid item xs={3} className="productListing">
+      <h3>{product.title}</h3>
+      <h5>
+        $
+        {product.price}
+      </h5>
+      <p>{product.description}</p>
+    </Grid>
+  );
 }
 
 export default ProductListing;
