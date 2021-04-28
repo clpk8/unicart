@@ -110,7 +110,7 @@ dist
 
 **/.DS_Store
 
-server/product_photos/*
+server/images/*
 
 .idea/
 .vscode/
