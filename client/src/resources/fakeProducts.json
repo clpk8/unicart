@@ -44,6 +44,51 @@
             "sellerId": "3",
             "title": "2010 Red Pontiac",
             "tags": []
+        },
+        {
+            "category": "Boat",
+            "condition": "used",
+            "datePosted": "2021-04-20T18:25:43.511Z",
+            "dateSold": null,
+            "description": "A used boatski",
+            "_id": "1",
+            "paidFor": false,
+            "price": 10000,
+            "photos": [],
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "Issa Boat",
+            "tags": []
+        },
+        {
+            "category": "Textbook",
+            "condition": "new",
+            "datePosted": "2021-04-20T18:25:43.511Z",
+            "dateSold": null,
+            "description": "A new bio textbook",
+            "_id": "2",
+            "paidFor": false,
+            "price": 30,
+            "photos": ["https://images-na.ssl-images-amazon.com/images/I/51qdyLZH6eL._SX381_BO1,204,203,200_.jpg"],
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "New Bio Textbook",
+            "tags": []
+        },
+        {
+            "category": "Car",
+            "condition": "used",
+            "datePosted": "2021-04-19T18:25:43.511Z",
+            "dateSold": null,
+            "description": "A used pontiac",
+            "_id": "3",
+            "paidFor": false,
+            "price": 3500,
+            "photos": ["https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2013/08/85538491.jpg&w=800&h=400"],
+            "buyerId": null,
+            "sellerId": "3",
+            "title": "2010 Red Pontiac",
+            "tags": []
         }
     ]
 }
