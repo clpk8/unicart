@@ -85,8 +85,6 @@ export default function SignUp() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(JSON.stringify(registerInfo));
-
     if (checkInfo()) {
       await fetch('http://localhost:3001/api/user/register', {
         method: 'POST',
@@ -106,8 +104,7 @@ export default function SignUp() {
         })
         .then((message) => {
           alert(message);
-        })
-        .catch((error) => console.log(error));
+        });
     }
   }
 

@@ -69,8 +69,7 @@ export default function Login() {
       .then((token) => {
         setAuthToken(token);
         if (signedIn) window.location.href = '/home';
-      })
-      .catch((error) => console.log(error));
+      });
   }
 
   return (
