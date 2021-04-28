@@ -8,7 +8,6 @@ const db = require('../db');
 
 describe('GET /products', () => {
   mocha.before((done) => {
-    this.timeout(120000);
     console.log('connecting db');
     db.connect()
       .then(() => done())
@@ -16,7 +15,6 @@ describe('GET /products', () => {
   });
 
   mocha.after((done) => {
-    this.timeout(120000);
     db.close()
       .then(() => done())
       .catch((err) => done(err));
