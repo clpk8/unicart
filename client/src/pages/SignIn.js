@@ -78,7 +78,7 @@ export default function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            color="#696969"
+            color="primary"
             className={classes.submit}
             component={RouterLink}
             to="/products"

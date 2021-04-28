@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require("cors")
 
 require('dotenv/config');
 
@@ -24,6 +25,8 @@ mongoose.connect(
 
 const app = express();
 const port = 3001;
+
+app.use(cors())
 
 // middlewares
 app.use(logger('dev'));

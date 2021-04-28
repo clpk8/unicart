@@ -1,4 +1,6 @@
 import React from 'react';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
   },
   paper: {
-    padding: '20vh 0 0 0',
+    padding: '12vh 0 0 0',
     margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
@@ -46,6 +48,66 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
+  const registerInfo = useStoreState((state) => state.registerInfo);
+  const setFirstName = useStoreActions((actions) => actions.setFirstName);
+  const setLastName = useStoreActions((actions) => actions.setLastName);
+  const setEmail = useStoreActions((actions) => actions.setEmail);
+  const setPassword = useStoreActions((actions) => actions.setPassword);
+  const setSchool = useStoreActions((actions) => actions.setSchool);
+
+  function checkInfo() {
+    const {
+      firstName, lastName, email, password, school,
+    } = registerInfo;
+
+    if (firstName === '' || lastName === '') {
+      alert('Your name cannot be empty.');
+      return false;
+    }
+
+    if (!email.endsWith('.edu')) {
+      alert('Please register with your school email.');
+      return false;
+    }
+
+    if (password === '') {
+      alert('Please enter a password.');
+      return false;
+    }
+
+    if (school === '') {
+      alert('Please enter the school you currently go to.');
+      return false;
+    }
+    return true;
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    console.log(JSON.stringify(registerInfo));
+
+    if (checkInfo()) {
+      await fetch('http://localhost:3001/api/user/register', {
+        method: 'POST',
+        redirect: 'follow',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(registerInfo),
+      })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            alert('You have successfully registered!');
+          }
+          return response.json();
+        })
+        .catch((error) => console.log(error));
+    }
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -55,7 +117,28 @@ export default function SignUp() {
           <Typography className={classes.title} component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="firstName"
+              label="First Name"
+              id="firstName"
+              autoFocus
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="lastName"
+              label="Last Name"
+              id="lastName"
+              onChange={(event) => setLastName(event.target.value)}
+            />
             <TextField
               variant="outlined"
               margin="normal"
@@ -65,7 +148,7 @@ export default function SignUp() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               variant="outlined"
@@ -77,6 +160,7 @@ export default function SignUp() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
             />
             <TextField
               variant="outlined"
@@ -85,8 +169,8 @@ export default function SignUp() {
               fullWidth
               name="school"
               label="School"
-              type="school"
               id="school"
+              onChange={(event) => setSchool(event.target.value)}
             />
             <Button
               type="submit"

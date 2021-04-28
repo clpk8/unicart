@@ -1,9 +1,29 @@
 import { createStore, action } from 'easy-peasy';
 
 const store = createStore({
-  cart: [],
-  category: '',
-  condition: '',
+  registerInfo: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    school: '',
+  },
+  setFirstName: action((state, payload) => {
+    state.registerInfo.firstName = payload;
+  }),
+  setLastName: action((state, payload) => {
+    state.registerInfo.lastName = payload;
+  }),
+  setEmail: action((state, payload) => {
+    state.registerInfo.email = payload;
+  }),
+  setPassword: action((state, payload) => {
+    state.registerInfo.password = payload;
+  }),
+  setSchool: action((state, payload) => {
+    state.registerInfo.school = payload;
+  }),
+
   setCart: action((state, payload) => {
     state.cart = payload;
   }),
