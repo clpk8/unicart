@@ -6,7 +6,7 @@ const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 
-const schema = Joi.object({ 
+const userJoiSchema = Joi.object({ 
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
   email: Joi.string()
@@ -18,9 +18,18 @@ const schema = Joi.object({
   school: Joi.string().min(2).max(42).required(),
 })
 
+const loginJoiSchema = Joi.object({ 
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ['edu', 'com', 'net'] } })
+    .required(),
+  password: Joi.string()
+    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    .required(),
+})
+
 router.post('/register', async (req, res) => {
   // Validation
-  const { error } = schema.validate(req.body);
+  const { error } = userJoiSchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   // Check for duplicates
@@ -43,10 +52,28 @@ router.post('/register', async (req, res) => {
 
   try {
     const savedUser = await user.save();
-    res.send(savedUser);
+    res.send({ user: user._id });
   } catch (err) {
     res.status(400).send(err.message);
   }
+});
+
+// Log in
+router.post('/login', async (req, res) => {
+  // Validation
+  const { error } = loginJoiSchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // Check if user exists
+  const user = await User.findOne({email: req.body.email});
+  if (!user) return res.status(400)
+    .send("There is no user with this email in the database");
+
+  // Check for password
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) return res.status(400).send("Invalid password");
+
+  res.send("User logged in!");
 });
 
 module.exports = router;
