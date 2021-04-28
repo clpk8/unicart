@@ -26,7 +26,7 @@ function Products() {
   console.log('fakes:', fakeProducts.products);
 
   // eslint-disable-next-line no-underscore-dangle
-  const content = products.map((product) => <ProductListing key={product._id} product={product} />);
+  const content = products.map((product) => <ProductListing key={product.id} product={product} />);
 
   return (
     <div id="products-page" className={classes.container}>
