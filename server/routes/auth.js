@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 
 const schema = Joi.object({ 
   firstName: Joi.string().min(2).max(15).required(),
@@ -23,10 +24,12 @@ router.post('/register', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   // Check for duplicates
-  const emailExist = await User.findOne({
-    email: req.body.email
-  })
-  if (emailExist) return res.status(400).send("Email already exists in database")
+  const emailExist = await User.findOne({email: req.body.email});
+  if (emailExist) return res.status(400).send("Email already exists in database");
+
+  // Password hashing
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   // Create new user
   const user = new User({
@@ -34,7 +37,7 @@ router.post('/register', async (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
     school: req.body.school,
   });
 
