@@ -1,38 +1,30 @@
 /* eslint-disable consistent-return */
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
 const mongoose = require('mongoose');
-const { Mockgoose } = require('mockgoose');
 
 const DB_URI = process.env.DB_CONNECTION || 'mongodb://localhost:27017/unicart';
 
-function connect() {
-  return new Promise((resolve, reject) => {
-    if (process.env.NODE_ENV === 'test') {
-      const mockgoose = new Mockgoose(mongoose);
-      mockgoose.prepareStorage().then(() => {
-        mongoose
-          .connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
-          .then(() => {
-            console.log('DB connected');
-            resolve();
-          })
-          .catch((err) => {
-            console.log('DB connection error');
-            reject(err);
-          });
-      });
-    } else {
-      mongoose
-        .connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
-        .then(() => {
-          console.log('DB connected');
-          resolve();
-        })
-        .catch((err) => {
-          console.log('DB connection error');
-          reject(err);
-        });
-    }
-  });
+async function connect() {
+  let mongoURI = DB_URI;
+  if (process.env.NODE_ENV === 'test') {
+    const mongoServer = new MongoMemoryServer();
+
+    mongoURI = await mongoServer.getUri();
+  }
+
+  console.log(`Connecting to mongo at ${mongoURI}`);
+  await mongoose
+    .connect(mongoURI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    })
+    .then(() => {
+      console.log('DB connected');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function close() {
