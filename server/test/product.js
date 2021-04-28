@@ -8,6 +8,7 @@ const db = require('../db');
 
 describe('GET /products', () => {
   mocha.before((done) => {
+    console.log('connecting db');
     db.connect()
       .then(() => done())
       .catch((err) => done(err));

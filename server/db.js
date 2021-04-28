@@ -11,17 +11,25 @@ function connect() {
       mockgoose.prepareStorage().then(() => {
         mongoose
           .connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
-          .then((res, err) => {
-            if (err) return reject(err);
+          .then(() => {
+            console.log('DB connected');
             resolve();
+          })
+          .catch((err) => {
+            console.log('DB connection error');
+            reject(err);
           });
       });
     } else {
       mongoose
         .connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
-        .then((res, err) => {
-          if (err) return reject(err);
+        .then(() => {
+          console.log('DB connected');
           resolve();
+        })
+        .catch((err) => {
+          console.log('DB connection error');
+          reject(err);
         });
     }
   });
