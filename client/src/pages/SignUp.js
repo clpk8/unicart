@@ -98,11 +98,14 @@ export default function SignUp() {
         body: JSON.stringify(registerInfo),
       })
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             alert('You have successfully registered!');
+            window.location.href = '/signin';
           }
-          return response.json();
+          return response.text();
+        })
+        .then((message) => {
+          alert(message);
         })
         .catch((error) => console.log(error));
     }
