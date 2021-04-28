@@ -4,9 +4,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const upload = require('./fileUpload');
+const verifyToken = require('./verifyToken');
 
 /* GET users listing. */
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 /* GET single user */
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', verifyToken, async (req, res) => {
   try {
     console.log(req.params.userId);
     const user = await User.findById(req.params.userId);
@@ -27,7 +28,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 /* POST a single user, allow a photo upload for profile image */
-router.post('/', upload.single('photo'), (req, res) => {
+router.post('/', verifyToken, upload.single('photo'), (req, res) => {
   const { email } = req.body;
   User.findOne({ email }, (err, obj) => {
     if (obj === null) {
@@ -60,7 +61,7 @@ router.post('/', upload.single('photo'), (req, res) => {
 /**
  * Delete a user
  */
-router.delete('/:userId', async (req, res) => {
+router.delete('/:userId', verifyToken, async (req, res) => {
   try {
     const removedUser = await User.remove({ _id: req.params.userId });
     res.status(200).json(removedUser);
