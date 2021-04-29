@@ -19,17 +19,18 @@ function Products() {
   const classes = useStyles();
   console.log('products1:', products);
 
-  if (products.length < 1) {
+  if ((!Array.isArray(products)) || products.length < 1) {
     products = fakeProducts.products;
   }
   console.log('products2:', products);
+  console.log('product map:', products.map((p) => p.title));
   console.log('fakes:', fakeProducts.products);
 
-  // eslint-disable-next-line no-underscore-dangle
   const content = products.map((product) => <ProductListing key={product.id} product={product} />);
 
   return (
     <div id="products-page" className={classes.container}>
+      <h2>Product Listings</h2>
       <Grid m={12} container spacing={3} className={classes.grid}>
         {content}
       </Grid>

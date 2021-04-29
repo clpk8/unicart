@@ -7,7 +7,7 @@ const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET products listing. */
-router.get('/', verifyToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     console.log('received product get request');
     const products = await Product.find();

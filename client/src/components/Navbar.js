@@ -31,7 +31,6 @@ function Navbar() {
             : (
               <div className="eight columns">
                 <ul id="nav" className="nav">
-                  <li><a className="smoothscroll" href="/products"><h3>Product Listings</h3></a></li>
                   <li><a className="smoothscroll" href="/sell"><h5>Sell</h5></a></li>
                 </ul>
               </div>
