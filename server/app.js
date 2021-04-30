@@ -25,9 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // route middlewares
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', productsRouter);
-app.use('/api/user', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/auth', authRouter);
 app.use('/images', express.static(`${__dirname}/images`));
 
 module.exports = app;

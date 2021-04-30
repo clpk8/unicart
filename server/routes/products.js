@@ -7,9 +7,8 @@ const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET products listing. */
-router.get('/fetchProducts', async (req, res) => {
+router.get('/fetch', async (req, res) => {
   try {
-    console.log('received product get request');
     const products = await Product.find();
     res.status(200).json(products);
   } catch (err) {
@@ -41,7 +40,7 @@ router.get('/:productId', verifyToken, async (req, res) => {
  *
  * Request must be a /multipart/form-data, you could try it out in postman
  */
-router.post('/', verifyToken, upload.array('photos'), (req, res) => {
+router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
