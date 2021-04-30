@@ -6,7 +6,7 @@ const mocha = require('mocha');
 const app = require('../app');
 const db = require('../db');
 
-describe('GET /products', () => {
+describe('GET /products/fetchProducts', () => {
   mocha.before((done) => {
     console.log('connecting db');
     db.connect().then(() => {
@@ -22,7 +22,7 @@ describe('GET /products', () => {
 
   it('OK, no products found', (done) => {
     request(app)
-      .get('/products')
+      .get('/products/fetchProducts')
       .then((res) => {
         const { body } = res;
         expect(body.length).to.equal(0);
@@ -41,7 +41,7 @@ describe('GET /products', () => {
       })
       .then(() => {
         request(app)
-          .get('/products')
+          .get('/products/fetchProducts')
           .then((res) => {
             const { body } = res;
             expect(body.length).to.equal(1);

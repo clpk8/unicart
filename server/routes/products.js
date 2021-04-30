@@ -49,7 +49,6 @@ router.post('/', verifyToken, upload.array('photos'), (req, res) => {
     });
   }
 
-  console.log(req.body);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     category: req.body.category,
@@ -63,7 +62,7 @@ router.post('/', verifyToken, upload.array('photos'), (req, res) => {
     title: req.body.title,
     tags: req.body.tags,
   });
-  console.log(product);
+
   try {
     product.save().then((savedProduct) => {
       res.status(200).json(savedProduct);
