@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
 import Home from './pages';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
@@ -13,6 +11,7 @@ import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
 import ForSale from './pages/forSale';
 import Account from './pages/account';
+import Products from './pages/products';
 
 function App() {
   return (
@@ -22,6 +21,7 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/products" component={Products} />
           <Route path="/home" component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />

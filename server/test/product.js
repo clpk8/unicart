@@ -28,7 +28,7 @@ describe('GET /products', () => {
 
   it('OK, no products found', (done) => {
     request(app)
-      .get('/products')
+      .get('/products/fetchProducts')
       .then((res) => {
         const { body } = res;
         expect(body.length).to.equal(0);
@@ -43,7 +43,7 @@ describe('GET /products', () => {
       .send(testProduct)
       .then(() => {
         request(app)
-          .get('/products')
+          .get('/products/fetchProducts')
           .then((res) => {
             const { body } = res;
             expect(body.length).to.equal(1);
