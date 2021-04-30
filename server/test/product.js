@@ -12,7 +12,7 @@ const testProduct = {
   title: 'test book for sale',
   description: 'this is a test',
 };
-describe('GET /products/fetch', () => {
+describe('GET /api/products/fetch', () => {
   mocha.before((done) => {
     db.connect().then(() => {
       done();
@@ -79,7 +79,7 @@ describe('GET /products/fetch', () => {
       .then((res) => {
         const id = res.body._id;
         request(app)
-          .delete(`api/products/${id}`)
+          .delete(`/api/products/${id}`)
           .then((deleteResponse) => {
             expect(deleteResponse.statusCode === 200);
             done();
