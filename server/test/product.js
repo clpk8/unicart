@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 process.env.NODE_ENV = 'test';
 
 const { expect } = require('chai');
@@ -6,7 +7,12 @@ const mocha = require('mocha');
 const app = require('../app');
 const db = require('../db');
 
-describe('GET /products/fetch', () => {
+const testProduct = {
+  price: 15,
+  title: 'test book for sale',
+  description: 'this is a test',
+};
+describe('GET /api/products/fetch', () => {
   mocha.before((done) => {
     db.connect().then(() => {
       done();
@@ -44,6 +50,38 @@ describe('GET /products/fetch', () => {
           .then((res) => {
             const { body } = res;
             expect(body.length).to.equal(1);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and the product by id', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const id = res.body._id;
+        request(app)
+          .get(`/api/products/${id}`)
+          .then((productResult) => {
+            expect(productResult.body === testProduct);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and delete the product', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const id = res.body._id;
+        request(app)
+          .delete(`/api/products/${id}`)
+          .then((deleteResponse) => {
+            expect(deleteResponse.statusCode === 200);
             done();
           });
       })
