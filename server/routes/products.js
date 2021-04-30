@@ -7,7 +7,7 @@ const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET products listing. */
-router.get('/', verifyToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
     res.status(200).json(products);
@@ -21,7 +21,7 @@ router.get('/', verifyToken, async (req, res) => {
  * Example: curl -X GET localhost:3001/products/607b36e6f153b21c4f6e7499
  * where 607b36e6f153b21c4f6e7499 is the ID
  */
-router.get('/:productId', verifyToken, async (req, res) => {
+router.get('/:productId', async (req, res) => {
   try {
     console.log(req.params.productId);
     const product = await Product.findById(req.params.productId);
@@ -40,7 +40,7 @@ router.get('/:productId', verifyToken, async (req, res) => {
  *
  * Request must be a /multipart/form-data, you could try it out in postman
  */
-router.post('/', verifyToken, upload.array('photos'), (req, res) => {
+router.post('/', upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
