@@ -58,12 +58,12 @@ describe('GET /products/fetch', () => {
 
   it('OK, created a product and the product by id', (done) => {
     request(app)
-      .post('/products')
+      .post('/api/products/create')
       .send(testProduct)
       .then((res) => {
         const id = res.body._id;
         request(app)
-          .get(`/products/${id}`)
+          .get(`/api/products/${id}`)
           .then((productResult) => {
             expect(productResult.body === testProduct);
             done();
@@ -74,12 +74,12 @@ describe('GET /products/fetch', () => {
 
   it('OK, created a product and delete the product', (done) => {
     request(app)
-      .post('/products')
+      .post('/api/products/create')
       .send(testProduct)
       .then((res) => {
         const id = res.body._id;
         request(app)
-          .delete(`/products/${id}`)
+          .delete(`api/products/${id}`)
           .then((deleteResponse) => {
             expect(deleteResponse.statusCode === 200);
             done();

@@ -22,7 +22,7 @@ describe('GET /user', () => {
 
   it('OK, no users found', (done) => {
     request(app)
-      .get('/users')
+      .get('/api/users/fetch')
       .then((res) => {
         const { body } = res;
         expect(body.length).to.equal(0);
@@ -33,7 +33,7 @@ describe('GET /user', () => {
 
   it('OK, registered a uer and get the user', (done) => {
     request(app)
-      .post('/api/user/register')
+      .post('/api/auth/register')
       .send({
         firstName: 'test first name',
         lastName: 'test last name',
@@ -43,7 +43,7 @@ describe('GET /user', () => {
       })
       .then(() => {
         request(app)
-          .get('/users')
+          .get('/api/users/fetch')
           .then((res) => {
             const { body } = res;
             expect(body.length).to.equal(1);
