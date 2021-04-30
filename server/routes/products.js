@@ -7,7 +7,7 @@ const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET products listing. */
-router.get('/', async (req, res) => {
+router.get('/fetch', async (req, res) => {
   try {
     const products = await Product.find();
     res.status(200).json(products);
@@ -40,7 +40,7 @@ router.get('/:productId', async (req, res) => {
  *
  * Request must be a /multipart/form-data, you could try it out in postman
  */
-router.post('/', upload.array('photos'), (req, res) => {
+router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
@@ -48,7 +48,6 @@ router.post('/', upload.array('photos'), (req, res) => {
     });
   }
 
-  console.log(req.body);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     category: req.body.category,
@@ -62,7 +61,7 @@ router.post('/', upload.array('photos'), (req, res) => {
     title: req.body.title,
     tags: req.body.tags,
   });
-  console.log(product);
+
   try {
     product.save().then((savedProduct) => {
       res.status(200).json(savedProduct);

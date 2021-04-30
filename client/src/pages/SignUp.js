@@ -86,7 +86,7 @@ export default function SignUp() {
     event.preventDefault();
 
     if (checkInfo()) {
-      await fetch('http://localhost:3001/api/user/register', {
+      await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         redirect: 'follow',
         headers: {

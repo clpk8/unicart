@@ -1,4 +1,6 @@
-import { createStore, action, persist } from 'easy-peasy';
+import {
+  createStore, action, persist,
+} from 'easy-peasy';
 
 const store = createStore(
   persist({
@@ -49,10 +51,19 @@ const store = createStore(
     setCondition: action((state, payload) => {
       state.condition = payload;
     }),
-  },
+
+    // products
+    products: [],
+    setProducts: action((state, payload) => {
+      state.products = payload;
+    }),
+  }),
+  // {
+  //   blacklist: ['products'],
+  // },
   {
     allow: ['authToken'],
-  }),
+  },
 );
 
 export default store;
