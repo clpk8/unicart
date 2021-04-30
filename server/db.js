@@ -28,7 +28,6 @@ async function connect() {
   let mongoURI = DB_URI;
   if (process.env.NODE_ENV === 'test') {
     const mongoServer = new MongoMemoryServer();
-
     mongoURI = await mongoServer.getUri();
   }
 
@@ -40,7 +39,7 @@ async function connect() {
     })
     .then(() => {
       console.log('DB connected');
-      populateSeedData();
+      if (process.env.NODE_ENV !== 'test') populateSeedData();
     })
     .catch((err) => {
       console.log(err);
