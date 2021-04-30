@@ -1,7 +1,10 @@
-import { createStore, action, persist } from 'easy-peasy';
+import {
+  createStore, action, thunk, debug, // persist,
+} from 'easy-peasy';
 
 const store = createStore(
-  persist({
+  // persist({
+  {
     // Sign up and Log in
     registerInfo: {
       firstName: '',
@@ -49,10 +52,34 @@ const store = createStore(
     setCondition: action((state, payload) => {
       state.condition = payload;
     }),
+
+    // cart (might not be necessary)
+    cart: [],
+    setCart: action((state, payload) => {
+      state.cart = payload;
+    }),
+
+    // products
+    products: [],
+    setProducts: action((state, payload) => {
+      state.products = payload;
+      console.log(debug(state));
+    }),
+
+    // eslint-disable-next-line no-unused-vars
+    getProductListings: thunk(async (actions, _) => {
+      const products = await fetch('/products').then((res) => (res.json())).catch((error) => {
+        console.error('Error:', error);
+      });
+      actions.setProducts(products);
+    }),
   },
+  // {
+  //   blacklist: ['products'],
+  // },
   {
     allow: ['authToken'],
-  }),
+  },
 );
 
 export default store;
