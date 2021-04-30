@@ -48,7 +48,6 @@ describe('GET /products/fetch', () => {
         title: 'test book for sale',
         description: 'this is a test',
       })
->>>>>>> c14251e7c1eab98268d73398cb019f1031009a7a
       .then(() => {
         request(app)
           .get('/api/products/fetch')
