@@ -1,5 +1,5 @@
 import {
-  createStore, action, thunk, debug, persist,
+  createStore, action, persist,
 } from 'easy-peasy';
 
 const store = createStore(
@@ -52,25 +52,10 @@ const store = createStore(
       state.condition = payload;
     }),
 
-    // cart (might not be necessary)
-    cart: [],
-    setCart: action((state, payload) => {
-      state.cart = payload;
-    }),
-
     // products
     products: [],
     setProducts: action((state, payload) => {
       state.products = payload;
-      console.log(debug(state));
-    }),
-
-    // eslint-disable-next-line no-unused-vars
-    getProductListings: thunk(async (actions, _) => {
-      const products = await fetch('/products').then((res) => (res.json())).catch((error) => {
-        console.error('Error:', error);
-      });
-      actions.setProducts(products);
     }),
   }),
   // {
