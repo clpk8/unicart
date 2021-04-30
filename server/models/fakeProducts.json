@@ -1,0 +1,98 @@
+{
+  "products": [
+    {
+      "category": "TV",
+      "condition": "new",
+      "datePosted": "2021-04-20T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A new tv",
+      "paidFor": false,
+      "price": 100,
+      "photos": [
+        "https://target.scene7.com/is/image/Target/GUEST_194094b2-af7c-4c2b-ad2c-2dd85f75995e"
+      ],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "Panasonic TV",
+      "tags": []
+    },
+    {
+      "category": "Textbook",
+      "condition": "new",
+      "datePosted": "2021-04-20T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A new bio textbook",
+      "paidFor": false,
+      "price": 30,
+      "photos": [
+        "https://images-na.ssl-images-amazon.com/images/I/51qdyLZH6eL._SX381_BO1,204,203,200_.jpg"
+      ],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "New Bio Textbook",
+      "tags": []
+    },
+    {
+      "category": "Car",
+      "condition": "used",
+      "datePosted": "2021-04-19T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A used pontiac",
+      "paidFor": false,
+      "price": 3500,
+      "photos": [
+        "https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2013/08/85538491.jpg&w=800&h=400"
+      ],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "2010 Red Pontiac",
+      "tags": []
+    },
+    {
+      "category": "Boat",
+      "condition": "used",
+      "datePosted": "2021-04-20T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A used boatski",
+      "paidFor": false,
+      "price": 10000,
+      "photos": [],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "Issa Boat",
+      "tags": []
+    },
+    {
+      "category": "Textbook",
+      "condition": "new",
+      "datePosted": "2021-04-20T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A new bio textbook",
+      "paidFor": false,
+      "price": 30,
+      "photos": [
+        "https://images-na.ssl-images-amazon.com/images/I/51qdyLZH6eL._SX381_BO1,204,203,200_.jpg"
+      ],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "New Bio Textbook",
+      "tags": []
+    },
+    {
+      "category": "Totally not a Car",
+      "condition": "new",
+      "datePosted": "2021-04-19T18:25:43.511Z",
+      "dateSold": null,
+      "description": "A new not pontiac",
+      "paidFor": false,
+      "price": 3500,
+      "photos": [
+        "https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2013/08/85538491.jpg&w=800&h=400"
+      ],
+      "buyerId": null,
+      "sellerId": "3",
+      "title": "2010 Red Pontiac",
+      "tags": []
+    }
+  ]
+}

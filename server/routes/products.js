@@ -21,7 +21,7 @@ router.get('/fetch', async (req, res) => {
  * Example: curl -X GET localhost:3001/products/607b36e6f153b21c4f6e7499
  * where 607b36e6f153b21c4f6e7499 is the ID
  */
-router.get('/:productId', verifyToken, async (req, res) => {
+router.get('/:productId', async (req, res) => {
   try {
     console.log(req.params.productId);
     const product = await Product.findById(req.params.productId);
