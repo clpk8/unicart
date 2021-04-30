@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 
 function ProductListing(props) {
   const { product } = props;
-  console.log('Product:', product);
   const classes = useStyles();
 
   let cardImage = <div>Image goes here</div>;

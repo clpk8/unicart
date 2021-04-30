@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: '20vh 0 0 0',
+    padding: '10vh 0 0 0',
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
@@ -43,6 +43,7 @@ export default function Login() {
   const setLoginEmail = useStoreActions((actions) => actions.setLoginEmail);
   const setLoginPassword = useStoreActions((actions) => actions.setLoginPassword);
   const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
+  const setProducts = useStoreActions((actions) => actions.setProducts);
 
   let signedIn = false;
 
@@ -70,6 +71,10 @@ export default function Login() {
         setAuthToken(token);
         if (signedIn) window.location.href = '/home';
       });
+
+    await fetch('/products/fetchProducts')
+      .then((res) => (res.json()))
+      .then((data) => setProducts(data));
   }
 
   return (

@@ -17,14 +17,10 @@ const useStyles = makeStyles({
 function Products() {
   let products = useStoreState((state) => state.products);
   const classes = useStyles();
-  console.log('products1:', products);
 
   if ((!Array.isArray(products)) || products.length < 1) {
     products = fakeProducts.products;
   }
-  console.log('products2:', products);
-  console.log('product map:', products.map((p) => p.title));
-  console.log('fakes:', fakeProducts.products);
 
   const content = products.map((product) => <ProductListing key={product.id} product={product} />);
 
