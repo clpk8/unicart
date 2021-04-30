@@ -10,9 +10,7 @@ function Home() {
   return (
     <div id="home">
       {
-        auth || auth === ''
-          ? <Banner />
-          : <div className="temp"><h4>Welcome Back!</h4></div>
+        auth === '' && <Banner />
       }
       <Products />
     </div>

@@ -1,10 +1,9 @@
 import {
-  createStore, action, thunk, debug, // persist,
+  createStore, action, thunk, debug, persist,
 } from 'easy-peasy';
 
 const store = createStore(
-  // persist({
-  {
+  persist({
     // Sign up and Log in
     registerInfo: {
       firstName: '',
@@ -73,7 +72,7 @@ const store = createStore(
       });
       actions.setProducts(products);
     }),
-  },
+  }),
   // {
   //   blacklist: ['products'],
   // },
