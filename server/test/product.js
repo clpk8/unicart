@@ -12,9 +12,8 @@ const testProduct = {
   title: 'test book for sale',
   description: 'this is a test',
 };
-describe('GET /products', () => {
+describe('GET /products/fetch', () => {
   mocha.before((done) => {
-    console.log('connecting db');
     db.connect().then(() => {
       done();
     });
@@ -28,7 +27,7 @@ describe('GET /products', () => {
 
   it('OK, no products found', (done) => {
     request(app)
-      .get('/products/fetchProducts')
+      .get('/api/products/fetch')
       .then((res) => {
         const { body } = res;
         expect(body.length).to.equal(0);
@@ -39,11 +38,20 @@ describe('GET /products', () => {
 
   it('OK, created a product and getting the product', (done) => {
     request(app)
+<<<<<<< HEAD
       .post('/products')
       .send(testProduct)
+=======
+      .post('/api/products/create')
+      .send({
+        price: 15,
+        title: 'test book for sale',
+        description: 'this is a test',
+      })
+>>>>>>> c14251e7c1eab98268d73398cb019f1031009a7a
       .then(() => {
         request(app)
-          .get('/products/fetchProducts')
+          .get('/api/products/fetch')
           .then((res) => {
             const { body } = res;
             expect(body.length).to.equal(1);
