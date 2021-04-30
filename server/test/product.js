@@ -38,10 +38,6 @@ describe('GET /products/fetch', () => {
 
   it('OK, created a product and getting the product', (done) => {
     request(app)
-<<<<<<< HEAD
-      .post('/products')
-      .send(testProduct)
-=======
       .post('/api/products/create')
       .send({
         price: 15,
