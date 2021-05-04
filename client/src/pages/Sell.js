@@ -61,6 +61,7 @@ function Sell() {
   };
 
   const handleConditionChange = (event) => {
+    //fixing
     setConditon(event.target.value);
   };
 
