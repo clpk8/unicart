@@ -320,6 +320,42 @@ text-align: center;
   justify-content: center;
 }
 
+/* ------------------------------------------------------------------ */
+/* Sell Page
+/* ------------------------------------------------------------------ */
+
 .temp {
   margin-top: 100px;
 }
+
+.fullrow {
+  width: 96%;
+  max-width: 95vw;
+  margin: 0 auto;
+}
+
+.fullrow .fullrow { width: auto; max-width: none; margin: 0 -20px; }
+
+/* row clearing */
+.fullrow:before,
+.fullrow:after {
+    content: " ";
+    display: table;
+}
+.fullrow:after {
+    clear: both;
+}
+
+/* column widths */
+.fullrow .one         { width: 8.33333%; }
+.fullrow .two         { width: 16.66667%; }
+.fullrow .three       { width: 25%; }
+.fullrow .four        { width: 33.33333%; }
+.fullrow .five        { width: 41.66667%; }
+.fullrow .six         { width: 50%; }
+.fullrow .seven       { width: 58.33333%; }
+.fullrow .eight       { width: 66.66667%; }
+.fullrow .nine        { width: 75%; }
+.fullrow .ten         { width: 83.33333%; }
+.fullrow .eleven      { width: 91.66667%; }
+.fullrow .twelve      { width: 100%; }

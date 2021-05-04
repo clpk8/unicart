@@ -12,6 +12,7 @@ import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoT
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
 import ShareIcon from '@material-ui/icons/Share';
+import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
@@ -60,6 +61,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'left',
   },
+  subSection: {
+    padding: '0 0 0 0',
+    margin: theme.spacing(7, 3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'left',
+  },
   card: {
     backgroundColor: '#fff',
     padding: '12px',
@@ -74,6 +82,16 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '24px',
     padding: theme.spacing(0, 3, 0, 3),
     width: 'auto',
+    minWidth: '42px',
+    color: '#4285F4',
+    backgroundColor: '#e1f5fe',
+    borderRadius: '12px',
+  },
+  profileButton: {
+    margin: '0 auto',
+    marginRight: '24px',
+    padding: theme.spacing(0, 3, 0, 3),
+    width: '100%',
     minWidth: '42px',
     color: '#4285F4',
     backgroundColor: '#e1f5fe',
@@ -98,6 +116,7 @@ const ResumeIcon = withStyles(iconStyles)(({ classes }) => <PlaylistAddCheckTwoT
 const EditIcon = withStyles(iconStyles)(({ classes }) => <EditTwoToneIcon classes={classes} />);
 const DeleteIcon = withStyles(iconStyles)(({ classes }) => <DeleteOutlineTwoToneIcon classes={classes} />);
 const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
+const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes={classes} />);
 
 function Account() {
   const classes = useStyles();
@@ -127,9 +146,9 @@ function Account() {
 
         <Grid
           item
-          xs={12}
-          sm={10}
-          md={10}
+          xs={10}
+          sm={7}
+          md={7}
           component={Paper}
           elevation={0}
           square
@@ -187,6 +206,35 @@ function Account() {
                   <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
                     <DeleteIcon />
                     Delete Draft
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Grid>
+
+        <Grid
+          item
+          xs={2}
+          sm={3}
+          md={3}
+          component={Paper}
+          elevation={0}
+          square
+          className={classes.background}
+        >
+          <div className={classes.subSection}>
+            <div className={classes.card}>
+              <h4>Your Public Profile</h4>
+
+              <div className="row">
+                <div className="twelve columns">
+                  <h5>Roy Xu</h5>
+                  <p>No Active Listings</p>
+
+                  <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
+                    <AddIcon />
+                    Create New Listing
                   </Button>
                 </div>
               </div>

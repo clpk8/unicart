@@ -10,7 +10,7 @@ function Navbar() {
       <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
       <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
 
-      <div className="row">
+      <div className="fullrow">
         <div className="four columns">
           <a className="logo" href="/home">
             <img className="logo-img" src="/assets/logo-circle.png" alt="logo" />
