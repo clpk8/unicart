@@ -7,7 +7,7 @@ const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET users listing. */
-router.get('/', verifyToken, async (req, res) => {
+router.get('/fetch', verifyToken, async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -28,7 +28,7 @@ router.get('/:userId', verifyToken, async (req, res) => {
 });
 
 /* POST a single user, allow a photo upload for profile image */
-router.post('/', verifyToken, upload.single('photo'), (req, res) => {
+router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
   const { email } = req.body;
   User.findOne({ email }, (err, obj) => {
     if (obj === null) {

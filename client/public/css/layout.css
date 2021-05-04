@@ -145,7 +145,7 @@ text-transform: none;
 letter-spacing: 1.2px;
 margin: 0 auto;
 z-index: 100;
-position: fixed;
+position: sticky;
 left: 0;
 top: 0;
 background-color: #4285F4;
@@ -269,6 +269,15 @@ footer .social-links li {
 
 footer .social-links li:first-child {
   margin-left: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Grid System
+/* ------------------------------------------------------------------ */
+
+.materialGrid {
+  margin-left: 12px;
+  margin-top: 12px;
 }
 
 /* ------------------------------------------------------------------ */
