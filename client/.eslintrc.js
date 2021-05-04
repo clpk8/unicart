@@ -22,6 +22,6 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'no-param-reassign': 0,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    "max-len": ["error", { "code": 120 }],
+    'max-len': ['error', { code: 120 }],
   },
 };

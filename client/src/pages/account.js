@@ -4,9 +4,15 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
+import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
+import ShareIcon from '@material-ui/icons/Share';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,44 +20,64 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   nav: {
+    paddingLeft: '5px',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? '#FFF' : '#FFF',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
+  navText: {
+    paddingLeft: '5px',
+    paddingBottom: '5px',
+    marginTop: '15px',
+  },
   selectedButton: {
-    margin: '0 auto',
     width: '100%',
     minWidth: '42px',
     color: '#fff',
     backgroundColor: '#4285F4',
-    borderTopRightRadius: '15px',
     borderBottomRightRadius: '15px',
+    justifyContent: 'flex-start',
+  },
+  label: {
+    fontSize: '13px',
   },
   button: {
-    margin: '0 auto',
     width: '100%',
     minWidth: '42px',
     color: '#000',
+    justifyContent: 'flex-start',
   },
-  label: {
-    fontSize: '14px',
-  },
-  icon: {
-    fontSize: '12px !important',
-    marginBottom: theme.spacing.unit,
-  },
-  dashboardGrid: {
+  background: {
     backgroundColor:
       theme.palette.type === 'light' ? '#F9FAFD' : '#F9FAFD',
   },
-  dashboard: {
-    padding: '0.5vh 2vw 0 2vw',
-    margin: theme.spacing(8, 4),
+  mainSection: {
+    padding: '0 0 0 2vw',
+    margin: theme.spacing(7, 5),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'left',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: '12px',
+    borderRadius: '12px',
+    margin: theme.spacing(0, 0, 5, 0),
+  },
+  productImage: {
+    borderRadius: '12px',
+  },
+  actionButton: {
+    margin: '0 auto',
+    marginRight: '24px',
+    padding: theme.spacing(0, 3, 0, 3),
+    width: 'auto',
+    minWidth: '42px',
+    color: '#4285F4',
+    backgroundColor: '#e1f5fe',
+    borderRadius: '12px',
   },
 }));
 
@@ -68,6 +94,10 @@ const iconStyles = {
 const SellingIcon = withStyles(iconStyles)(({ classes }) => <LocalOfferIcon classes={classes} />);
 const SavedIcon = withStyles(iconStyles)(({ classes }) => <BookmarkIcon classes={classes} />);
 const PurchasedIcon = withStyles(iconStyles)(({ classes }) => <ShoppingBasketIcon classes={classes} />);
+const ResumeIcon = withStyles(iconStyles)(({ classes }) => <PlaylistAddCheckTwoToneIcon classes={classes} />);
+const EditIcon = withStyles(iconStyles)(({ classes }) => <EditTwoToneIcon classes={classes} />);
+const DeleteIcon = withStyles(iconStyles)(({ classes }) => <DeleteOutlineTwoToneIcon classes={classes} />);
+const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 
 function Account() {
   const classes = useStyles();
@@ -77,6 +107,8 @@ function Account() {
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={2} md={2} className={classes.nav}>
+          <h3 className={classes.navText}>Your Account</h3>
+
           <Button dense color="primary" classes={{ root: classes.selectedButton, label: classes.label }}>
             <SellingIcon />
             Your Listings
@@ -101,19 +133,62 @@ function Account() {
           component={Paper}
           elevation={0}
           square
-          className={classes.dashboardGrid}
+          className={classes.background}
         >
-          <div className={classes.dashboard}>
-            <h3>Hello Kristina,</h3>
-            <h1>
-              Solar panels are currently
-              <span style={{ color: '#479D50' }}> active </span>
-            </h1>
-            <h5>Last Updated: 4:01pm</h5>
+          <div className={classes.mainSection}>
+            <div className={classes.card}>
+              <h3>Your Listings</h3>
+            </div>
 
-            <div className="dashboard-row">
-              <div className="six columns no-padding margin-top-42">
-                <h4>Today</h4>
+            <div className={classes.card}>
+              <div className="row">
+                <div className="three columns">
+                  <div className={classes.productImage}>
+                    <img src="/assets/book.jpg" alt="book" />
+                  </div>
+                </div>
+
+                <div className="nine columns">
+                  <h4>Calculus Textbook</h4>
+                  <h5>$12</h5>
+                  <p>Sold &middot; Posted 05/01/2021</p>
+
+                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+                    <ResumeIcon />
+                    Mark as Available
+                  </Button>
+
+                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+                    <IconShare />
+                    Share
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className={classes.card}>
+              <div className="row">
+                <div className="three columns">
+                  <div className={classes.productImage}>
+                    <img src="/assets/book.jpg" alt="book" />
+                  </div>
+                </div>
+
+                <div className="nine columns">
+                  <h4>Calculus Textbook</h4>
+                  <h5>$12</h5>
+                  <p>Draft</p>
+
+                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+                    <EditIcon />
+                    Continue
+                  </Button>
+
+                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+                    <DeleteIcon />
+                    Delete Draft
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
