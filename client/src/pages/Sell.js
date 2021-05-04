@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
@@ -64,6 +65,7 @@ function Sell() {
   const setDescription = useStoreActions((actions) => actions.setDescription);
   const authToken = useStoreState((state) => state.authToken);
   const history = useHistory();
+  const loggedInUser = useStoreState((state) => state.user);
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -85,6 +87,8 @@ function Sell() {
   };
   async function handleSubmit(event) {
     event.preventDefault();
+    const userId = loggedInUser._id;
+
     await fetch('/api/products/create', {
       method: 'POST',
       headers: {
@@ -98,6 +102,7 @@ function Sell() {
         price,
         title,
         description,
+        sellerId: userId,
       }),
     })
       .then((response) => {

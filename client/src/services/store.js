@@ -41,6 +41,10 @@ const store = createStore(
     setAuthToken: action((state, payload) => {
       state.authToken = payload;
     }),
+    user: '',
+    setLoggedInUser: action((state, payload) => {
+      state.user = payload;
+    }),
 
     // Sell
     setCategory: action((state, payload) => {
