@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
@@ -12,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +57,15 @@ function Sell() {
   const setCategory = useStoreActions((actions) => actions.setCategory);
   const condition = useStoreState((state) => state.condition);
   const setCondition = useStoreActions((actions) => actions.setCondition);
-
+  const price = useStoreState((state) => state.price);
+  const setPrice = useStoreActions((actions) => actions.setPrice);
+  const title = useStoreState((state) => state.title);
+  const setTitle = useStoreActions((actions) => actions.setTitle);
+  const description = useStoreState((state) => state.description);
+  const setDescription = useStoreActions((actions) => actions.setDescription);
+  const authToken = useStoreState((state) => state.authToken);
+  const history = useHistory();
+  const loggedInUser = useStoreState((state) => state.user);
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -64,15 +74,66 @@ function Sell() {
     setCondition(event.target.value);
   };
 
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+  };
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const userId = loggedInUser._id;
+
+    await fetch('/api/products/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify({
+        category,
+        condition,
+        price,
+        title,
+        description,
+        sellerId: userId,
+      }),
+    })
+      .then((response) => {
+        console.log(response.body);
+        history.push('/home');
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
   return (
     <section id="sell">
       <div className="row">
         <div className="five columns">
           <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              component={Paper}
+              elevation={6}
+              square
+            >
               <div className={classes.paper}>
-                <Typography className={classes.title} component="h1" variant="h5">
+                <Typography
+                  className={classes.title}
+                  component="h1"
+                  variant="h5"
+                >
                   Item For Sale
                 </Typography>
                 <form className={classes.form} noValidate>
@@ -85,6 +146,7 @@ function Sell() {
                     label="Title"
                     name="title"
                     autoFocus
+                    onChange={handleTitleChange}
                   />
                   <TextField
                     variant="outlined"
@@ -95,13 +157,17 @@ function Sell() {
                     label="Price"
                     type="price"
                     id="price"
+                    onChange={handlePriceChange}
                   />
-                  <FormControl variant="outlined" className={classes.formControl}>
+                  <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
+                  >
                     <InputLabel id="category-select">Category</InputLabel>
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      value={category}
+                      value={category ?? ''}
                       onChange={handleCategoryChange}
                       label="Category"
                     >
@@ -111,12 +177,15 @@ function Sell() {
                       <MenuItem value="miscellaneous">Miscellaneous</MenuItem>
                     </Select>
                   </FormControl>
-                  <FormControl variant="outlined" className={classes.formControl}>
+                  <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
+                  >
                     <InputLabel id="condition-select">Condition</InputLabel>
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      value={condition}
+                      value={condition ?? ''}
                       onChange={handleConditionChange}
                       label="Condition"
                     >
@@ -134,6 +203,7 @@ function Sell() {
                     rows={4}
                     defaultValue=""
                     variant="outlined"
+                    onChange={handleDescriptionChange}
                   />
                   <Button
                     type="submit"
@@ -141,6 +211,7 @@ function Sell() {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onClick={handleSubmit}
                   >
                     Next
                   </Button>
@@ -153,7 +224,15 @@ function Sell() {
         <div className="seven columns">
           <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              component={Paper}
+              elevation={6}
+              square
+            >
               <div className="preview-box">
                 <img src="/assets/book.jpg" alt="book" />
               </div>

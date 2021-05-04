@@ -1,6 +1,4 @@
-import {
-  createStore, action, persist,
-} from 'easy-peasy';
+import { createStore, action, persist } from 'easy-peasy';
 
 const store = createStore(
   persist({
@@ -43,6 +41,10 @@ const store = createStore(
     setAuthToken: action((state, payload) => {
       state.authToken = payload;
     }),
+    user: '',
+    setLoggedInUser: action((state, payload) => {
+      state.user = payload;
+    }),
 
     // Sell
     setCategory: action((state, payload) => {
@@ -51,7 +53,15 @@ const store = createStore(
     setCondition: action((state, payload) => {
       state.condition = payload;
     }),
-
+    setTitle: action((state, payload) => {
+      state.title = payload;
+    }),
+    setDescription: action((state, payload) => {
+      state.description = payload;
+    }),
+    setPrice: action((state, payload) => {
+      state.price = payload;
+    }),
     // products
     products: [],
     setProducts: action((state, payload) => {
