@@ -83,4 +83,15 @@ router.delete('/:productId', verifyToken, async (req, res) => {
   }
 });
 
+/**
+ * get product by sellderID
+ */
+router.get('/fetch/:sellerId', async (req, res) => {
+  try {
+    const products = await Product.find({ sellerId: req.params.sellerId });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
 module.exports = router;
