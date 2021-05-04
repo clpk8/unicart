@@ -10,7 +10,7 @@ import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
 import ForSale from './pages/forSale';
-import Account from './pages/account';
+import Account from './pages/Account';
 import Products from './pages/products';
 
 function App() {
