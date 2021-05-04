@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -15,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { deepOrange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,6 +98,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#4285F4',
     backgroundColor: '#e1f5fe',
     borderRadius: '12px',
+  },
+  avatar: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    margin: theme.spacing(0.5, 0, 5, 0),
   },
 }));
 
@@ -228,15 +235,19 @@ function Account() {
               <h4>Your Public Profile</h4>
 
               <div className="row">
-                <div className="twelve columns">
+                <div className="two columns">
+                  <Avatar className={classes.avatar}>OP</Avatar>
+                </div>
+
+                <div className="ten columns">
                   <h5>Roy Xu</h5>
                   <p>No Active Listings</p>
-
-                  <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
-                    <AddIcon />
-                    Create New Listing
-                  </Button>
                 </div>
+
+                <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
+                  <AddIcon />
+                  Create New Listing
+                </Button>
               </div>
             </div>
           </div>

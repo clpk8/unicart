@@ -6,11 +6,11 @@ import Footer from './components/Footer';
 import Home from './pages';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import Account from './pages/account';
 import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
 import ForSale from './pages/forSale';
-import Account from './pages/Account';
 import Products from './pages/products';
 
 function App() {
