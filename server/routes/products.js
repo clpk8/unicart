@@ -47,7 +47,6 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
       photoPaths.push(file.path);
     });
   }
-
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     category: req.body.category,
