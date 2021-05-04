@@ -1,6 +1,8 @@
 import React, { } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Switch, Route, useParams,
+} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages';
@@ -14,6 +16,11 @@ import Account from './pages/account';
 import Products from './pages/products';
 import UserProducts from './pages/userListings';
 
+function UserIdRouter() {
+  const { userid } = useParams();
+  return <UserProducts userid={userid} />;
+}
+
 function App() {
   return (
     <div className="App">
@@ -21,6 +28,7 @@ function App() {
         <Navbar />
 
         <Switch>
+          {/* The more complicated link should go first between similar links */}
           <Route path="/home" component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
@@ -28,7 +36,7 @@ function App() {
           <Route path="/sell" component={Sell} />
           <Route path="/transactions" component={Transactions} />
           <Route path="/forSale" component={ForSale} />
-          <Route path="/account/:id/products" component={UserProducts} />
+          <Route path="/account/:userid/products" component={UserIdRouter} />
           <Route path="/account" component={Account} />
           <Route path="/products" component={Products} />
           <Route path="/" exact component={Home} />
