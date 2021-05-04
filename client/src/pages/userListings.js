@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UserListings() {
+function UserProducts() {
   return (
     <div id="user-listings">
       User Listings Go Here
@@ -8,4 +8,4 @@ function UserListings() {
   );
 }
 
-export default UserListings;
+export default UserProducts;
