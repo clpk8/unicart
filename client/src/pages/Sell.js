@@ -54,7 +54,7 @@ function Sell() {
   const category = useStoreState((state) => state.category);
   const setCategory = useStoreActions((actions) => actions.setCategory);
   const condition = useStoreState((state) => state.condition);
-  const setConditon = useStoreActions((actions) => actions.setConditon);
+  const setCondition = useStoreActions((actions) => actions.setCondition);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
