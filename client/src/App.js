@@ -1,6 +1,8 @@
 import React, { } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Switch, Route, useParams,
+} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages';
@@ -12,6 +14,12 @@ import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
 import ForSale from './pages/forSale';
 import Products from './pages/products';
+import UserAccount from './pages/userAccount';
+
+function UserIdRouter() {
+  const { userid } = useParams();
+  return <UserAccount userid={userid} />;
+}
 
 function App() {
   return (
@@ -29,6 +37,7 @@ function App() {
           <Route path="/sell" component={Sell} />
           <Route path="/transactions" component={Transactions} />
           <Route path="/forSale" component={ForSale} />
+          <Route path="/account/:userid" component={UserIdRouter} />
           <Route path="/account" component={Account} />
         </Switch>
         <Footer />
