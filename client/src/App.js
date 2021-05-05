@@ -12,6 +12,7 @@ import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
 import ForSale from './pages/forSale';
 import Products from './pages/products';
+import Item from './pages/item';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/transactions" component={Transactions} />
           <Route path="/forSale" component={ForSale} />
           <Route path="/account" component={Account} />
+          <Route path="/item" component={Item} />
         </Switch>
         <Footer />
       </Router>
