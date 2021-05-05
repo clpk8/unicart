@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? '#FFF' : '#FFF',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    height: '100%',
   },
   navText: {
     paddingLeft: '5px',
@@ -118,9 +119,9 @@ function UserAccount(props) {
     userid: 3,
   };
 
-  const content = products.map((product) => (
+  const content = (products.length > 0 ? products.map((product) => (
     <UserProductListing key={product.id} product={product} />
-  ));
+  )) : <div className={classes.card}>No Product Listings</div>);
 
   return (
     <section id="user-account">
