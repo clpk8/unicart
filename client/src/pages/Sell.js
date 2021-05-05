@@ -105,8 +105,7 @@ function Sell() {
         sellerId: userId,
       }),
     })
-      .then((response) => {
-        console.log(response.body);
+      .then(() => {
         history.push('/home');
       })
       .catch((err) => {
