@@ -72,7 +72,12 @@ function UserProductListing(props) {
           <h5>{`$${product.price}`}</h5>
           <p>Lorem ipsum</p>
 
-          <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+          <Button
+            dense
+            color="primary"
+            classes={{ root: classes.actionButton, label: classes.label }}
+            href={`/products/${product.id}`}
+          >
             <IconVisibility />
             View Listing
           </Button>
