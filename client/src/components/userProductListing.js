@@ -56,12 +56,14 @@ function UserProductListing(props) {
   const { product } = props;
   const classes = useStyles();
 
+  const imgSrc = (product.photos.length > 0 ? product.photos[0] : '../../assets/noImageAvailable.jpg');
+
   return (
     <div className={classes.card}>
       <div className="row">
         <div className="three columns">
           <div className={classes.productImage}>
-            <img src={product.photos[0]} alt="book" />
+            <img src={imgSrc} alt="book" />
           </div>
         </div>
 
