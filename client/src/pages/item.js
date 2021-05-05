@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     fontSize: '20px',
   },
+
+  valueTitle: {
+    textAlign: 'left',
+    borderBottom: '2px solid #209BF9',
+  },
+
   value: {
     textAlign: 'left',
     fontSize: '20px',
@@ -111,25 +117,25 @@ function Item() {
                   </Typography>
                 </Box>
                 <Box className={classes.bodyContainer} component="span" m={1}>
-                  <Typography className={classes.title} component="h1" variant="h5">
+                  <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Price:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
                     $19.99
                   </Typography>
-                  <Typography className={classes.title} component="h1" variant="h5">
+                  <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Catagory:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
                     Books
                   </Typography>
-                  <Typography className={classes.title} component="h1" variant="h5">
+                  <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Condition:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
                     Used
                   </Typography>
-                  <Typography className={classes.title} component="h1" variant="h5">
+                  <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Description:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
