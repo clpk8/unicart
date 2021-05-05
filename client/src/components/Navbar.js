@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 function Navbar() {
   const auth = useStoreState((state) => state.authToken);
@@ -9,7 +10,7 @@ function Navbar() {
       <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
       <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
 
-      <div className="row">
+      <div className="fullrow">
         <div className="four columns">
           <a className="logo" href="/home">
             <img className="logo-img" src="/assets/logo-circle.png" alt="logo" />
@@ -32,6 +33,11 @@ function Navbar() {
               <div className="eight columns">
                 <ul id="nav" className="nav">
                   <li><a className="smoothscroll" href="/sell"><h5>Sell</h5></a></li>
+                  <li>
+                    <a className="smoothscroll" href="/account">
+                      <AccountCircleIcon style={{ color: '#4285F4', fontSize: 32, marginBottom: -10 }} />
+                    </a>
+                  </li>
                 </ul>
               </div>
             )

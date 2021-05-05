@@ -15,9 +15,7 @@ const userJoiSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['edu', 'com', 'net'] } })
     .required(),
-  password: Joi.string()
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-    .required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
   school: Joi.string().min(2).max(42).required(),
 });
 
@@ -25,9 +23,7 @@ const loginJoiSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['edu', 'com', 'net'] } })
     .required(),
-  password: Joi.string()
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-    .required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
 });
 
 router.post('/register', async (req, res) => {
@@ -37,7 +33,9 @@ router.post('/register', async (req, res) => {
 
   // Check for duplicates
   const emailExist = await User.findOne({ email: req.body.email });
-  if (emailExist) return res.status(400).send('Email already exists in database');
+  if (emailExist) {
+    return res.status(400).send('Email already exists in database');
+  }
 
   // Password hashing
   const salt = await bcrypt.genSalt(10);
@@ -74,7 +72,8 @@ router.post('/login', async (req, res) => {
   // Check if user exists
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return res.status(400)
+    return res
+      .status(400)
       .send('There is no user with this email in the database');
   }
 
@@ -85,7 +84,7 @@ router.post('/login', async (req, res) => {
   // Create and assign JWT
   /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header('auth-token', token).send(token);
+  res.header('auth-token', token).send({ token, user });
 
   return 'Logging in...';
 });
