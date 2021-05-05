@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "acorn": "^8.2.4",
     "bcryptjs": "^2.4.3",
     "chai": "^4.3.4",
     "cookie-parser": "~1.4.4",
