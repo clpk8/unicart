@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   productImage: {
     borderRadius: '12px',
   },
+  imageTag: {
+    maxHeight: '20vh',
+  },
   actionButton: {
     margin: '0 auto',
     marginRight: '24px',
@@ -63,14 +66,14 @@ function UserProductListing(props) {
       <div className="row">
         <div className="three columns">
           <div className={classes.productImage}>
-            <img src={imgSrc} alt="book" />
+            <img src={imgSrc} className={classes.imageTag} alt="book" />
           </div>
         </div>
 
         <div className="nine columns">
           <h4>{product.title}</h4>
-          <h5>{`$${product.price}`}</h5>
-          <p>Lorem ipsum</p>
+          <h5>{`$${product.price} - ${product.condition}`}</h5>
+          <p>{product.description}</p>
 
           <Button
             dense
