@@ -158,7 +158,7 @@ function Item() {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                minHeight="100vh"
+                minHeight="50vh"
               >
                 <img src="/assets/book.jpg" alt="book" />
               </Box>
