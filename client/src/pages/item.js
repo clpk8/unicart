@@ -153,10 +153,15 @@ function Item() {
         <div className="seven columns">
           <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
-              <div className="preview-box">
+            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={5} square>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+              >
                 <img src="/assets/book.jpg" alt="book" />
-              </div>
+              </Box>
             </Grid>
           </Grid>
         </div>
