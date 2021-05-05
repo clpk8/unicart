@@ -21,6 +21,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: 'left',
   },
+  titleName: {
+    textAlign: 'left',
+    fontSize: '20px',
+  },
+  value: {
+    textAlign: 'left',
+    fontSize: '20px',
+    padding: '20px',
+  },
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -46,6 +55,25 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+
+  titleContainer: {
+    background: 'linear-gradient(45deg, #2180E7 30%, #209BF9 90%)',
+    border: 0,
+    borderRadius: 3,
+    color: 'white',
+    height: 70,
+    width: 300,
+    padding: '0 30px',
+  },
+
+  bodyContainer: {
+    border: 4,
+    borderRadius: 3,
+    color: 'black',
+    height: 500,
+    width: 300,
+    padding: '0 30px',
   },
 }));
 
@@ -74,29 +102,38 @@ function Item() {
             <CssBaseline />
             <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
               <div className={classes.paper}>
-                <Box component="span" m={1}>
+                <Box className={classes.titleContainer} component="span" height="1" m={4}>
                   <Typography className={classes.title} component="h1" variant="h5">
                     Item:
                   </Typography>
+                  <Typography className={classes.titleName} component="h1" variant="h5">
+                    Biology Textbook
+                  </Typography>
                 </Box>
-                <Box component="span" m={1}>
+                <Box className={classes.bodyContainer} component="span" m={1}>
                   <Typography className={classes.title} component="h1" variant="h5">
                     Price:
                   </Typography>
-                </Box>
-                <Box component="span" m={1}>
+                  <Typography className={classes.value} component="h1" variant="h5">
+                    $19.99
+                  </Typography>
                   <Typography className={classes.title} component="h1" variant="h5">
                     Catagory:
                   </Typography>
-                </Box>
-                <Box component="span" m={1}>
+                  <Typography className={classes.value} component="h1" variant="h5">
+                    Books
+                  </Typography>
                   <Typography className={classes.title} component="h1" variant="h5">
                     Condition:
                   </Typography>
-                </Box>
-                <Box component="span" m={1}>
+                  <Typography className={classes.value} component="h1" variant="h5">
+                    Used
+                  </Typography>
                   <Typography className={classes.title} component="h1" variant="h5">
                     Description:
+                  </Typography>
+                  <Typography className={classes.value} component="h1" variant="h5">
+                    This is a descrete mathmetics textbook.
                   </Typography>
                 </Box>
                 <Button
