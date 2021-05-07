@@ -7,14 +7,14 @@ const app = require('../app');
 const db = require('../db');
 
 describe('GET /user', () => {
-  mocha.before((done) => {
+  mocha.beforeEach((done) => {
     console.log('connecting db');
     db.connect().then(() => {
       done();
     });
   });
 
-  mocha.after((done) => {
+  mocha.afterEach((done) => {
     db.close()
       .then(() => done())
       .catch((err) => done(err));
