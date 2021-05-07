@@ -14,9 +14,11 @@ const testProduct = {
 };
 describe('GET /api/products/fetch', () => {
   mocha.beforeEach((done) => {
-    db.connect().then(() => {
-      done();
-    });
+    db.connect()
+      .then(() => {
+        done();
+      })
+      .catch((err) => done(err));
   });
 
   mocha.afterEach((done) => {

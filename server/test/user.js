@@ -9,9 +9,11 @@ const db = require('../db');
 describe('GET /user', () => {
   mocha.beforeEach((done) => {
     console.log('connecting db');
-    db.connect().then(() => {
-      done();
-    });
+    db.connect()
+      .then(() => {
+        done();
+      })
+      .catch((err) => done(err));
   });
 
   mocha.afterEach((done) => {
