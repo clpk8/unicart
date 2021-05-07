@@ -62,6 +62,12 @@ const store = createStore(
     setPrice: action((state, payload) => {
       state.price = payload;
     }),
+    setImagePreview: action((state, payload) => {
+      state.imagePreview = payload;
+    }),
+    setImage: action((state, payload) => {
+      state.image = payload;
+    }),
     // products
     products: [],
     setProducts: action((state, payload) => {
