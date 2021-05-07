@@ -7,7 +7,7 @@ const app = require('../app');
 const db = require('../db');
 
 describe('GET /user', () => {
-  mocha.beforeEach((done) => {
+  mocha.before((done) => {
     console.log('connecting db');
     db.connect()
       .then(() => {
@@ -16,7 +16,7 @@ describe('GET /user', () => {
       .catch((err) => done(err));
   });
 
-  mocha.afterEach((done) => {
+  mocha.after((done) => {
     db.close()
       .then(() => done())
       .catch((err) => done(err));

@@ -13,7 +13,7 @@ const testProduct = {
   description: 'this is a test',
 };
 describe('GET /api/products/fetch', () => {
-  mocha.beforeEach((done) => {
+  mocha.before((done) => {
     db.connect()
       .then(() => {
         done();

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node-dev --respawn server.js",
-    "test": "mocha",
+    "test": "mocha --recursive --exit",
     "lint": "eslint"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^8.4.0",
+    "mocha": "^8.3.2",
     "mongodb-memory-server": "^6.9.6",
     "mongoose": "^5.12.7",
     "morgan": "^1.10.0",
