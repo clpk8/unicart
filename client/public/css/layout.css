@@ -6,7 +6,7 @@
 /* ------------------------------------------------------------------ */
 
 body {
-background: #fff;
+  background: #fff;
 }
 
 /* ------------------------------------------------------------------ */
@@ -14,112 +14,112 @@ background: #fff;
 /* ------------------------------------------------------------------ */
 
 header {
-position: relative;
-height: 800px;
-min-height: 500px;
-width: 100%;
-background: url(../assets/background.jpeg) no-repeat top center;
-background-size: cover !important;
--webkit-background-size: cover !important;
-text-align: center;
-overflow: hidden;
+  position: relative;
+  height: 800px;
+  min-height: 500px;
+  width: 100%;
+  background: url(../assets/background.jpeg) no-repeat top center;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+  text-align: center;
+  overflow: hidden;
 }
 
 /* vertically center banner section */
 header:before {
-content: "";
-display: inline-block;
-vertical-align: middle;
-height: 100%;
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
 
 header .banner {
-display: inline-block;
-vertical-align: middle;
-margin: 0 auto;
-width: 85%;
-padding-bottom: 30px;
-text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+  width: 85%;
+  padding-bottom: 30px;
+  text-align: center;
 }
 
 header .banner-text {
-width: 100%;
+  width: 100%;
 }
 header .banner-text h1 {
-font-style: normal;
-color: #424242;
-letter-spacing: -1px;
-margin: 0 auto 18px auto;
+  font-style: normal;
+  color: #424242;
+  letter-spacing: -1px;
+  margin: 0 auto 18px auto;
 }
 header .banner-text h3 {
-font: 18px/1.9em "Poiret One", cursive;
-color: #000;
-margin: 0 auto;
-width: 70%;
-text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  font: 18px/1.9em 'Poiret One', cursive;
+  color: #000;
+  margin: 0 auto;
+  width: 70%;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 }
 header .banner-text h3 span,
 header .banner-text h3 a {
-color: #000;
+  color: #000;
 }
 header .banner-text hr {
-width: 60%;
-margin: 18px auto 24px auto;
-border-color: #2f2d2e;
-border-color: rgba(150, 150, 150, 0.1);
+  width: 60%;
+  margin: 18px auto 24px auto;
+  border-color: #2f2d2e;
+  border-color: rgba(150, 150, 150, 0.1);
 }
 
 /* header social links */
 header .social {
-margin: 24px 0;
-padding: 0;
-font-size: 30px;
-text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 24px 0;
+  padding: 0;
+  font-size: 30px;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
 }
 header .social li {
-display: inline-block;
-margin: 0 15px;
-padding: 0;
+  display: inline-block;
+  margin: 0 15px;
+  padding: 0;
 }
 header .social li a {
-color: #fff;
+  color: #fff;
 }
 header .social li a:hover {
-color: #149414;
+  color: #149414;
 }
 
 /* scrolldown link */
 header .scrolldown a {
-position: absolute;
-bottom: 30px;
-left: 50%;
-margin-left: -29px;
-color: #000;
-display: block;
-height: 42px;
-width: 42px;
-font-size: 42px;
-line-height: 42px;
-border-radius: 100%;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -29px;
+  color: #000;
+  display: block;
+  height: 42px;
+  width: 42px;
+  font-size: 42px;
+  line-height: 42px;
+  border-radius: 100%;
 
--webkit-transition: all 0.3s ease-in-out;
--moz-transition: all 0.3s ease-in-out;
--o-transition: all 0.3s ease-in-out;
-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 header .scrolldown a:hover {
-color: #149414;
+  color: #149414;
 }
 
 .tagline {
-padding-top: 75px;
-padding-bottom: 50px;
+  padding-top: 75px;
+  padding-bottom: 50px;
 }
 
 /* primary navigation
 --------------------------------------------------------------------- */
 nav h5 {
-  color: #4285F4;
+  color: #4285f4;
 }
 
 nav .logo-img {
@@ -131,33 +131,33 @@ nav .logo-img {
 #nav-wrap ul,
 #nav-wrap li,
 #nav-wrap a {
-margin: 0;
-padding: 0;
-border: none;
-outline: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
 }
 
 /* nav-wrap */
 #nav-wrap {
-font: 12px "opensans-bold", sans-serif;
-width: 100%;
-text-transform: none;
-letter-spacing: 1.2px;
-margin: 0 auto;
-z-index: 100;
-position: sticky;
-left: 0;
-top: 0;
-background-color: #fff;
-border-bottom: 2px solid #D3D3D3;
+  font: 12px 'opensans-bold', sans-serif;
+  width: 100%;
+  text-transform: none;
+  letter-spacing: 1.2px;
+  margin: 0 auto;
+  z-index: 100;
+  position: sticky;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  border-bottom: 2px solid #d3d3d3;
 }
 .opaque {
-background-color: #333;
+  background-color: #333;
 }
 /* hide toggle button */
 #nav-wrap > a.mobile-btn {
-background-color: #149414;
-display: none;
+  background-color: #149414;
+  display: none;
 }
 
 ul#nav {
@@ -177,7 +177,7 @@ ul#nav li {
 
 /* Nav bar links */
 ul#nav li a {
-/* 8px padding top + 8px padding bottom + 32px line-height = 48px */
+  /* 8px padding top + 8px padding bottom + 32px line-height = 48px */
 
   display: inline-block;
   padding: 8px 13px;
@@ -194,15 +194,15 @@ ul#nav li a {
 }
 
 ul#nav li a:active {
-background-color: transparent !important;
+  background-color: transparent !important;
 }
 ul#nav li.current a {
-color: #000;
+  color: #000;
 }
 
 ul#nav li a#login-button {
-border: 1px solid #000;
-border-radius: 25px;
+  border: 1px solid #000;
+  border-radius: 25px;
 }
 
 /* ------------------------------------------------------------------ */
@@ -210,7 +210,7 @@ border-radius: 25px;
 /* ------------------------------------------------------------------ */
 
 footer {
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -244,7 +244,7 @@ footer .copyright li {
   display: inline;
 }
 footer .copyright li:before {
-  content: "\2022";
+  content: '\2022';
   padding-left: 10px;
   padding-right: 10px;
   color: #c0c0c0;
@@ -290,29 +290,29 @@ footer .social-links li:first-child {
 }
 
 #sell .grid-container {
-display: grid;
-grid-template-columns: auto auto;
-background-color: #ffffff;
-padding: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #ffffff;
+  padding: 10px;
 }
 
 #sell .grid-item {
-background-color: rgba(255, 255, 255, 0.8);
-border: 1px solid rgba(255, 255, 255, 0.8);
-padding: 42px 10px 0px 0px;
-font-size: 24px;
-text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 42px 10px 0px 0px;
+  font-size: 24px;
+  text-align: center;
 }
 
 #sell .grid-item-img {
-background-color: rgba(255, 255, 255, 0.8);
-border: 4px solid rgba(255, 255, 255, 0.8);
-padding: 20px;
-font-size: 30px;
-text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
 }
 
-#sell .preview-box{
+#sell .preview-box {
   margin-top: 42px;
   height: 70vh;
   display: flex;
@@ -320,6 +320,10 @@ text-align: center;
   justify-content: center;
 }
 
+#sell .photo-preview {
+  max-width: 500px;
+  max-height: 500px;
+}
 /* ------------------------------------------------------------------ */
 /* Sell Page
 /* ------------------------------------------------------------------ */
@@ -334,28 +338,56 @@ text-align: center;
   margin: 0 auto;
 }
 
-.fullrow .fullrow { width: auto; max-width: none; margin: 0 -20px; }
+.fullrow .fullrow {
+  width: auto;
+  max-width: none;
+  margin: 0 -20px;
+}
 
 /* row clearing */
 .fullrow:before,
 .fullrow:after {
-    content: " ";
-    display: table;
+  content: ' ';
+  display: table;
 }
 .fullrow:after {
-    clear: both;
+  clear: both;
 }
 
 /* column widths */
-.fullrow .one         { width: 8.33333%; }
-.fullrow .two         { width: 16.66667%; }
-.fullrow .three       { width: 25%; }
-.fullrow .four        { width: 33.33333%; }
-.fullrow .five        { width: 41.66667%; }
-.fullrow .six         { width: 50%; }
-.fullrow .seven       { width: 58.33333%; }
-.fullrow .eight       { width: 66.66667%; }
-.fullrow .nine        { width: 75%; }
-.fullrow .ten         { width: 83.33333%; }
-.fullrow .eleven      { width: 91.66667%; }
-.fullrow .twelve      { width: 100%; }
+.fullrow .one {
+  width: 8.33333%;
+}
+.fullrow .two {
+  width: 16.66667%;
+}
+.fullrow .three {
+  width: 25%;
+}
+.fullrow .four {
+  width: 33.33333%;
+}
+.fullrow .five {
+  width: 41.66667%;
+}
+.fullrow .six {
+  width: 50%;
+}
+.fullrow .seven {
+  width: 58.33333%;
+}
+.fullrow .eight {
+  width: 66.66667%;
+}
+.fullrow .nine {
+  width: 75%;
+}
+.fullrow .ten {
+  width: 83.33333%;
+}
+.fullrow .eleven {
+  width: 91.66667%;
+}
+.fullrow .twelve {
+  width: 100%;
+}
