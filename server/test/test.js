@@ -7,12 +7,7 @@ const mocha = require('mocha');
 const app = require('../app');
 const db = require('../db');
 
-const testProduct = {
-  price: 15,
-  title: 'test book for sale',
-  description: 'this is a test',
-};
-describe('GET /api/products/fetch', () => {
+const shared = () => {
   mocha.beforeEach((done) => {
     db.connect()
       .then(() => {
@@ -26,6 +21,50 @@ describe('GET /api/products/fetch', () => {
       .then(() => done())
       .catch((err) => done(err));
   });
+};
+const testProduct = {
+  price: 15,
+  title: 'test book for sale',
+  description: 'this is a test',
+};
+describe('User tests', () => {
+  shared();
+  it('OK, no users found', (done) => {
+    request(app)
+      .get('/api/users/fetch')
+      .then((res) => {
+        const { body } = res;
+        expect(body.length).to.equal(0);
+        done();
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, registered a uer and get the user', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        firstName: 'test first name',
+        lastName: 'test last name',
+        email: '123@andrew.cmu.edu',
+        password: 'hellohello',
+        school: 'Carnegie Mellon University',
+      })
+      .then(() => {
+        request(app)
+          .get('/api/users/fetch')
+          .then((res) => {
+            const { body } = res;
+            expect(body.length).to.equal(1);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe('Product tests', () => {
+  shared();
 
   it('OK, no products found', (done) => {
     request(app)
@@ -84,39 +123,6 @@ describe('GET /api/products/fetch', () => {
           .delete(`/api/products/${id}`)
           .then((deleteResponse) => {
             expect(deleteResponse.statusCode === 200);
-            done();
-          });
-      })
-      .catch((err) => done(err));
-  });
-
-  it('OK, no users found', (done) => {
-    request(app)
-      .get('/api/users/fetch')
-      .then((res) => {
-        const { body } = res;
-        expect(body.length).to.equal(0);
-        done();
-      })
-      .catch((err) => done(err));
-  });
-
-  it('OK, registered a uer and get the user', (done) => {
-    request(app)
-      .post('/api/auth/register')
-      .send({
-        firstName: 'test first name',
-        lastName: 'test last name',
-        email: '123@andrew.cmu.edu',
-        password: 'hellohello',
-        school: 'Carnegie Mellon University',
-      })
-      .then(() => {
-        request(app)
-          .get('/api/users/fetch')
-          .then((res) => {
-            const { body } = res;
-            expect(body.length).to.equal(1);
             done();
           });
       })
