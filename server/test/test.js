@@ -15,9 +15,7 @@ const testProduct = {
 describe('Test', () => {
   mocha.before((done) => {
     db.connect()
-      .then(() => {
-        done();
-      })
+      .then(() => done())
       .catch((err) => done(err));
   });
 
