@@ -7,7 +7,7 @@ const mocha = require('mocha');
 const app = require('../app');
 const db = require('../db');
 
-const shared = () => {
+const setup = () => {
   mocha.beforeEach((done) => {
     db.connect()
       .then(() => {
@@ -27,8 +27,8 @@ const testProduct = {
   title: 'test book for sale',
   description: 'this is a test',
 };
-describe('User tests', () => {
-  shared();
+describe('Test', () => {
+  setup();
   it('OK, no users found', (done) => {
     request(app)
       .get('/api/users/fetch')
@@ -61,10 +61,6 @@ describe('User tests', () => {
       })
       .catch((err) => done(err));
   });
-});
-
-describe('Product tests', () => {
-  shared();
 
   it('OK, no products found', (done) => {
     request(app)
