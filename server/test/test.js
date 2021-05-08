@@ -7,8 +7,13 @@ const mocha = require('mocha');
 const app = require('../app');
 const db = require('../db');
 
-const setup = () => {
-  mocha.beforeEach((done) => {
+const testProduct = {
+  price: 15,
+  title: 'test book for sale',
+  description: 'this is a test',
+};
+describe('Test', () => {
+  mocha.before((done) => {
     db.connect()
       .then(() => {
         done();
@@ -16,19 +21,11 @@ const setup = () => {
       .catch((err) => done(err));
   });
 
-  mocha.afterEach((done) => {
+  mocha.after((done) => {
     db.close()
       .then(() => done())
       .catch((err) => done(err));
   });
-};
-const testProduct = {
-  price: 15,
-  title: 'test book for sale',
-  description: 'this is a test',
-};
-describe('Test', () => {
-  setup();
   it('OK, no users found', (done) => {
     request(app)
       .get('/api/users/fetch')
