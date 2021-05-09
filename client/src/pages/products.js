@@ -15,9 +15,9 @@ const useStyles = makeStyles({
 });
 
 function getProducts() {
-  return fetch('http://localhost:3001/api/products/fetch').then((res) =>
-    res.json(),
-  );
+  return fetch('http://localhost:3001/api/products/fetch').then((res) => {
+    res.json();
+  });
 }
 function Products() {
   let products = useStoreState((state) => state.products);
