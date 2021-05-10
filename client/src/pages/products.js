@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 function getProducts() {
   return fetch('/api/products/fetch').then((res) => res.json());
 }
+
 function Products() {
   let products = useStoreState((state) => state.products);
   const setProducts = useStoreActions((action) => action.setProducts);

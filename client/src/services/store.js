@@ -49,6 +49,9 @@ const store = createStore(
     }),
 
     sellingProducts: [],
+    addSellingProductId: action((state, payload) => {
+      state.user.selling.push(payload);
+    }),
     addSellingProducts: action((state, payload) => {
       if (state.sellingProducts.findIndex((x) => x._id === payload._id) === -1) {
         state.sellingProducts.push(payload);

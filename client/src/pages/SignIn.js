@@ -69,6 +69,7 @@ export default function Login() {
       })
       .then((text) => {
         const data = JSON.parse(text);
+        console.log(data);
         setAuthToken(data.token);
         setLoggedInUser(data.user);
         if (signedIn) window.location.href = '/home';

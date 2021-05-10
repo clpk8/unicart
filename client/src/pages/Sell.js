@@ -75,6 +75,7 @@ function Sell() {
   const image = useStoreState((state) => state.image);
   const setImage = useStoreActions((actions) => actions.setImage);
   const resetSellData = useStoreActions((actions) => actions.resetSellData);
+  const addSellingProductId = useStoreActions((actions) => actions.addSellingProductId);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -149,6 +150,7 @@ function Sell() {
           userId,
           itemId: data._id,
         });
+        addSellingProductId(data._id);
 
         resetSellData();
         history.push('/home');
