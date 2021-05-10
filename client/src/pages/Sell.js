@@ -71,6 +71,8 @@ function Sell() {
   const image = useStoreState((state) => state.image);
   const setImage = useStoreActions((actions) => actions.setImage);
 
+  const resetSellData = useStoreActions((actions) => actions.resetSellData);
+
   const authToken = useStoreState((state) => state.authToken);
   const history = useHistory();
   const loggedInUser = useStoreState((state) => state.user);
@@ -96,16 +98,14 @@ function Sell() {
 
   const handleImageChange = (event) => {
     event.preventDefault();
-    if (event.target.files.length === 0) {
-      return;
-    }
+    if (event.target.files.length === 0) return;
+
     const file = event.target.files[0];
-    console.log(file);
 
     setImage(file);
-    console.log(image);
     setImagePreview(URL.createObjectURL(file));
   };
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
@@ -136,6 +136,7 @@ function Sell() {
         setCategory('books');
         setCondition('new');
         setDescription('');
+        resetSellData();
         history.push('/home');
       })
       .catch((err) => {

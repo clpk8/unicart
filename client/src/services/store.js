@@ -68,6 +68,16 @@ const store = createStore(
     setImage: action((state, payload) => {
       state.image = payload;
     }),
+    resetSellData: action((state) => {
+      state.category = '';
+      state.condition = '';
+      state.title = '';
+      state.description = '';
+      state.price = '';
+      state.imagePreview = '';
+      state.image = '';
+    }),
+
     // products
     products: [],
     setProducts: action((state, payload) => {
