@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -244,7 +245,13 @@ function Account() {
                   <p>No Active Listings</p>
                 </div>
 
-                <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
+                <Button
+                  dense
+                  color="primary"
+                  classes={{ root: classes.profileButton, label: classes.label }}
+                  component={RouterLink}
+                  to="/sell"
+                >
                   <AddIcon />
                   Create New Listing
                 </Button>

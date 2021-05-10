@@ -17,13 +17,14 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '85vh',
+    height: '90vh',
+    paddingBottom: '120px',
   },
   title: {
     textAlign: 'left',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(4, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -130,12 +131,6 @@ function Sell() {
       body: formData,
     })
       .then(() => {
-        setImagePreview(undefined);
-        setTitle(undefined);
-        setPrice(undefined);
-        setCategory('books');
-        setCondition('new');
-        setDescription('');
         resetSellData();
         history.push('/home');
       })
