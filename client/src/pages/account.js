@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,6 +19,8 @@ import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
+
+import ProductCard from '../components/ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,6 +132,8 @@ const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes=
 function Account() {
   const classes = useStyles();
 
+  const sellingProducts = useStoreState((state) => state.sellingProducts);
+
   return (
     <section id="account">
       <Grid container component="main" className={classes.root}>
@@ -166,6 +171,10 @@ function Account() {
             <div className={classes.card}>
               <h3>Your Listings</h3>
             </div>
+
+            {sellingProducts.map((product) => (
+              <ProductCard title={product.title} price={product.price} />
+            ))}
 
             <div className={classes.card}>
               <div className="row">

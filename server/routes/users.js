@@ -59,6 +59,30 @@ router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
 });
 
 /**
+ * Add a selling product to user
+ */
+router.post('/addToSelling', verifyToken, (req, res) => {
+  const { userId, itemId } = req.body;
+
+  try {
+    User.findByIdAndUpdate(
+      userId,
+      { $push: { selling: itemId } },
+      { safe: true, upsert: true },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated User : ', docs);
+        }
+      },
+    );
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+/**
  * Delete a user
  */
 router.delete('/:userId', verifyToken, async (req, res) => {

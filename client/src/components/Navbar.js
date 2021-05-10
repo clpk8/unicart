@@ -60,12 +60,9 @@ function Navbar() {
                 <ul id="nav" className="nav">
                   <li><a className="smoothscroll" href="/sell"><h5>Sell</h5></a></li>
                   <li>
-                    <button type="button" className="smoothscroll" onClick={handleProfileClick}>
+                    <button type="button" className="smoothscroll no-border" onClick={handleProfileClick}>
                       <AccountCircleIcon style={{ color: '#4285F4', fontSize: 32, marginBottom: -10 }} />
                     </button>
-                    <a className="smoothscroll" href="/account" onClick={handleProfileClick}>
-                      <AccountCircleIcon style={{ color: '#4285F4', fontSize: 32, marginBottom: -10 }} />
-                    </a>
                   </li>
                 </ul>
               </div>

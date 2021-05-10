@@ -328,8 +328,8 @@ footer .social-links li:first-child {
 /* Sell Page
 /* ------------------------------------------------------------------ */
 
-.temp {
-  margin-top: 100px;
+.no-border {
+  border: none;
 }
 
 .fullrow {
