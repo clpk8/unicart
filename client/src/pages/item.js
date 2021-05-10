@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getItem() {
-  return fetch('/api/products/0').then((res) => res.json());
+  return fetch('/api/products/:60909d055047a717a83a7fb4').then((res) => res.json());
 }
 
 function Item() {
@@ -95,6 +95,8 @@ function Item() {
       setItem(data);
     });
   }, []);
+
+  // const item = getItem();
   const classes = useStyles();
   return (
     <section id="Item">
@@ -117,25 +119,25 @@ function Item() {
                     Price:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
-                    $19.99
+                    {item.price}
                   </Typography>
                   <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Catagory:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
-                    Books
+                    {item.category}
                   </Typography>
                   <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Condition:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
-                    Used
+                    {item.condition}
                   </Typography>
                   <Typography className={classes.valueTitle} component="h1" variant="h5">
                     Description:
                   </Typography>
                   <Typography className={classes.value} component="h1" variant="h5">
-                    This is a descrete mathmetics textbook.
+                    {item.description}
                   </Typography>
                 </Box>
                 <Button
