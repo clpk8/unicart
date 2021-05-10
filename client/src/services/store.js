@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, action, persist } from 'easy-peasy';
 
 const store = createStore(
@@ -47,6 +48,13 @@ const store = createStore(
       state.user = payload;
     }),
 
+    sellingProducts: [],
+    addSellingProducts: action((state, payload) => {
+      if (state.sellingProducts.findIndex((x) => x._id === payload._id) === -1) {
+        state.sellingProducts.push(payload);
+      }
+    }),
+
     // Sell
     setCategory: action((state, payload) => {
       state.category = payload;
@@ -89,7 +97,7 @@ const store = createStore(
   //   blacklist: ['products'],
   // },
   {
-    allow: ['authToken', 'user'],
+    allow: ['authToken', 'user', 'sellingProducts'],
   },
 );
 

@@ -45,7 +45,6 @@ export default function Login() {
     (actions) => actions.setLoginPassword,
   );
   const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
-  const setProducts = useStoreActions((actions) => actions.setProducts);
   const setLoggedInUser = useStoreActions((actions) => actions.setLoggedInUser);
   let signedIn = false;
 
@@ -74,10 +73,6 @@ export default function Login() {
         setLoggedInUser(data.user);
         if (signedIn) window.location.href = '/home';
       });
-
-    await fetch('/products/fetch')
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
   }
 
   return (
