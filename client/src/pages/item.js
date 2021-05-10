@@ -1,6 +1,5 @@
-import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
-
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
+// import * as fakeProducts from '../resources/fakeProducts.json';
 
 function getItem() {
   return fetch('/api/products/1').then((res) => res.json());
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Item() {
-  let item = useStoreState((state) => state.item);
+  const item = useStoreState((state) => state.item);
   const setItem = useStoreActions((action) => action.setItem);
   useEffect(() => {
     getItem().then((data) => {
@@ -109,7 +109,7 @@ function Item() {
                     Item:
                   </Typography>
                   <Typography className={classes.titleName} component="h1" variant="h5">
-                    item.title
+                    {item.title}
                   </Typography>
                 </Box>
                 <Box className={classes.bodyContainer} component="span" m={1}>
