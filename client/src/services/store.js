@@ -41,7 +41,8 @@ const store = createStore(
     setAuthToken: action((state, payload) => {
       state.authToken = payload;
     }),
-    user: '',
+
+    user: {},
     setLoggedInUser: action((state, payload) => {
       state.user = payload;
     }),
@@ -88,7 +89,7 @@ const store = createStore(
   //   blacklist: ['products'],
   // },
   {
-    allow: ['authToken'],
+    allow: ['authToken', 'user'],
   },
 );
 

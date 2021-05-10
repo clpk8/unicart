@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Sell() {
   const classes = useStyles();
+  const history = useHistory();
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   const category = useStoreState((state) => state.category);
   const setCategory = useStoreActions((actions) => actions.setCategory);
@@ -71,12 +74,8 @@ function Sell() {
   const setImagePreview = useStoreActions((actions) => actions.setImagePreview);
   const image = useStoreState((state) => state.image);
   const setImage = useStoreActions((actions) => actions.setImage);
-
   const resetSellData = useStoreActions((actions) => actions.resetSellData);
 
-  const authToken = useStoreState((state) => state.authToken);
-  const history = useHistory();
-  const loggedInUser = useStoreState((state) => state.user);
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -107,6 +106,20 @@ function Sell() {
     setImagePreview(URL.createObjectURL(file));
   };
 
+  async function addProductToSelling(payload) {
+    await fetch('/api/users/addToSelling', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify(payload),
+    })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
@@ -130,7 +143,13 @@ function Sell() {
       },
       body: formData,
     })
-      .then(() => {
+      .then((response) => response.json())
+      .then((data) => {
+        addProductToSelling({
+          userId,
+          itemId: data._id,
+        });
+
         resetSellData();
         history.push('/home');
       })
@@ -138,6 +157,7 @@ function Sell() {
         alert(err);
       });
   }
+
   return (
     <section id="sell">
       <div className="row">
