@@ -15,18 +15,16 @@ const useStyles = makeStyles({
 });
 
 function getProducts() {
-  return fetch('http://localhost:3001/api/products/fetch').then((res) => {
-    res.json();
-  });
+  return fetch('http://localhost:3001/api/products/fetch')
+    .then((response) => response.json())
+    .then((data) => data);
 }
 function Products() {
   let products = useStoreState((state) => state.products);
   const setProducts = useStoreActions((action) => action.setProducts);
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
-    });
+    getProducts().then((data) => setProducts(data));
   }, []);
 
   const classes = useStyles();

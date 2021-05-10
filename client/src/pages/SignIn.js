@@ -75,7 +75,7 @@ export default function Login() {
         if (signedIn) window.location.href = '/home';
       });
 
-    await fetch('/products/fetch')
+    await fetch('http://localhost:3001/api/products/fetch')
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }
