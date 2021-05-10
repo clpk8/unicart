@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const Product = require('../models/Product');
 const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
@@ -40,6 +41,7 @@ router.get('/:productId', async (req, res) => {
  *
  * Request must be a /multipart/form-data, you could try it out in postman
  */
+router.options('/create', cors());
 router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
