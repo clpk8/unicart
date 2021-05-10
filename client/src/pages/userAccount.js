@@ -99,6 +99,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function getUserData(userid) {
+  console.log('Getting:', `/api/users/${userid}`);
+  const { isLoading, error, data } = useFetch(`/api/users/${userid}`);
+  if (isLoading) {
+    return ({
+      firstName: 'Loading',
+      lastName: 'Loading',
+      email: 'loading@loading.edu',
+      school: 'Loading',
+      userid: 3,
+    });
+  }
+  if (error) {
+    console.log('Error Loading User');
+    return ({
+      firstName: 'Error',
+      lastName: 'Error',
+      email: 'error@error.edu',
+      school: 'Error',
+      userid: 3,
+    });
+  }
+  console.log('data:', data);
+  return data;
+}
+
 function UserAccount(props) {
   // eslint-disable-next-line react/prop-types
   const { userid } = props;
@@ -111,13 +137,7 @@ function UserAccount(props) {
   const products = data;
   console.log(userid, products);
 
-  const user = {
-    firstName: 'Shane',
-    lastName: 'Dasbach',
-    email: 'sedasbac@andrew.cmu.edu',
-    school: 'Carnegie Mellon',
-    userid: 3,
-  };
+  const user = () => getUserData(userid);
 
   const content = (products.length > 0 ? products.map((product) => (
     <UserProductListing key={product.id} product={product} />
@@ -126,9 +146,9 @@ function UserAccount(props) {
   return (
     <section id="user-account">
       <Grid container component="main" className={classes.root}>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <h3 className={classes.navText}>{`${user.firstName} ${user.lastName}`}</h3>
-        </Grid>
+        </Grid> */}
         <CssBaseline />
         <Grid item xs={12} sm={4} md={4} className={classes.nav}>
           <h3 className={classes.navText}>Details</h3>
