@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -56,9 +58,8 @@ export default function SignUp() {
   const setSchool = useStoreActions((actions) => actions.setSchool);
 
   function checkInfo() {
-    const {
-      firstName, lastName, email, password, school,
-    } = registerInfo;
+    // eslint-disable-next-line object-curly-newline
+    const { firstName, lastName, email, password, school } = registerInfo;
 
     if (firstName === '' || lastName === '') {
       alert('Your name cannot be empty.');
@@ -86,7 +87,7 @@ export default function SignUp() {
     event.preventDefault();
 
     if (checkInfo()) {
-      await fetch('http://localhost:3001/api/auth/register', {
+      await fetch('/api/auth/register', {
         method: 'POST',
         redirect: 'follow',
         headers: {

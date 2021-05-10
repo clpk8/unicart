@@ -122,7 +122,7 @@ function Sell() {
     formData.append('description', description);
     formData.append('sellerId', userId);
 
-    await fetch('http://localhost:3001/api/products/create', {
+    await fetch('/api/products/create', {
       method: 'POST',
       headers: {
         'auth-token': authToken,

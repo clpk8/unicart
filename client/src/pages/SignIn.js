@@ -52,7 +52,7 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    await fetch('http://localhost:3001/api/auth/login', {
+    await fetch('api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default function Login() {
         if (signedIn) window.location.href = '/home';
       });
 
-    await fetch('http://localhost:3001/api/products/fetch')
+    await fetch('/api/products/fetch')
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }

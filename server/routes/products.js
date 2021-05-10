@@ -57,7 +57,7 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
     paidFor: req.body.paidFor,
     price: req.body.price,
     buyerId: req.body.buyerId,
-    photos: `http://localhost:3001/${photoPaths}`,
+    photos: photoPaths,
     sellerId: req.body.sellerId,
     title: req.body.title,
     tags: req.body.tags,
