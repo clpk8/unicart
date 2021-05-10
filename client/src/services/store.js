@@ -1,5 +1,4 @@
 import { createStore, action, persist } from 'easy-peasy';
-import ProductSchema from '../resources/Product';
 
 const store = createStore(
   persist({
@@ -75,7 +74,9 @@ const store = createStore(
       state.products = payload;
     }),
     // Item
-    item: ProductSchema,
+    itemInfo: {
+      title: '',
+    },
     setItem: action((state, payload) => {
       state.item = payload;
     }),

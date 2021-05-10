@@ -14,10 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 // import * as fakeProducts from '../resources/fakeProducts.json';
 
-function getItem() {
-  return fetch('/api/products/1').then((res) => res.json());
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '85vh',
@@ -86,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 30px',
   },
 }));
+
+function getItem() {
+  return fetch('/api/products/0').then((res) => res.json());
+}
 
 function Item() {
   const item = useStoreState((state) => state.item);
