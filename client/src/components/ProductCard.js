@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionButton: {
     margin: '0 auto',
+    marginTop: '22px',
     marginRight: '24px',
     padding: theme.spacing(0, 3, 0, 3),
     width: 'auto',
@@ -109,7 +110,9 @@ const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes
 
 export default function ProductCard(props) {
   const classes = useStyles();
-  const { title, price } = props;
+  const {
+    title, price, category, condition,
+  } = props;
 
   return (
     <div className={classes.card}>
@@ -121,8 +124,9 @@ export default function ProductCard(props) {
         </div>
 
         <div className="nine columns">
-          <h4>{title}</h4>
-          <h5>{`$ ${price}`}</h5>
+          <h4>{`${title} - $${price}`}</h4>
+          <p className="no-margin">{`Category: ${category}`}</p>
+          <p className="no-margin">{`Condition: ${condition}`}</p>
 
           <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
             <IconDetails />

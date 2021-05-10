@@ -132,6 +132,7 @@ const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes=
 function Account() {
   const classes = useStyles();
 
+  const loggedInUser = useStoreState((state) => state.user);
   const sellingProducts = useStoreState((state) => state.sellingProducts);
 
   return (
@@ -170,10 +171,20 @@ function Account() {
           <div className={classes.mainSection}>
             <div className={classes.card}>
               <h3>Your Listings</h3>
+              <h5>
+                {loggedInUser.selling.length === 0
+                  ? 'No Active Listings'
+                  : `${loggedInUser.selling.length} Current Listings`}
+              </h5>
             </div>
 
             {sellingProducts.map((product) => (
-              <ProductCard title={product.title} price={product.price} />
+              <ProductCard
+                title={product.title}
+                price={product.price}
+                category={product.category}
+                condition={product.condition}
+              />
             ))}
 
             <div className={classes.card}>
@@ -246,12 +257,17 @@ function Account() {
 
               <div className="row">
                 <div className="two columns">
-                  <Avatar className={classes.avatar}>OP</Avatar>
+                  <Avatar
+                    className={classes.avatar}
+                  >
+                    {`${loggedInUser.firstName[0]}${loggedInUser.lastName[0]}`}
+                  </Avatar>
                 </div>
 
                 <div className="ten columns">
-                  <h5>Roy Xu</h5>
-                  <p>No Active Listings</p>
+                  <h5>{`${loggedInUser.firstName} ${loggedInUser.lastName}`}</h5>
+                  <p className="no-margin">{`${loggedInUser.email}`}</p>
+                  <p className="no-margin">{`${loggedInUser.school}`}</p>
                 </div>
 
                 <Button
