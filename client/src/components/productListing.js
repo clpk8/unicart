@@ -48,7 +48,7 @@ function ProductListing(props) {
   }
 
   // eslint-disable-next-line no-template-curly-in-string
-  const productUrl = `/products/${product.id}`;
+  const productUrl = `/Item/${product.id}`;
 
   return (
     <Grid item xs={3} className="productListing">

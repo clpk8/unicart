@@ -9,7 +9,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.8",
     "axios": "^0.21.1",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.0",
     "bootstrap-icons": "^1.4.1",
     "easy-peasy": "^5.0.3",
     "prop-types": "^15.7.2",
