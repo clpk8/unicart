@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -13,6 +13,10 @@ import Typography from '@material-ui/core/Typography';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
+
+function getItem() {
+  return fetch('/api/products/1').then((res) => res.json());
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,22 +88,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Item() {
+  let item = useStoreState((state) => state.item);
+  const setItem = useStoreActions((action) => action.setItem);
+  useEffect(() => {
+    getItem().then((data) => {
+      setItem(data);
+    });
+  }, []);
   const classes = useStyles();
-
-  /*
-  const category = useStoreState((state) => state.category);
-  const setCategory = useStoreActions((actions) => actions.setCategory);
-  const condition = useStoreState((state) => state.condition);
-  const setCondition = useStoreActions((actions) => actions.setCondition);
-
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
-
-  const handleConditionChange = (event) => {
-    setCondition(event.target.value);
-  };
-*/
   return (
     <section id="Item">
       <div className="row">
@@ -113,7 +109,7 @@ function Item() {
                     Item:
                   </Typography>
                   <Typography className={classes.titleName} component="h1" variant="h5">
-                    Biology Textbook
+                    item.title
                   </Typography>
                 </Box>
                 <Box className={classes.bodyContainer} component="span" m={1}>
