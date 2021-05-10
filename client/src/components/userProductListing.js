@@ -58,6 +58,7 @@ const IconVisibility = withStyles(iconStyles)(({ classes }) => <VisibilityIcon c
 function UserProductListing(props) {
   const { product } = props;
   const classes = useStyles();
+  console.log('p:', product);
 
   const imgSrc = (product.photos.length > 0 ? product.photos[0] : '../../assets/noImageAvailable.jpg');
 
@@ -79,7 +80,8 @@ function UserProductListing(props) {
             dense
             color="primary"
             classes={{ root: classes.actionButton, label: classes.label }}
-            href={`/products/${product.id}`}
+            // eslint-disable-next-line no-underscore-dangle
+            href={`/products/${product._id}`}
           >
             <IconVisibility />
             View Listing

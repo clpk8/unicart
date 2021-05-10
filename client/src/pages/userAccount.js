@@ -140,7 +140,8 @@ function UserAccount(props) {
   const user = () => getUserData(userid);
 
   const content = (products.length > 0 ? products.map((product) => (
-    <UserProductListing key={product.id} product={product} />
+    // eslint-disable-next-line no-underscore-dangle
+    <UserProductListing key={product._id} product={product} />
   )) : <div className={classes.card}>No Product Listings</div>);
 
   return (

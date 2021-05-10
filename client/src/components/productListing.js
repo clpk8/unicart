@@ -47,8 +47,8 @@ function ProductListing(props) {
     );
   }
 
-  // eslint-disable-next-line no-template-curly-in-string
-  const productUrl = `/Item/${product.id}`;
+  // eslint-disable-next-line no-underscore-dangle
+  const productUrl = `/Item/${product._id}`;
 
   return (
     <Grid item xs={3} className="productListing">
