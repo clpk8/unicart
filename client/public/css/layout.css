@@ -313,11 +313,8 @@ footer .social-links li:first-child {
 }
 
 #sell .preview-box {
-  margin-top: 42px;
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 15vh;
+  height: 30vh;
 }
 
 #sell .photo-preview {
