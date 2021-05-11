@@ -66,7 +66,7 @@ export default function Login() {
         }
         return response.json();
       })
-      .then((json) => {  
+      .then((json) => {
         setAuthInfo(json);
         if (signedIn) window.location.href = '/home';
       });
