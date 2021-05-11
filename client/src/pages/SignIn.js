@@ -65,12 +65,11 @@ export default function Login() {
         } else {
           signedIn = true;
         }
-        return response.text();
+        return response.json();
       })
-      .then((text) => {
-        const data = JSON.parse(text);
-        setAuthToken(data.token);
-        setLoggedInUser(data.user);
+      .then((json) => {
+        setAuthToken(json.token);
+        setLoggedInUser(json.user);
         if (signedIn) window.location.href = '/home';
       });
   }
