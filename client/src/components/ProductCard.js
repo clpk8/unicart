@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import DetailsIcon from '@material-ui/icons/Details';
@@ -114,9 +117,51 @@ const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes
 
 export default function ProductCard(props) {
   const classes = useStyles();
+  const history = useHistory();
   const { product } = props;
 
+  const authToken = useStoreState((state) => state.authToken);
+  const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
+  const setSeller = useStoreActions((actions) => actions.setSeller);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const productUrl = `/Item/${product._id}`;
+
   let cardImage = <div>Image goes here</div>;
+
+  async function handleViewDetails(event) {
+    event.preventDefault();
+
+    await fetch(`/api/users/${product.sellerId}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSeller(data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    // eslint-disable-next-line no-underscore-dangle
+    await fetch(`/api/products/${product._id}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrItem(data);
+        history.push(productUrl);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 
   if (product.photos.length < 1) {
     cardImage = (
@@ -154,7 +199,12 @@ export default function ProductCard(props) {
           <p className="no-margin">{`Category: ${product.category}`}</p>
           <p className="no-margin">{`Condition: ${product.condition}`}</p>
 
-          <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
+          <Button
+            dense
+            color="primary"
+            classes={{ root: classes.actionButton, label: classes.label }}
+            onClick={handleViewDetails}
+          >
             <IconDetails />
             See Detail
           </Button>
