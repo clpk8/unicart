@@ -40,7 +40,7 @@ router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
         photoURL: req.file.path,
         rating: 0,
         reviews: [],
-        buying: [],
+        saved: [],
         selling: [],
       });
       try {
