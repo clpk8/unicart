@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 function getProducts() {
-  return fetch('http://localhost:3001/api/products/fetch')
+  return fetch('/api/products/fetch')
     .then((response) => response.json())
     .then((data) => data);
 }
