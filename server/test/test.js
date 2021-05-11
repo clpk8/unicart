@@ -11,6 +11,7 @@ const testProduct = {
   price: 15,
   title: 'test book for sale',
   description: 'this is a test',
+  sellerId: 1,
 };
 describe('Test', () => {
   mocha.before((done) => {
@@ -114,6 +115,38 @@ describe('Test', () => {
           .delete(`/api/products/${id}`)
           .then((deleteResponse) => {
             expect(deleteResponse.statusCode === 200);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and delete the product', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const id = res.body._id;
+        request(app)
+          .delete(`/api/products/${id}`)
+          .then((deleteResponse) => {
+            expect(deleteResponse.statusCode === 200);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and get the product by userId', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const { sellerId } = res.body;
+        request(app)
+          .get(`/api/products/fetch/${sellerId}`)
+          .then((productResponse) => {
+            expect(productResponse.statusCode === 200);
             done();
           });
       })
