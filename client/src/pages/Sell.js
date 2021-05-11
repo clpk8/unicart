@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import { DropzoneArea } from 'material-ui-dropzone';
 
@@ -14,17 +15,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '85vh',
+    height: '90vh',
+    paddingBottom: '120px',
   },
   title: {
     textAlign: 'left',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(4, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -56,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Sell() {
   const classes = useStyles();
+  const history = useHistory();
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   const category = useStoreState((state) => state.category);
   const setCategory = useStoreActions((actions) => actions.setCategory);
@@ -67,12 +71,13 @@ function Sell() {
   const setTitle = useStoreActions((actions) => actions.setTitle);
   const description = useStoreState((state) => state.description);
   const setDescription = useStoreActions((actions) => actions.setDescription);
-  const setImages = useStoreActions((actions) => actions.setImages);
-  const images = useStoreState((state) => state.images);
+  const imagePreview = useStoreState((state) => state.imagePreview);
+  const setImagePreview = useStoreActions((actions) => actions.setImagePreview);
+  const image = useStoreState((state) => state.image);
+  const setImage = useStoreActions((actions) => actions.setImage);
+  const resetSellData = useStoreActions((actions) => actions.resetSellData);
+  const addSellingProductId = useStoreActions((actions) => actions.addSellingProductId);
 
-  const authToken = useStoreState((state) => state.authToken);
-  const history = useHistory();
-  const loggedInUser = useStoreState((state) => state.user);
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -93,9 +98,29 @@ function Sell() {
     setDescription(event.target.value);
   };
 
-  const handleImageDropZone = (files) => {
-    setImages(files);
+  const handleImageChange = (event) => {
+    event.preventDefault();
+    if (event.target.files.length === 0) return;
+
+    const file = event.target.files[0];
+
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
+
+  async function addProductToSelling(payload) {
+    await fetch('/api/users/addToSelling', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify(payload),
+    })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -122,18 +147,22 @@ function Sell() {
       },
       body: formData,
     })
-      .then(() => {
-        setTitle(undefined);
-        setPrice(undefined);
-        setCategory('books');
-        setCondition('new');
-        setDescription('');
+      .then((response) => response.json())
+      .then((data) => {
+        addProductToSelling({
+          userId,
+          itemId: data._id,
+        });
+        addSellingProductId(data._id);
+
+        resetSellData();
         history.push('/home');
       })
       .catch((err) => {
         alert(err);
       });
   }
+
   return (
     <section id="sell">
       <div className="row">

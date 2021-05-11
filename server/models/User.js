@@ -31,7 +31,7 @@ const UserSchema = mongoose.Schema({
       detail: String,
     },
   ],
-  buying: [String],
+  saved: [String],
   selling: [String],
 });
 

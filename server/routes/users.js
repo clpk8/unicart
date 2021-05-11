@@ -17,7 +17,7 @@ router.get('/fetch', verifyToken, async (req, res) => {
 });
 
 /* GET single user */
-router.get('/:userId', verifyToken, async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
     console.log(req.params.userId);
     const user = await User.findById(req.params.userId);
@@ -40,7 +40,7 @@ router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
         photoURL: req.file.path,
         rating: 0,
         reviews: [],
-        buying: [],
+        saved: [],
         selling: [],
       });
       try {
@@ -56,6 +56,30 @@ router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
         .json({ message: `user with email ${email} already exist` });
     }
   });
+});
+
+/**
+ * Add a selling product to user
+ */
+router.post('/addToSelling', verifyToken, (req, res) => {
+  const { userId, itemId } = req.body;
+
+  try {
+    User.findByIdAndUpdate(
+      userId,
+      { $push: { selling: itemId } },
+      { safe: true, upsert: true },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated User : ', docs);
+        }
+      },
+    );
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
 });
 
 /**

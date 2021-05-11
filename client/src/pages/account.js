@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +19,8 @@ import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
+
+import ProductCard from '../components/ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -128,6 +132,9 @@ const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes=
 function Account() {
   const classes = useStyles();
 
+  const loggedInUser = useStoreState((state) => state.user);
+  const sellingProducts = useStoreState((state) => state.sellingProducts);
+
   return (
     <section id="account">
       <Grid container component="main" className={classes.root}>
@@ -164,7 +171,18 @@ function Account() {
           <div className={classes.mainSection}>
             <div className={classes.card}>
               <h3>Your Listings</h3>
+              <h5>
+                {loggedInUser.selling.length === 0
+                  ? 'No Active Listings'
+                  : `${loggedInUser.selling.length} Current Listings`}
+              </h5>
             </div>
+
+            {sellingProducts.map((product) => (
+              <ProductCard
+                product={product}
+              />
+            ))}
 
             <div className={classes.card}>
               <div className="row">
@@ -236,15 +254,26 @@ function Account() {
 
               <div className="row">
                 <div className="two columns">
-                  <Avatar className={classes.avatar}>OP</Avatar>
+                  <Avatar
+                    className={classes.avatar}
+                  >
+                    {`${loggedInUser.firstName[0]}${loggedInUser.lastName[0]}`}
+                  </Avatar>
                 </div>
 
                 <div className="ten columns">
-                  <h5>Roy Xu</h5>
-                  <p>No Active Listings</p>
+                  <h5>{`${loggedInUser.firstName} ${loggedInUser.lastName}`}</h5>
+                  <p className="no-margin">{`${loggedInUser.email}`}</p>
+                  <p className="no-margin">{`${loggedInUser.school}`}</p>
                 </div>
 
-                <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
+                <Button
+                  dense
+                  color="primary"
+                  classes={{ root: classes.profileButton, label: classes.label }}
+                  component={RouterLink}
+                  to="/sell"
+                >
                   <AddIcon />
                   Create New Listing
                 </Button>
