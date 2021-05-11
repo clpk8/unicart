@@ -103,6 +103,12 @@ const store = createStore(
     setProducts: action((state, payload) => {
       state.products = payload;
     }),
+
+    // Item
+    currItem: {},
+    setCurrItem: action((state, payload) => {
+      state.currItem = payload;
+    }),
   }),
   // {
   //   blacklist: ['products'],
