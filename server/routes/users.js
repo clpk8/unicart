@@ -17,7 +17,7 @@ router.get('/fetch', verifyToken, async (req, res) => {
 });
 
 /* GET single user */
-router.get('/:userId', verifyToken, async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
     console.log(req.params.userId);
     const user = await User.findById(req.params.userId);
