@@ -50,7 +50,7 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    await fetch('http://localhost:3001/api/auth/login', {
+    await fetch('api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default function Login() {
         }
         return response.json();
       })
-      .then((json) => {
+      .then((json) => {  
         setAuthInfo(json);
         if (signedIn) window.location.href = '/home';
       });

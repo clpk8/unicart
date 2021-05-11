@@ -15,7 +15,9 @@ const useStyles = makeStyles({
 });
 
 function getProducts() {
-  return fetch('/api/products/fetch').then((res) => res.json());
+  return fetch('/api/products/fetch')
+    .then((response) => response.json())
+    .then((data) => data);
 }
 
 function Products() {
@@ -23,9 +25,7 @@ function Products() {
   const setProducts = useStoreActions((action) => action.setProducts);
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
-    });
+    getProducts().then((data) => setProducts(data));
   }, []);
 
   const classes = useStyles();

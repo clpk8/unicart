@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const User = require('../models/User');
 
 require('dotenv/config');
@@ -26,6 +27,7 @@ const loginJoiSchema = Joi.object({
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
 });
 
+router.options('/register', cors());
 router.post('/register', async (req, res) => {
   // Validation
   const { error } = userJoiSchema.validate(req.body);
@@ -64,6 +66,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Log in
+router.options('/login', cors());
 router.post('/login', async (req, res) => {
   // Validation
   const { error } = loginJoiSchema.validate(req.body);
