@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
 
@@ -9,6 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,6 +48,8 @@ function Item() {
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
+
+  // const preventDefault = (event) => event.preventDefault();
 
   let cardImage = <div>Image goes here</div>;
 
@@ -152,7 +156,9 @@ function Item() {
 
                   <div className="ten columns">
                     <Typography variant="subtitle1" component="h6">
-                      {`${seller.firstName} ${seller.lastName}`}
+                      <Link href={`/account/${seller._id}`}>
+                        {`${seller.firstName} ${seller.lastName}`}
+                      </Link>
                     </Typography>
 
                     <Typography variant="subtitle2" component="h6">

@@ -7,26 +7,21 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
 
-import UserProductListing from '../components/userProductListing';
+import ProductCard from '../components/ProductCard';
 import UserDetails from '../components/userDetails';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: '84vh',
   },
   nav: {
-    paddingLeft: '5px',
+    padding: theme.spacing(5, 0, 0, 7),
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? '#FFF' : '#FFF',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100%',
-  },
-  navText: {
-    paddingLeft: '5px',
-    paddingBottom: '5px',
-    marginTop: '15px',
   },
   selectedButton: {
     width: '100%',
@@ -50,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? '#F9FAFD' : '#F9FAFD',
   },
   mainSection: {
-    padding: '0 0 0 2vw',
+    padding: theme.spacing(3, 0, 0, 7),
     margin: '12px 12px 12px 12px',
     display: 'flex',
     flexDirection: 'column',
@@ -100,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getUserData(userid) {
-  console.log('Getting:', `/api/users/${userid}`);
   const { isLoading, error, data } = useFetch(`/api/users/${userid}`);
+
   if (isLoading) {
     return ({
       firstName: 'Loading',
@@ -111,8 +106,8 @@ function getUserData(userid) {
       userid: 3,
     });
   }
+
   if (error) {
-    console.log('Error Loading User');
     return ({
       firstName: 'Error',
       lastName: 'Error',
@@ -121,7 +116,7 @@ function getUserData(userid) {
       userid: 3,
     });
   }
-  console.log('data:', data);
+
   return data;
 }
 
@@ -135,24 +130,19 @@ function UserAccount(props) {
   if (isLoading) return 'Loading... One Moment Please.';
   if (error) return 'Error loading this page!';
   const products = data;
-  console.log(userid, products);
 
   const user = () => getUserData(userid);
 
   const content = (products.length > 0 ? products.map((product) => (
-    // eslint-disable-next-line no-underscore-dangle
-    <UserProductListing key={product._id} product={product} />
+    <ProductCard product={product} />
   )) : <div className={classes.card}>No Product Listings</div>);
 
   return (
     <section id="user-account">
       <Grid container component="main" className={classes.root}>
-        {/* <Grid item xs={12}>
-          <h3 className={classes.navText}>{`${user.firstName} ${user.lastName}`}</h3>
-        </Grid> */}
         <CssBaseline />
         <Grid item xs={12} sm={4} md={4} className={classes.nav}>
-          <h3 className={classes.navText}>Details</h3>
+          <h3>User Details</h3>
           <UserDetails user={user} numListings={products.length} />
         </Grid>
         <Grid
@@ -167,13 +157,11 @@ function UserAccount(props) {
         >
           <div className={classes.mainSection}>
             <div>
-              <h3>Product Listings</h3>
+              <h3>Current Listings</h3>
             </div>
             {content}
-
           </div>
         </Grid>
-
       </Grid>
     </section>
   );

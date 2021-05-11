@@ -122,7 +122,7 @@ const store = createStore(
   //   blacklist: ['products'],
   // },
   {
-    allow: ['authToken', 'user', 'sellingProducts'],
+    allow: ['authToken', 'user', 'sellingProducts', 'currItem', 'seller'],
   },
 );
 
