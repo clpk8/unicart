@@ -30,7 +30,7 @@ router.get('/fetch/:category', async (req, res) => {
 /**
  * get product by sellderID
  */
- router.get('/fetch/:sellerId', async (req, res) => {
+router.get('/fetch/:sellerId', async (req, res) => {
   try {
     const products = await Product.find({ sellerId: req.params.sellerId });
     res.status(200).json(products);
