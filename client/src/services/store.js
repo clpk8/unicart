@@ -45,6 +45,13 @@ const store = createStore(
       state.authToken = token;
       state.user = user;
     }),
+    logout: action((state) => {
+      state.authToken = '';
+      state.user = {};
+      state.currItem = {};
+      state.seller = {};
+      state.images = [];
+    }),
 
     // NOT USED
     setAuthToken: action((state, payload) => {
