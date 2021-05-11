@@ -28,6 +28,6 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/auth', authRouter);
-app.use('/images', express.static(`${__dirname}/images`));
-
+app.use('/api/images', express.static(`${__dirname}/api/images`));
+app.disable('etag');
 module.exports = app;
