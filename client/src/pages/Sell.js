@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -66,10 +67,8 @@ function Sell() {
   const setTitle = useStoreActions((actions) => actions.setTitle);
   const description = useStoreState((state) => state.description);
   const setDescription = useStoreActions((actions) => actions.setDescription);
-  const imagePreview = useStoreState((state) => state.imagePreview);
-  const setImagePreview = useStoreActions((actions) => actions.setImagePreview);
-  const image = useStoreState((state) => state.image);
-  const setImage = useStoreActions((actions) => actions.setImage);
+  const setImages = useStoreActions((actions) => actions.setImages);
+  const images = useStoreState((state) => state.images);
 
   const authToken = useStoreState((state) => state.authToken);
   const history = useHistory();
@@ -94,18 +93,10 @@ function Sell() {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    event.preventDefault();
-    if (event.target.files.length === 0) {
-      return;
-    }
-    const file = event.target.files[0];
-    console.log(file);
-
-    setImage(file);
-    console.log(image);
-    setImagePreview(URL.createObjectURL(file));
+  const handleImageDropZone = (files) => {
+    setImages(files);
   };
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
@@ -114,7 +105,9 @@ function Sell() {
     }
     const userId = loggedInUser._id;
     const formData = new FormData();
-    formData.append('photos', image);
+    images.forEach((element) => {
+      formData.append('photos', element);
+    });
     formData.append('category', category);
     formData.append('condition', condition);
     formData.append('price', price);
@@ -130,7 +123,6 @@ function Sell() {
       body: formData,
     })
       .then(() => {
-        setImagePreview(undefined);
         setTitle(undefined);
         setPrice(undefined);
         setCategory('books');
@@ -234,21 +226,6 @@ function Sell() {
                     variant="outlined"
                     onChange={handleDescriptionChange}
                   />
-                  <div className={classes.imageUpload}>
-                    <label htmlFor="btn-upload">
-                      <input
-                        id="btn-upload"
-                        name="btn-upload"
-                        style={{ display: 'none' }}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(e)}
-                      />
-                      <Button variant="outlined" component="span">
-                        Choose Image
-                      </Button>
-                    </label>
-                  </div>
                   <Button
                     type="submit"
                     fullWidth
@@ -278,10 +255,15 @@ function Sell() {
               square
             >
               <div className="preview-box">
-                <img
-                  src={imagePreview || '/assets/Preview.png'}
-                  alt="book"
-                  className="photo-preview"
+                <DropzoneArea
+                  onChange={handleImageDropZone}
+                  acceptedFiles={[
+                    'image/jpeg',
+                    'image/png',
+                    'image/bmp',
+                    'image/jpg',
+                  ]}
+                  maxFileSize={5000000}
                 />
               </div>
             </Grid>
