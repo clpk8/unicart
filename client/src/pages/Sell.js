@@ -71,12 +71,10 @@ function Sell() {
   const setTitle = useStoreActions((actions) => actions.setTitle);
   const description = useStoreState((state) => state.description);
   const setDescription = useStoreActions((actions) => actions.setDescription);
-  const imagePreview = useStoreState((state) => state.imagePreview);
-  const setImagePreview = useStoreActions((actions) => actions.setImagePreview);
-  const image = useStoreState((state) => state.image);
-  const setImage = useStoreActions((actions) => actions.setImage);
   const resetSellData = useStoreActions((actions) => actions.resetSellData);
   const addSellingProductId = useStoreActions((actions) => actions.addSellingProductId);
+  const setImages = useStoreActions((actions) => actions.setImages);
+  const images = useStoreState((state) => state.images);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -98,14 +96,8 @@ function Sell() {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    event.preventDefault();
-    if (event.target.files.length === 0) return;
-
-    const file = event.target.files[0];
-
-    setImage(file);
-    setImagePreview(URL.createObjectURL(file));
+  const handleImageDropZone = (files) => {
+    setImages(files);
   };
 
   async function addProductToSelling(payload) {
