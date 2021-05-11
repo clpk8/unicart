@@ -100,12 +100,17 @@ const store = createStore(
       state.price = '';
       state.imagePreview = '';
       state.image = '';
+      state.selectedCategory = '';
     }),
 
     // products
     products: [],
     setProducts: action((state, payload) => {
       state.products = payload;
+    }),
+    selectedCategory: '',
+    setSelectedCategory: action((state, payload) => {
+      state.selectedCategory = payload;
     }),
 
     // Item

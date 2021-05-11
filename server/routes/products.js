@@ -17,6 +17,28 @@ router.get('/fetch', async (req, res) => {
   }
 });
 
+/* GET products listing by category */
+router.get('/fetch/:category', async (req, res) => {
+  try {
+    const products = await Product.find({ category: req.params.category });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+/**
+ * get product by sellderID
+ */
+ router.get('/fetch/:sellerId', async (req, res) => {
+  try {
+    const products = await Product.find({ sellerId: req.params.sellerId });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
 /**
  * Get a specific product based on product ID
  * Example: curl -X GET localhost:3001/products/607b36e6f153b21c4f6e7499
@@ -78,18 +100,6 @@ router.delete('/:productId', verifyToken, async (req, res) => {
   try {
     const removedProduct = await Product.remove({ _id: req.params.productId });
     res.status(200).json(removedProduct);
-  } catch (err) {
-    res.status(400).json({ message: err });
-  }
-});
-
-/**
- * get product by sellderID
- */
-router.get('/fetch/:sellerId', async (req, res) => {
-  try {
-    const products = await Product.find({ sellerId: req.params.sellerId });
-    res.status(200).json(products);
   } catch (err) {
     res.status(400).json({ message: err });
   }
