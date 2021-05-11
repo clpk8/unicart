@@ -152,7 +152,7 @@ function UserAccount(props) {
         </Grid> */}
         <CssBaseline />
         <Grid item xs={12} sm={4} md={4} className={classes.nav}>
-          <h3 className={classes.navText}>Details</h3>
+          <h3 className={classes.navText}>Public Profile</h3>
           <UserDetails user={user} numListings={products.length} />
         </Grid>
         <Grid
