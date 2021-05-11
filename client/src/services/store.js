@@ -82,11 +82,8 @@ const store = createStore(
     setPrice: action((state, payload) => {
       state.price = payload;
     }),
-    setImagePreview: action((state, payload) => {
-      state.imagePreview = payload;
-    }),
-    setImage: action((state, payload) => {
-      state.image = payload;
+    setImages: action((state, payload) => {
+      state.images = payload;
     }),
     resetSellData: action((state) => {
       state.category = '';
