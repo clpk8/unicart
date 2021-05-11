@@ -5,14 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import ProductListing from '../components/productListing';
 import * as fakeProducts from '../resources/fakeProducts.json';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   grid: {
     margin: 12,
   },
   container: {
-    padding: 12,
+    margin: theme.spacing(2, 7),
+    padding: theme.spacing(3),
   },
-});
+}));
 
 function getProducts() {
   return fetch('/api/products/fetch')
@@ -40,7 +41,7 @@ function Products() {
 
   return (
     <div id="products-page" className={classes.container}>
-      <h2>Product Listings</h2>
+      <h2>Today&apos;s Picks</h2>
       <Grid m={12} container spacing={3} className={classes.grid}>
         {content}
       </Grid>

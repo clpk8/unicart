@@ -180,10 +180,7 @@ function Account() {
 
             {sellingProducts.map((product) => (
               <ProductCard
-                title={product.title}
-                price={product.price}
-                category={product.category}
-                condition={product.condition}
+                product={product}
               />
             ))}
 

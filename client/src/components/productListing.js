@@ -56,8 +56,11 @@ function ProductListing(props) {
         <CardActionArea>
           {cardImage}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h2">
               {product.title}
+            </Typography>
+            <Typography gutterBottom variant="subtitle1" component="h4">
+              {`$ ${product.price}`}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {product.description}
@@ -69,7 +72,7 @@ function ProductListing(props) {
             View Listing
           </Button>
           <Button size="small" color="primary">
-            Add to Cart
+            Contact Seller
           </Button>
         </CardActions>
       </Card>

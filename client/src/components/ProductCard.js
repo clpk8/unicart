@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import CardMedia from '@material-ui/core/CardMedia';
 import DetailsIcon from '@material-ui/icons/Details';
 import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -93,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: deepOrange[500],
     margin: theme.spacing(0.5, 0, 5, 0),
   },
+  media: {
+    height: 140,
+  },
 }));
 
 const iconStyles = {
@@ -110,23 +114,45 @@ const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes
 
 export default function ProductCard(props) {
   const classes = useStyles();
-  const {
-    title, price, category, condition,
-  } = props;
+  const { product } = props;
+
+  let cardImage = <div>Image goes here</div>;
+
+  if (product.photos.length < 1) {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image="../../assets/noImageAvailable.jpg"
+        title="Contemplative Reptile"
+      />
+    );
+  } else {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image={product.photos[0]}
+        title="Contemplative Reptile"
+      />
+    );
+  }
 
   return (
     <div className={classes.card}>
       <div className="row">
         <div className="three columns">
           <div className={classes.productImage}>
-            <img src="/assets/book.jpg" alt="book" />
+            {cardImage}
           </div>
         </div>
 
         <div className="nine columns">
-          <h4>{`${title} - $${price}`}</h4>
-          <p className="no-margin">{`Category: ${category}`}</p>
-          <p className="no-margin">{`Condition: ${condition}`}</p>
+          <h4>{`${product.title} - $${product.price}`}</h4>
+          <p className="no-margin">{`Category: ${product.category}`}</p>
+          <p className="no-margin">{`Condition: ${product.condition}`}</p>
 
           <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
             <IconDetails />
