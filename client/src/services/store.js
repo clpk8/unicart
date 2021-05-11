@@ -39,11 +39,19 @@ const store = createStore(
 
     // Auth Token
     authToken: '',
+    user: {},
+    setAuthInfo: action((state, payload) => {
+      const { token, user } = payload;
+      state.authToken = token;
+      state.user = user;
+    }),
+
+    // NOT USED
     setAuthToken: action((state, payload) => {
       state.authToken = payload;
     }),
 
-    user: {},
+    // NOT USED
     setLoggedInUser: action((state, payload) => {
       state.user = payload;
     }),

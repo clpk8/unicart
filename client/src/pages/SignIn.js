@@ -44,8 +44,7 @@ export default function Login() {
   const setLoginPassword = useStoreActions(
     (actions) => actions.setLoginPassword,
   );
-  const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
-  const setLoggedInUser = useStoreActions((actions) => actions.setLoggedInUser);
+  const setAuthInfo = useStoreActions((actions) => actions.setAuthInfo);
   let signedIn = false;
 
   async function handleSubmit(event) {
@@ -68,8 +67,7 @@ export default function Login() {
         return response.json();
       })
       .then((json) => {
-        setAuthToken(json.token);
-        setLoggedInUser(json.user);
+        setAuthInfo(json);
         if (signedIn) window.location.href = '/home';
       });
   }
