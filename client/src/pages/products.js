@@ -1,5 +1,5 @@
-import { useStoreActions, useStoreState } from 'easy-peasy';
 import React, { useEffect } from 'react';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import ProductListing from '../components/productListing';

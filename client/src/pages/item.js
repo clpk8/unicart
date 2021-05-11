@@ -1,97 +1,138 @@
 import React from 'react';
-// import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 
-// import Button from '@material-ui/core/Button';
-// import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '90vh',
   },
-  title: {
-    textAlign: 'left',
+  imagePanel: {
+    minHeight: '90vh',
+    maxWidth: '100%',
   },
-  titleName: {
-    textAlign: 'left',
-    fontSize: '20px',
+  media: {
+    height: '50%',
+    width: 'auto',
+    position: 'center',
   },
-
-  valueTitle: {
-    textAlign: 'left',
-    borderBottom: '2px solid #209BF9',
-  },
-
-  value: {
-    textAlign: 'left',
-    fontSize: '20px',
-    padding: '20px',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  formControl: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    minWidth: 120,
+  info: {
+    padding: theme.spacing(7),
   },
   description: {
-    width: '100%',
-    marginTop: theme.spacing(3),
+    margin: theme.spacing(2, 0),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-
-  titleContainer: {
-    background: 'linear-gradient(45deg, #2180E7 30%, #209BF9 90%)',
-    border: 0,
-    borderRadius: 3,
-    color: 'white',
-    height: 70,
-    width: 300,
-    padding: '0 30px',
-  },
-
-  bodyContainer: {
-    border: 4,
-    borderRadius: 3,
-    color: 'black',
-    height: 500,
-    width: 300,
-    padding: '0 30px',
+  button: {
+    margin: theme.spacing(2, 0),
   },
 }));
 
 function Item() {
   const classes = useStyles();
 
+  const product = useStoreState((state) => state.currItem);
+
+  let cardImage = <div>Image goes here</div>;
+
+  if (product.photos.length < 1) {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image="../../assets/noImageAvailable.jpg"
+        title="Contemplative Reptile"
+      />
+    );
+  } else {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image={product.photos[0]}
+        title="Contemplative Reptile"
+      />
+    );
+  }
+
   return (
     <section id="item">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={0} sm={4} md={8} component={Paper} elevation={5} square>
-          <h1>Galaxy S9</h1>
+        <Grid
+          container
+          xs={0}
+          sm={4}
+          md={8}
+          component={Paper}
+          elevation={5}
+          square
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          className={classes.imagePanel}
+        >
+          {cardImage}
         </Grid>
 
-        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={5} square>
-          <h1>Galaxy S9</h1>
+        <Grid
+          container
+          xs={12}
+          sm={8}
+          md={4}
+          component={Paper}
+          elevation={5}
+          square
+          spacing={0}
+          direction="column"
+          alignItems="left"
+          justify="center"
+          className={classes.info}
+        >
+          <Typography gutterBottom variant="h4" component="h4">
+            {product.title}
+          </Typography>
+
+          <Typography gutterBottom variant="h5" component="h5">
+            {`$${product.price}`}
+          </Typography>
+
+          <Typography gutterBottom variant="subtitle1" component="h6">
+            {`Category: ${product.category}`}
+          </Typography>
+
+          <Typography gutterBottom variant="subtitle1" component="h6">
+            {`Condition: ${product.condition}`}
+          </Typography>
+
+          <Divider orientation="horizontal" />
+
+          <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+            Seller&apos;s Description
+          </Typography>
+
+          <Typography gutterBottom variant="body1" component="span">
+            {product.description}
+          </Typography>
+
+          <Divider orientation="horizontal" />
+
+          <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+            Seller Information
+          </Typography>
+
+          <Button variant="contained" color="primary" className={classes.button}>
+            Contact Seller
+          </Button>
         </Grid>
       </Grid>
     </section>
