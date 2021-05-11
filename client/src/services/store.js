@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, action, persist } from 'easy-peasy';
 
 const store = createStore(
@@ -38,12 +39,31 @@ const store = createStore(
 
     // Auth Token
     authToken: '',
+    user: {},
+    setAuthInfo: action((state, payload) => {
+      const { token, user } = payload;
+      state.authToken = token;
+      state.user = user;
+    }),
+
+    // NOT USED
     setAuthToken: action((state, payload) => {
       state.authToken = payload;
     }),
-    user: '',
+
+    // NOT USED
     setLoggedInUser: action((state, payload) => {
       state.user = payload;
+    }),
+
+    sellingProducts: [],
+    addSellingProductId: action((state, payload) => {
+      state.user.selling.push(payload);
+    }),
+    addSellingProducts: action((state, payload) => {
+      if (state.sellingProducts.findIndex((x) => x._id === payload._id) === -1) {
+        state.sellingProducts.push(payload);
+      }
     }),
 
     // Sell
@@ -68,17 +88,37 @@ const store = createStore(
     setImage: action((state, payload) => {
       state.image = payload;
     }),
+    resetSellData: action((state) => {
+      state.category = '';
+      state.condition = '';
+      state.title = '';
+      state.description = '';
+      state.price = '';
+      state.imagePreview = '';
+      state.image = '';
+    }),
+
     // products
     products: [],
     setProducts: action((state, payload) => {
       state.products = payload;
+    }),
+
+    // Item
+    currItem: {},
+    seller: {},
+    setCurrItem: action((state, payload) => {
+      state.currItem = payload;
+    }),
+    setSeller: action((state, payload) => {
+      state.seller = payload;
     }),
   }),
   // {
   //   blacklist: ['products'],
   // },
   {
-    allow: ['authToken'],
+    allow: ['authToken', 'user', 'sellingProducts'],
   },
 );
 

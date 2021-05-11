@@ -24,7 +24,6 @@ router.get('/fetch', async (req, res) => {
  */
 router.get('/:productId', async (req, res) => {
   try {
-    console.log(req.params.productId);
     const product = await Product.findById(req.params.productId);
     res.status(200).json(product);
   } catch (err) {

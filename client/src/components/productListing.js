@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -21,7 +24,49 @@ const useStyles = makeStyles({
 
 function ProductListing(props) {
   const { product } = props;
+  const history = useHistory();
   const classes = useStyles();
+
+  // eslint-disable-next-line no-underscore-dangle
+  const productUrl = `/Item/${product._id}`;
+
+  const authToken = useStoreState((state) => state.authToken);
+  const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
+  const setSeller = useStoreActions((actions) => actions.setSeller);
+
+  async function handleViewListing(event) {
+    event.preventDefault();
+
+    await fetch(`/api/users/${product.sellerId}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSeller(data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    // eslint-disable-next-line no-underscore-dangle
+    await fetch(`/api/products/${product._id}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrItem(data);
+        history.push(productUrl);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 
   let cardImage = <div>Image goes here</div>;
 
@@ -47,17 +92,17 @@ function ProductListing(props) {
     );
   }
 
-  // eslint-disable-next-line no-underscore-dangle
-  const productUrl = `/Item/${product._id}`;
-
   return (
     <Grid item xs={3} className="productListing">
       <Card variant="outlined" className={classes.root}>
         <CardActionArea>
           {cardImage}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h2">
               {product.title}
+            </Typography>
+            <Typography gutterBottom variant="subtitle1" component="h4">
+              {`$ ${product.price}`}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {product.description}
@@ -65,11 +110,15 @@ function ProductListing(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" href={productUrl}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={handleViewListing}
+          >
             View Listing
           </Button>
           <Button size="small" color="primary">
-            Add to Cart
+            Contact Seller
           </Button>
         </CardActions>
       </Card>
