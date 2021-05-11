@@ -46,10 +46,33 @@ function Item() {
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
+  console.log('seller', seller);
+  let contactSellerButton = (
+    <Button
+      variant="contained"
+      color="primary"
+      className={classes.button}
+      disabled
+    >
+      Unable to Contact Seller
+    </Button>
+  );
+  if (typeof seller !== 'undefined') {
+    contactSellerButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        href={`mailto:${seller.email}`}
+      >
+        Contact Seller
+      </Button>
+    );
+  }
 
   let cardImage = <div>Image goes here</div>;
 
-  if (product.photos.length < 1) {
+  if (typeof product === 'undefined' || product.photos.length < 1) {
     cardImage = (
       <CardMedia
         component="img"
@@ -63,10 +86,10 @@ function Item() {
     cardImage = (
       <CardMedia
         component="img"
-        alt="Contemplative Reptile"
+        alt={product.title}
         className={classes.media}
         image={product.photos[0]}
-        title="Contemplative Reptile"
+        title={product.title}
       />
     );
   }
@@ -163,9 +186,7 @@ function Item() {
               </>
             )}
 
-          <Button variant="contained" color="primary" className={classes.button}>
-            Contact Seller
-          </Button>
+          {contactSellerButton}
         </Grid>
       </Grid>
     </section>
