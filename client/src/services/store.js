@@ -106,8 +106,12 @@ const store = createStore(
 
     // Item
     currItem: {},
+    seller: {},
     setCurrItem: action((state, payload) => {
       state.currItem = payload;
+    }),
+    setSeller: action((state, payload) => {
+      state.seller = payload;
     }),
   }),
   // {

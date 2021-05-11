@@ -32,10 +32,24 @@ function ProductListing(props) {
 
   const authToken = useStoreState((state) => state.authToken);
   const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
+  const setSeller = useStoreActions((actions) => actions.setSeller);
 
   async function handleViewListing(event) {
-    console.log('wat');
     event.preventDefault();
+
+    await fetch(`/api/users/${product.sellerId}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSeller(data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
 
     // eslint-disable-next-line no-underscore-dangle
     await fetch(`/api/products/${product._id}`, {

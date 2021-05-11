@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,12 +34,18 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2, 0),
   },
+  avatar: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    margin: theme.spacing(0.5, 0, 5, 0),
+  },
 }));
 
 function Item() {
   const classes = useStyles();
 
   const product = useStoreState((state) => state.currItem);
+  const seller = useStoreState((state) => state.seller);
 
   let cardImage = <div>Image goes here</div>;
 
@@ -124,11 +132,36 @@ function Item() {
             {product.description}
           </Typography>
 
-          <Divider orientation="horizontal" />
+          {seller
+            && (
+              <>
+                <Divider orientation="horizontal" />
 
-          <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
-            Seller Information
-          </Typography>
+                <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+                  Seller Information
+                </Typography>
+
+                <div className="row">
+                  <div className="two columns">
+                    <Avatar
+                      className={classes.avatar}
+                    >
+                      {`${seller.firstName[0]}${seller.lastName[0]}`}
+                    </Avatar>
+                  </div>
+
+                  <div className="ten columns">
+                    <Typography variant="subtitle1" component="h6">
+                      {`${seller.firstName} ${seller.lastName}`}
+                    </Typography>
+
+                    <Typography variant="subtitle2" component="h6">
+                      {`Member since ${seller.date.slice(0, 10)}`}
+                    </Typography>
+                  </div>
+                </div>
+              </>
+            )}
 
           <Button variant="contained" color="primary" className={classes.button}>
             Contact Seller
