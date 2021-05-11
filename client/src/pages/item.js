@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
 
@@ -140,30 +141,37 @@ function Item() {
                 <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
                   Seller Information
                 </Typography>
+                <a href={`/account/${seller._id}`}>
+                  <div className="row">
+                    <div className="two columns">
+                      <Avatar
+                        className={classes.avatar}
+                      >
+                        {`${seller.firstName[0]}${seller.lastName[0]}`}
+                      </Avatar>
+                    </div>
 
-                <div className="row">
-                  <div className="two columns">
-                    <Avatar
-                      className={classes.avatar}
-                    >
-                      {`${seller.firstName[0]}${seller.lastName[0]}`}
-                    </Avatar>
+                    <div className="ten columns">
+                      <Typography variant="subtitle1" component="h6">
+                        {`${seller.firstName} ${seller.lastName}`}
+                      </Typography>
+
+                      <Typography variant="subtitle2" component="h6">
+                        {`Member since ${seller.date.slice(0, 10)}`}
+                      </Typography>
+                    </div>
                   </div>
-
-                  <div className="ten columns">
-                    <Typography variant="subtitle1" component="h6">
-                      {`${seller.firstName} ${seller.lastName}`}
-                    </Typography>
-
-                    <Typography variant="subtitle2" component="h6">
-                      {`Member since ${seller.date.slice(0, 10)}`}
-                    </Typography>
-                  </div>
-                </div>
+                </a>
               </>
             )}
 
-          <Button variant="contained" color="primary" className={classes.button}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            href={`mailto:${seller.email}?subject=${product.title} Inquiry - Unicart`}
+            target="_blank"
+          >
             Contact Seller
           </Button>
         </Grid>

@@ -117,9 +117,6 @@ function ProductListing(props) {
           >
             View Listing
           </Button>
-          <Button size="small" color="primary">
-            Contact Seller
-          </Button>
         </CardActions>
       </Card>
     </Grid>
