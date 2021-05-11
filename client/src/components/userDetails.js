@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 function UserDetails(props) {
   const { user, numListings } = props;
   const userObject = user();
-  console.log('userObject:', userObject);
 
   return (
     <div id="user-details">
