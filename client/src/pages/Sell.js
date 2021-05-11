@@ -256,6 +256,7 @@ function Sell() {
             >
               <div className="preview-box">
                 <DropzoneArea
+                  dropzoneClass="preview-box"
                   onChange={handleImageDropZone}
                   acceptedFiles={[
                     'image/jpeg',
