@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,9 +61,49 @@ const IconVisibility = withStyles(iconStyles)(({ classes }) => <VisibilityIcon c
 function UserProductListing(props) {
   const { product } = props;
   const classes = useStyles();
-  console.log('p:', product);
+  const history = useHistory();
 
+  const authToken = useStoreState((state) => state.authToken);
+  const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
+  const setSeller = useStoreActions((actions) => actions.setSeller);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const productUrl = `/Item/${product._id}`;
   const imgSrc = (product.photos.length > 0 ? product.photos[0] : '../../assets/noImageAvailable.jpg');
+
+  async function handleViewDetails(event) {
+    event.preventDefault();
+
+    await fetch(`/api/users/${product.sellerId}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSeller(data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    // eslint-disable-next-line no-underscore-dangle
+    await fetch(`/api/products/${product._id}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrItem(data);
+        history.push(productUrl);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 
   return (
     <div className={classes.card}>
@@ -81,7 +124,7 @@ function UserProductListing(props) {
             color="primary"
             classes={{ root: classes.actionButton, label: classes.label }}
             // eslint-disable-next-line no-underscore-dangle
-            href={`/products/${product._id}`}
+            onClick={handleViewDetails}
           >
             <IconVisibility />
             View Listing

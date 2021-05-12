@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
+import Carousel from 'react-material-ui-carousel';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
   media: {
-    height: '50%',
-    width: 'auto',
+    height: '60vh',
+    width: '100vh',
     position: 'center',
   },
   info: {
@@ -56,6 +58,8 @@ function Item() {
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
 
+  // const preventDefault = (event) => event.preventDefault();
+
   let cardImage = <div>Image goes here</div>;
 
   if (product.photos.length < 1) {
@@ -70,13 +74,17 @@ function Item() {
     );
   } else {
     cardImage = (
-      <CardMedia
-        component="img"
-        alt="Contemplative Reptile"
-        className={classes.media}
-        image={product.photos[0]}
-        title="Contemplative Reptile"
-      />
+      <Carousel>
+        {product.photos.map((item, i) => (
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            className={classes.media}
+            image={product.photos[i]}
+            title="Contemplative Reptile"
+          />
+        ))}
+      </Carousel>
     );
   }
 
@@ -161,7 +169,12 @@ function Item() {
 
           <Divider orientation="horizontal" />
 
-          <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h6"
+            className={classes.description}
+          >
             Seller&apos;s Description
           </Typography>
 
@@ -189,7 +202,9 @@ function Item() {
 
                   <div className="ten columns">
                     <Typography variant="subtitle1" component="h6">
-                      {`${seller.firstName} ${seller.lastName}`}
+                      <Link href={`/account/${seller._id}`}>
+                        {`${seller.firstName} ${seller.lastName}`}
+                      </Link>
                     </Typography>
 
                     <Typography variant="subtitle2" component="h6">
@@ -200,7 +215,13 @@ function Item() {
               </>
             )}
 
-          <Button variant="contained" color="primary" className={classes.sellerButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            href={`mailto:${seller.email}?subject=${product.title} Inquiry - Unicart`}
+            target="_blank"
+          >
             Contact Seller
           </Button>
         </Grid>

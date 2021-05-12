@@ -8,6 +8,12 @@ function Navbar() {
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
   const addSellingProducts = useStoreActions((actions) => actions.addSellingProducts);
+  const setSelectedCategory = useStoreActions((actions) => actions.setSelectedCategory);
+
+  function handleHomeClick() {
+    setSelectedCategory('');
+    window.location.href = '/home';
+  }
 
   async function handleProfileClick() {
     for (let i = 0; i < loggedInUser.selling.length; i += 1) {
@@ -38,9 +44,9 @@ function Navbar() {
 
       <div className="fullrow">
         <div className="four columns">
-          <a className="logo" href="/home">
+          <button type="button" className="logo" onClick={handleHomeClick}>
             <img className="logo-img" src="/assets/logo-circle.png" alt="logo" />
-          </a>
+          </button>
         </div>
 
         {
