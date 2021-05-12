@@ -83,6 +83,30 @@ router.post('/addToSelling', verifyToken, (req, res) => {
 });
 
 /**
+ * Add a saved product to user
+ */
+router.post('/addToSaved', verifyToken, (req, res) => {
+  const { userId, itemId } = req.body;
+
+  try {
+    User.findByIdAndUpdate(
+      userId,
+      { $push: { saved: itemId } },
+      { safe: true, upsert: true },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated User : ', docs);
+        }
+      },
+    );
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+/**
  * Delete a user
  */
 router.delete('/:userId', verifyToken, async (req, res) => {
