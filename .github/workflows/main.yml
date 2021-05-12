@@ -61,6 +61,6 @@ jobs:
     
     steps:
     - name: Report coverage
-    - run: bash <(curl -s https://codecov.io/bash)
-        env:
+      run: bash <(curl -s https://codecov.io/bash)
+      env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
