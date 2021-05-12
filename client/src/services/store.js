@@ -45,6 +45,13 @@ const store = createStore(
       state.authToken = token;
       state.user = user;
     }),
+    logout: action((state) => {
+      state.authToken = '';
+      state.user = {};
+      state.currItem = {};
+      state.seller = {};
+      state.images = [];
+    }),
 
     // NOT USED
     setAuthToken: action((state, payload) => {
@@ -93,12 +100,17 @@ const store = createStore(
       state.price = '';
       state.imagePreview = '';
       state.image = '';
+      state.selectedCategory = '';
     }),
 
     // products
     products: [],
     setProducts: action((state, payload) => {
       state.products = payload;
+    }),
+    selectedCategory: '',
+    setSelectedCategory: action((state, payload) => {
+      state.selectedCategory = payload;
     }),
 
     // Item
@@ -115,7 +127,7 @@ const store = createStore(
   //   blacklist: ['products'],
   // },
   {
-    allow: ['authToken', 'user', 'sellingProducts'],
+    allow: ['authToken', 'user', 'sellingProducts', 'currItem', 'seller'],
   },
 );
 

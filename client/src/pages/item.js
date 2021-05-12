@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
 import Carousel from 'react-material-ui-carousel';
@@ -10,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,8 +48,9 @@ function Item() {
   const classes = useStyles();
 
   const product = useStoreState((state) => state.currItem);
-  console.log(product.photos[0]);
   const seller = useStoreState((state) => state.seller);
+
+  // const preventDefault = (event) => event.preventDefault();
 
   let cardImage = <div>Image goes here</div>;
 
@@ -143,44 +146,40 @@ function Item() {
             {product.description}
           </Typography>
 
-          {seller && (
-            <>
-              <Divider orientation="horizontal" />
+          {seller
+            && (
+              <>
+                <Divider orientation="horizontal" />
 
-              <Typography
-                gutterBottom
-                variant="h6"
-                component="h6"
-                className={classes.description}
-              >
-                Seller Information
-              </Typography>
+                <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+                  Seller Information
+                </Typography>
 
-              <div className="row">
-                <div className="two columns">
-                  <Avatar className={classes.avatar}>
-                    {`${seller.firstName[0]}${seller.lastName[0]}`}
-                  </Avatar>
+                <div className="row">
+                  <div className="two columns">
+                    <Avatar
+                      className={classes.avatar}
+                    >
+                      {`${seller.firstName[0]}${seller.lastName[0]}`}
+                    </Avatar>
+                  </div>
+
+                  <div className="ten columns">
+                    <Typography variant="subtitle1" component="h6">
+                      <Link href={`/account/${seller._id}`}>
+                        {`${seller.firstName} ${seller.lastName}`}
+                      </Link>
+                    </Typography>
+
+                    <Typography variant="subtitle2" component="h6">
+                      {`Member since ${seller.date.slice(0, 10)}`}
+                    </Typography>
+                  </div>
                 </div>
+              </>
+            )}
 
-                <div className="ten columns">
-                  <Typography variant="subtitle1" component="h6">
-                    {`${seller.firstName} ${seller.lastName}`}
-                  </Typography>
-
-                  <Typography variant="subtitle2" component="h6">
-                    {`Member since ${seller.date.slice(0, 10)}`}
-                  </Typography>
-                </div>
-              </div>
-            </>
-          )}
-
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
+          <Button variant="contained" color="primary" className={classes.button}>
             Contact Seller
           </Button>
         </Grid>
