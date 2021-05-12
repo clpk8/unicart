@@ -93,7 +93,7 @@ function ProductListing(props) {
   }
 
   return (
-    <Grid item xs={3} className="productListing">
+    <Grid item xs={3} className="productListing" data-testid="product-listing-test">
       <Card variant="outlined" className={classes.root}>
         <CardActionArea>
           {cardImage}

@@ -178,13 +178,13 @@ describe('Home page', () => {
   it('Should list a product properly', () => {
     const productListing = (
       <StoreProvider store={loggedInStore}>
-        <ProductListing />
+        <ProductListing product={products[0]} />
       </StoreProvider>
     );
 
     const { getByTestId } = render(productListing);
 
-    expect(getByTestId('product-test-id')).toHaveTextContent('Today\'s Picks');
-    expect(getByTestId('product-test-id')).toHaveTextContent('Select Category');
+    expect(getByTestId('product-listing-test')).toHaveTextContent('Panasonic TV');
+    expect(getByTestId('product-listing-test')).toHaveTextContent('100');
   });
 });
