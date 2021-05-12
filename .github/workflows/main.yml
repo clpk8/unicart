@@ -2,11 +2,11 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: 
+    branches:
       - '*'
       - '!main'
   pull_request:
@@ -18,37 +18,38 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    test_client:
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: client
+  test_client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
 
-        steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js 
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 15.x
-            - run: npm ci
-            - run: npm test
-            - run: npx eslint .
-            - run: npx npm-check . --skip-unused
-            
-    test_server:
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: server
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - run: npm ci
+      - run: npm test
+      - run: npx eslint .
+      - run: npx npm-check . --skip-unused
 
-        steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 15.x
-            - run: npm ci
-            - run: npm run build --if-present
-            - run: npm test
-            - run: npx eslint .
-            - run: npx npm-check --skip-unused .
+  test_server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+      - run: bash < (curl -s https://codecov.io/bash)
+      - run: npx eslint .
+      - run: npx npm-check --skip-unused .
