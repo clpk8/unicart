@@ -10,7 +10,6 @@ import Avatar from '@material-ui/core/Avatar';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
@@ -123,7 +122,6 @@ const iconStyles = {
 
 const SellingIcon = withStyles(iconStyles)(({ classes }) => <LocalOfferIcon classes={classes} />);
 const SavedIcon = withStyles(iconStyles)(({ classes }) => <BookmarkIcon classes={classes} />);
-const PurchasedIcon = withStyles(iconStyles)(({ classes }) => <ShoppingBasketIcon classes={classes} />);
 const ResumeIcon = withStyles(iconStyles)(({ classes }) => <PlaylistAddCheckTwoToneIcon classes={classes} />);
 const EditIcon = withStyles(iconStyles)(({ classes }) => <EditTwoToneIcon classes={classes} />);
 const DeleteIcon = withStyles(iconStyles)(({ classes }) => <DeleteOutlineTwoToneIcon classes={classes} />);
@@ -160,11 +158,6 @@ function Account() {
           <Button dense color="primary" classes={{ root: classes.button, label: classes.label }}>
             <SavedIcon />
             Saved
-          </Button>
-
-          <Button dense color="primary" classes={{ root: classes.button, label: classes.label }}>
-            <PurchasedIcon />
-            Purchased Orders
           </Button>
         </Grid>
 

@@ -60,7 +60,7 @@ function Products() {
   async function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
 
-    await fetch(`/api/products/fetch/${event.target.value}`, {
+    await fetch(`/api/products/fetchByCategory/${event.target.value}`, {
       method: 'GET',
       headers: {
         'auth-token': authToken,

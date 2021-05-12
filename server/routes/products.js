@@ -18,7 +18,7 @@ router.get('/fetch', async (req, res) => {
 });
 
 /* GET products listing by category */
-router.get('/fetch/:category', async (req, res) => {
+router.get('/fetchByCategory/:category', async (req, res) => {
   try {
     const products = await Product.find({ category: req.params.category });
     res.status(200).json(products);

@@ -122,6 +122,12 @@ nav h5 {
   color: #4285f4;
 }
 
+nav .logo {
+  border: none;
+  padding: 3px 0 0 5px;
+  margin: 0;
+}
+
 nav .logo-img {
   height: 42px;
   width: auto;

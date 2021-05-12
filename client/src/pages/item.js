@@ -48,7 +48,6 @@ function Item() {
   const classes = useStyles();
 
   const product = useStoreState((state) => state.currItem);
-  console.log(product.photos[0]);
   const seller = useStoreState((state) => state.seller);
 
   // const preventDefault = (event) => event.preventDefault();
