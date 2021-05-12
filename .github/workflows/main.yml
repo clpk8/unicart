@@ -60,6 +60,6 @@ jobs:
           - name: Coveralls Finished
             uses: coverallsapp/github-action@master
             with:
-              github-token: ${{ secrets.github_token }}
+              github-token: ${{ secrets.COVERALL_TOKEN }}
               parallel-finished: true
       
