@@ -31,17 +31,14 @@ const useStyles = makeStyles((theme) => ({
   description: {
     margin: theme.spacing(2, 0),
   },
-  button: {
+  sellerButton: {
     margin: theme.spacing(2, 0),
   },
   saveButton: {
-    margin: theme.spacing(2, 0),
-    display: 'inline-block',
-    float: 'right',
+    marginLeft: theme.spacing(5),
   },
-  title: {
-    display: 'inline-block',
-    float: 'left',
+  container: {
+    display: 'flex',
   },
   avatar: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -115,13 +112,14 @@ function Item() {
           justify="center"
           className={classes.info}
         >
-          <Typography className={classes.title} gutterBottom variant="h4" component="h4">
-            {product.title}
-          </Typography>
-          <Button className={classes.saveButton} variant="contained" color="primary">
-            Primary
-          </Button>
-
+          <div className={classes.container}>
+            <Typography gutterBottom variant="h4" component="h4">
+              {product.title}
+            </Typography>
+            <Button className={classes.saveButton} variant="contained" color="primary">
+              Save Item
+            </Button>
+          </div>
           <Typography gutterBottom variant="h5" component="h5">
             {`$${product.price}`}
           </Typography>
@@ -175,7 +173,7 @@ function Item() {
               </>
             )}
 
-          <Button variant="contained" color="primary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.sellerButton}>
             Contact Seller
           </Button>
         </Grid>
