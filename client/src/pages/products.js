@@ -76,7 +76,7 @@ function Products() {
   }
 
   return (
-    <div id="products-page" className={classes.container}>
+    <div id="products-page" className={classes.container} data-testid="product-test-id">
       <div className="fullrow">
         <div className="three columns text-capitalize">
           <h2>{['all', ''].includes(selectedCategory) ? "Today's Picks" : selectedCategory}</h2>

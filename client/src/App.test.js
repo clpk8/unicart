@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createStore, StoreProvider } from 'easy-peasy';
 import App from './App';
+import Navbar from './components/Navbar';
 
 const users = [
   {
@@ -67,6 +68,27 @@ const model = {
     password: '',
   },
   authToken: '',
+  user: {},
+  sellingProducts: [],
+  products,
+  selectedCategory: '',
+  currItem: {},
+  seller: {},
+};
+
+const loggedInModel = {
+  registerInfo: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    school: '',
+  },
+  loginInfo: {
+    email: '',
+    password: '',
+  },
+  authToken: '609aa2e3a37f3c66f2df32ea',
   user: users[0],
   sellingProducts: [],
   products,
@@ -94,5 +116,34 @@ test('renders learn react link', () => {
 describe('Home page', () => {
   const store = createStore(model, {
     mockActions: true,
+  });
+
+  const loggedInStore = createStore(loggedInModel, {
+    mockActions: true,
+  });
+
+  it('Should have the correct tabs in the nav bar for not logged in', () => {
+    const navbar = (
+      <StoreProvider store={store}>
+        <Navbar />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(navbar);
+
+    expect(getByTestId('navbar-test')).toHaveTextContent('Log In');
+    expect(getByTestId('navbar-test')).toHaveTextContent('Sign Up');
+  });
+
+  it('Should have the correct tabs in the nav bar for logged in', () => {
+    const navbar = (
+      <StoreProvider store={loggedInStore}>
+        <Navbar />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(navbar);
+
+    expect(getByTestId('navbar-test')).toHaveTextContent('Sell');
   });
 });
