@@ -72,7 +72,9 @@ function Sell() {
   const description = useStoreState((state) => state.description);
   const setDescription = useStoreActions((actions) => actions.setDescription);
   const resetSellData = useStoreActions((actions) => actions.resetSellData);
-  const addSellingProductId = useStoreActions((actions) => actions.addSellingProductId);
+  const addSellingProductId = useStoreActions(
+    (actions) => actions.addSellingProductId,
+  );
   const setImages = useStoreActions((actions) => actions.setImages);
   const images = useStoreState((state) => state.images);
 
@@ -100,20 +102,6 @@ function Sell() {
     setImages(files);
   };
 
-  async function addProductToSelling(payload) {
-    await fetch('/api/users/addToSelling', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': authToken,
-      },
-      body: JSON.stringify(payload),
-    })
-      .catch((err) => {
-        alert(err);
-      });
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
@@ -122,9 +110,12 @@ function Sell() {
     }
     const userId = loggedInUser._id;
     const formData = new FormData();
-    images.forEach((element) => {
-      formData.append('photos', element);
-    });
+    if (images) {
+      images.forEach((element) => {
+        formData.append('photos', element);
+      });
+    }
+
     formData.append('category', category);
     formData.append('condition', condition);
     formData.append('price', price);
@@ -141,12 +132,7 @@ function Sell() {
     })
       .then((response) => response.json())
       .then((data) => {
-        addProductToSelling({
-          userId,
-          itemId: data._id,
-        });
         addSellingProductId(data._id);
-
         resetSellData();
         history.push('/home');
       })
