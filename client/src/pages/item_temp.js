@@ -34,8 +34,14 @@ const useStyles = makeStyles((theme) => ({
   description: {
     margin: theme.spacing(2, 0),
   },
-  button: {
+  sellerButton: {
     margin: theme.spacing(2, 0),
+  },
+  saveButton: {
+    marginLeft: theme.spacing(5),
+  },
+  container: {
+    display: 'flex',
   },
   avatar: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -49,6 +55,8 @@ function Item() {
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   // const preventDefault = (event) => event.preventDefault();
 
@@ -78,6 +86,30 @@ function Item() {
         ))}
       </Carousel>
     );
+  }
+
+  async function addProductToSaved(payload) {
+    await fetch('/api/users/addToSaved', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify(payload),
+    })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  async function handleSave(event) {
+    event.preventDefault();
+    const userId = loggedInUser._id;
+    const productId = product._id;
+    addProductToSaved({
+      userId,
+      itemId: productId,
+    });
   }
 
   return (
@@ -115,10 +147,14 @@ function Item() {
           justify="center"
           className={classes.info}
         >
-          <Typography gutterBottom variant="h4" component="h4">
-            {product.title}
-          </Typography>
-
+          <div className={classes.container}>
+            <Typography gutterBottom variant="h4" component="h4">
+              {product.title}
+            </Typography>
+            <Button className={classes.saveButton} onClick={handleSave} variant="contained" color="primary">
+              Save Item
+            </Button>
+          </div>
           <Typography gutterBottom variant="h5" component="h5">
             {`$${product.price}`}
           </Typography>
