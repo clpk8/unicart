@@ -1,0 +1,10 @@
+codecov:
+  bot: 'test'
+
+coverage:
+  status:
+    product:
+      default:
+        target: 20%
+        threshold: 1%
+    patch: off
