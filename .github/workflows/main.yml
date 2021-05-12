@@ -52,15 +52,8 @@ jobs:
       - run: npm test
       - run: npx eslint .
       - run: npx npm-check --skip-unused .
-
-  codecov:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
     
-    steps:
-    - name: Report coverage
-      run: bash <(curl -s https://codecov.io/bash)
-      env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Report coverage
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
