@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
+import Carousel from 'react-material-ui-carousel';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
   media: {
-    height: '50%',
-    width: 'auto',
+    height: '60vh',
+    width: '100vh',
     position: 'center',
   },
   info: {
@@ -47,6 +48,7 @@ function Item() {
   const classes = useStyles();
 
   const product = useStoreState((state) => state.currItem);
+  console.log(product.photos[0]);
   const seller = useStoreState((state) => state.seller);
 
   // const preventDefault = (event) => event.preventDefault();
@@ -65,13 +67,17 @@ function Item() {
     );
   } else {
     cardImage = (
-      <CardMedia
-        component="img"
-        alt="Contemplative Reptile"
-        className={classes.media}
-        image={product.photos[0]}
-        title="Contemplative Reptile"
-      />
+      <Carousel>
+        {product.photos.map((item, i) => (
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            className={classes.media}
+            image={product.photos[i]}
+            title="Contemplative Reptile"
+          />
+        ))}
+      </Carousel>
     );
   }
 
@@ -128,7 +134,12 @@ function Item() {
 
           <Divider orientation="horizontal" />
 
-          <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h6"
+            className={classes.description}
+          >
             Seller&apos;s Description
           </Typography>
 
@@ -166,10 +177,25 @@ function Item() {
                     </Typography>
                   </div>
                 </div>
-              </>
-            )}
 
-          <Button variant="contained" color="primary" className={classes.button}>
+                <div className="ten columns">
+                  <Typography variant="subtitle1" component="h6">
+                    {`${seller.firstName} ${seller.lastName}`}
+                  </Typography>
+
+                  <Typography variant="subtitle2" component="h6">
+                    {`Member since ${seller.date.slice(0, 10)}`}
+                  </Typography>
+                </div>
+              </div>
+            </>
+          )}
+
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
             Contact Seller
           </Button>
         </Grid>
