@@ -1,12 +1,29 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { StoreProvider } from 'easy-peasy';
+import { createStore, StoreProvider } from 'easy-peasy';
 import App from './App';
 import store from './services/store';
 
-// const model = {
-//   authToken: '',
-// };
+const model = {
+  registerInfo: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    school: '',
+  },
+  loginInfo: {
+    email: '',
+    password: '',
+  },
+  authToken: '',
+  user: {},
+  sellingProducts: [],
+  products: [],
+  selectedCategory: '',
+  currItem: {},
+  seller: {},
+};
 
 // const store = createStore(model, {
 //   mockActions: true,
