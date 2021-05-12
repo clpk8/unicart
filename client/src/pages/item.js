@@ -97,9 +97,10 @@ function Item() {
   async function handleSave(event) {
     event.preventDefault();
     const userId = loggedInUser._id;
+    const productId = product._id;
     addProductToSaved({
       userId,
-      itemId: product._id,
+      itemId: productId,
     });
   }
 
