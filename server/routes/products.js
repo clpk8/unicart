@@ -28,7 +28,7 @@ router.get('/fetch/:category', async (req, res) => {
 });
 
 /**
- * get product by sellderID
+ * GET products by sellderID
  */
 router.get('/fetch/:sellerId', async (req, res) => {
   try {

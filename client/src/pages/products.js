@@ -91,7 +91,6 @@ function Products() {
               value={selectedCategory}
               onChange={(event) => handleCategoryChange(event)}
             >
-              <MenuItem value="all">Show all</MenuItem>
               <MenuItem value="books">Books</MenuItem>
               <MenuItem value="clothing">Clothing</MenuItem>
               <MenuItem value="electronics">Electronics</MenuItem>
