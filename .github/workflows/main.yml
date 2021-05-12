@@ -52,15 +52,12 @@ jobs:
       - run: npm test
       - run: npx eslint .
       - run: npx npm-check --skip-unused .
+      - run: npm install -g codecov
+      - run: npm install -g nyc
+      - run: npm install -g mocha
+      - run: nyc --reporter=lcov mocha && codecov
 
-  codecov:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
-    
-    steps:
-    - name: Report coverage
-    - run: bash <(curl -s https://codecov.io/bash)
+      - name: Report coverage
+        run: bash <(curl -s https://codecov.io/bash)
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
