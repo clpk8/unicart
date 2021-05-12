@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { createStore, StoreProvider } from 'easy-peasy';
 import App from './App';
 import Navbar from './components/Navbar';
+import Products from './pages/products';
+import ProductListing from './components/productListing';
 
 const users = [
   {
@@ -145,5 +147,44 @@ describe('Home page', () => {
     const { getByTestId } = render(navbar);
 
     expect(getByTestId('navbar-test')).toHaveTextContent('Sell');
+  });
+
+  it('Should list the products', () => {
+    const productsPage = (
+      <StoreProvider store={loggedInStore}>
+        <Products />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(productsPage);
+
+    expect(getByTestId('product-test-id')).toHaveTextContent('Today\'s Picks');
+    expect(getByTestId('product-test-id')).toHaveTextContent('Select Category');
+  });
+
+  it('Should show the products component', () => {
+    const productsPage = (
+      <StoreProvider store={loggedInStore}>
+        <Products />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(productsPage);
+
+    expect(getByTestId('product-test-id')).toHaveTextContent('Today\'s Picks');
+    expect(getByTestId('product-test-id')).toHaveTextContent('Select Category');
+  });
+
+  it('Should list a product properly', () => {
+    const productListing = (
+      <StoreProvider store={loggedInStore}>
+        <ProductListing />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(productListing);
+
+    expect(getByTestId('product-test-id')).toHaveTextContent('Today\'s Picks');
+    expect(getByTestId('product-test-id')).toHaveTextContent('Select Category');
   });
 });
