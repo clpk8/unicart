@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node-dev --respawn server.js",
     "test": "mocha --recursive --exit --timeout 50000",
-    "cov": "nyc mocha",
+    "cov": "nyc mocha --exit",
     "lint": "eslint"
   },
   "dependencies": {
