@@ -45,7 +45,7 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
-      photoPaths.push(file.path);
+      photoPaths.push(`/${file.path}`);
     });
   }
   const product = new Product({
