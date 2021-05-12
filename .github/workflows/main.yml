@@ -55,7 +55,7 @@ jobs:
       - run: npm install -g codecov
       - run: npm install -g nyc
       - run: npm install -g mocha
-      - run: nyc --reporter=lcov mocha && codecov
+      - run: nyc mocha && codecov
 
       - name: Report coverage
         run: bash <(curl -s https://codecov.io/bash)
