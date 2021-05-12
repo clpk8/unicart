@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Product = require('../models/Product');
+const User = require('../models/User');
 const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
@@ -86,6 +88,19 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
 
   try {
     product.save().then((savedProduct) => {
+      // update the user
+      User.findByIdAndUpdate(
+        req.body.sellerId,
+        { $push: { selling: product._id } },
+        { safe: true, upsert: true },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User : ', docs);
+          }
+        },
+      );
       res.status(200).json(savedProduct);
     });
   } catch (err) {
