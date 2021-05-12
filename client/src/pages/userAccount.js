@@ -142,7 +142,7 @@ function UserAccount(props) {
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={12} sm={4} md={4} className={classes.nav}>
-          <h3>User Details</h3>
+          <h3>Public Profile</h3>
           <UserDetails user={user} numListings={products.length} />
         </Grid>
         <Grid

@@ -179,7 +179,13 @@ function Item() {
               </>
             )}
 
-          <Button variant="contained" color="primary" className={classes.button}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            href={`mailto:${seller.email}?subject=${product.title} Inquiry - Unicart`}
+            target="_blank"
+          >
             Contact Seller
           </Button>
         </Grid>
