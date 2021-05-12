@@ -50,12 +50,11 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+      - run: npm run cov
       - run: npx eslint .
       - run: npx npm-check --skip-unused .
       - run: npm install -g codecov
-      - run: npm install -g nyc
-      - run: npm install -g mocha
-      - run: nyc mocha && codecov
+      - run: codecov
 
       - name: Report coverage
         run: bash <(curl -s https://codecov.io/bash)
