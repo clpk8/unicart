@@ -2,6 +2,8 @@
 
 unicart for 17-356
 
+[![codecov](https://codecov.io/gh/clpk8/unicart/branch/main/graph/badge.svg?token=MTK62NK1U8)](https://codecov.io/gh/clpk8/unicart)
+
 ## MongoDB
 
 We could just run mongoDB locally when doing development, and there is a mongoDB created in the docker-compose when deploy the containers. The advantage of doing it this way is faster development, since mongoDB do not really have a "schema", the "schema" could be setup during runtime. The disadvantage is the data will be wiped when we redeploy the app, but it should be fine for a MVP. We could choose to setup a mongoDB instance in Azure at the end.
