@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
 
@@ -52,6 +53,8 @@ function Item() {
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   let cardImage = <div>Image goes here</div>;
 
@@ -75,6 +78,29 @@ function Item() {
         title="Contemplative Reptile"
       />
     );
+  }
+
+  async function addProductToSaved(payload) {
+    await fetch('/api/users/addToSaved', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify(payload),
+    })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  async function handleSave(event) {
+    event.preventDefault();
+    const userId = loggedInUser._id;
+    addProductToSaved({
+      userId,
+      itemId: product._id,
+    });
   }
 
   return (
@@ -116,7 +142,7 @@ function Item() {
             <Typography gutterBottom variant="h4" component="h4">
               {product.title}
             </Typography>
-            <Button className={classes.saveButton} variant="contained" color="primary">
+            <Button className={classes.saveButton} onClick={handleSave} variant="contained" color="primary">
               Save Item
             </Button>
           </div>
