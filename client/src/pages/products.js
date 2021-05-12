@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ProductListing from '../components/productListing';
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     minWidth: 142,
+  },
+  products: {
+    margin: theme.spacing(2, 0, 0, 0),
   },
 }));
 
@@ -74,11 +78,12 @@ function Products() {
   return (
     <div id="products-page" className={classes.container}>
       <div className="fullrow">
-        <div className="three columns">
-          <h2>Today&apos;s Picks</h2>
+        <div className="three columns text-capitalize">
+          <h2>{['all', ''].includes(selectedCategory) ? "Today's Picks" : selectedCategory}</h2>
         </div>
 
         <div className="nine columns">
+          <InputLabel id="category-label">Select Category</InputLabel>
           <FormControl className={classes.formControl}>
             <Select
               labelId="demo-simple-select-label"
@@ -86,6 +91,7 @@ function Products() {
               value={selectedCategory}
               onChange={(event) => handleCategoryChange(event)}
             >
+              <MenuItem value="all">Show all</MenuItem>
               <MenuItem value="books">Books</MenuItem>
               <MenuItem value="clothing">Clothing</MenuItem>
               <MenuItem value="electronics">Electronics</MenuItem>
@@ -95,7 +101,7 @@ function Products() {
         </div>
       </div>
 
-      <Grid m={12} container spacing={3} className={classes.grid}>
+      <Grid m={12} container spacing={3} className={classes.products}>
         {content}
       </Grid>
     </div>
