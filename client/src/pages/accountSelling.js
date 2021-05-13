@@ -129,7 +129,7 @@ const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={cl
 const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes={classes} />);
 const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes={classes} />);
 
-function Account() {
+function AccountSelling() {
   const classes = useStyles();
   const history = useHistory();
   const authToken = useStoreState((state) => state.authToken);
@@ -327,4 +327,4 @@ function Account() {
   );
 }
 
-export default Account;
+export default AccountSelling;

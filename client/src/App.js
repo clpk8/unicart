@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
-import Account from './pages/account';
+import AccountSelling from './pages/accountSelling';
 import AccountSaved from './pages/accountSaved';
 import Buy from './pages/buy';
 import Sell from './pages/Sell';
@@ -40,7 +40,7 @@ function App() {
           <Route path="/transactions" component={Transactions} />
           <Route path="/forSale" component={ForSale} />
           <Route path="/account/:userid" component={UserIdRouter} />
-          <Route path="/account" component={Account} />
+          <Route path="/accountSelling" component={AccountSelling} />
           <Route path="/accountSaved" component={AccountSaved} />
           <Route path="/item" component={Item} />
         </Switch>
