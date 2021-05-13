@@ -111,8 +111,8 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
 /**
  * Edit a listing
  */
- router.options('/editListing', cors());
- router.post('/editListing', verifyToken, upload.array('photos'), async (req, res) => {
+router.options('/editListing', cors());
+router.post('/editListing', verifyToken, upload.array('photos'), async (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
@@ -122,7 +122,7 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
 
   try {
     await Product.updateOne(
-      {_id: req.body.id},
+      { _id: req.body.id },
       {
         title: req.body.title,
         price: req.body.price,
@@ -130,8 +130,8 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
         condition: req.body.condition,
         description: req.body.description,
         photos: photoPaths,
-      }
-    )
+      },
+    );
 
     const product = await Product.findById(req.body.id);
     res.status(200).json(product);
