@@ -123,7 +123,6 @@ export default function ProductCard(props) {
   const authToken = useStoreState((state) => state.authToken);
   const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
   const setSeller = useStoreActions((actions) => actions.setSeller);
-  // const setImages = useStoreActions((actions) => actions.setImages);
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
@@ -178,7 +177,6 @@ export default function ProductCard(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setCurrItem(data);
         history.push(editProductUrl);
       })

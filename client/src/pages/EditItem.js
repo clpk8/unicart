@@ -65,7 +65,7 @@ function EditItem() {
 
   const currItem = useStoreState((state) => state.currItem);
   const {
-    title, price, category, condition, description,
+    title, price, category, condition, description, photos,
   } = currItem;
 
   const setTitle = useStoreActions((actions) => actions.editTitle);
@@ -74,8 +74,7 @@ function EditItem() {
   const setCondition = useStoreActions((actions) => actions.editCondition);
   const setDescription = useStoreActions((actions) => actions.editDescription);
   const resetSellingProducts = useStoreActions((actions) => actions.resetSellingProducts);
-
-  const setImages = useStoreActions((actions) => actions.editImages);
+  const editPhotos = useStoreActions((actions) => actions.editPhotos);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -98,7 +97,7 @@ function EditItem() {
   };
 
   const handleImageDropZone = (files) => {
-    setImages(files);
+    editPhotos(files);
   };
 
   async function handleSubmit(event) {
@@ -108,10 +107,10 @@ function EditItem() {
       alert('Title or price cannot be empty');
       return;
     }
-    // const userId = loggedInUser._id;
+
     const formData = new FormData();
-    if (currItem.photos) {
-      currItem.photos.forEach((element) => {
+    if (photos) {
+      photos.forEach((element) => {
         formData.append('photos', element);
       });
     }

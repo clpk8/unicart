@@ -122,8 +122,8 @@ const store = createStore(
     editDescription: action((state, payload) => {
       state.currItem.description = payload;
     }),
-    editImages: action((state, payload) => {
-      state.currItem.images = payload;
+    editPhotos: action((state, payload) => {
+      state.currItem.photos = payload;
     }),
 
     // products
