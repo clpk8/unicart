@@ -13,7 +13,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 // import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
 // import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 // import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
-import ShareIcon from '@material-ui/icons/Share';
+
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -122,7 +122,6 @@ const iconStyles = {
 
 const SellingIcon = withStyles(iconStyles)(({ classes }) => <LocalOfferIcon classes={classes} />);
 const SavedIcon = withStyles(iconStyles)(({ classes }) => <BookmarkIcon classes={classes} />);
-const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes={classes} />);
 const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes={classes} />);
 
@@ -212,49 +211,6 @@ function Account() {
                 product={product}
               />
             ))}
-
-            <div className={classes.card}>
-              <div className="row">
-                <div className="three columns">
-                  <div className={classes.productImage}>
-                    <img src="/assets/book.jpg" alt="book" />
-                  </div>
-                </div>
-
-                <div className="nine columns">
-                  <h4>Calculus Textbook</h4>
-                  <h5>$12</h5>
-                  <p>Sold &middot; Posted 05/01/2021</p>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <IconShare />
-                    Share
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className={classes.card}>
-              <div className="row">
-                <div className="three columns">
-                  <div className={classes.productImage}>
-                    <img src="/assets/book.jpg" alt="book" />
-                  </div>
-                </div>
-
-                <div className="nine columns">
-                  <h4>Calculus Textbook</h4>
-                  <h5>$12</h5>
-                  <p>Draft</p>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <IconShare />
-                    Share
-                  </Button>
-
-                </div>
-              </div>
-            </div>
           </div>
         </Grid>
 
