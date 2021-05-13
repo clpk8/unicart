@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Banner extends Component {
@@ -10,7 +12,18 @@ class Banner extends Component {
             <h1 className="responsive-headline">College Buy & Sell</h1>
             <h1 className="responsive-headline">Made Simple</h1>
             <hr />
-            <button type="button" className="btn btn-success"><a href="/signup">Sign Up</a></button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{
+                color: 'white',
+              }}
+              size="large"
+              component={Link}
+              to="/signup"
+            >
+              Sign Up
+            </Button>
           </div>
         </div>
       </header>
