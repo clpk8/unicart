@@ -2,8 +2,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
-import { DropzoneArea } from 'material-ui-dropzone';
+import { useSnackbar } from 'notistack';
 
+import { DropzoneArea } from 'material-ui-dropzone';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -15,8 +16,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,7 +103,9 @@ function EditItem() {
     event.preventDefault();
 
     if (title === undefined || price === undefined) {
-      alert('Title or price cannot be empty');
+      enqueueSnackbar('Title or price cannot be empty', {
+        variant: 'error',
+      });
       return;
     }
 
@@ -139,7 +140,9 @@ function EditItem() {
         history.push('/home');
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 

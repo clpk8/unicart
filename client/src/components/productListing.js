@@ -2,6 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -26,6 +27,7 @@ function ProductListing(props) {
   const { product } = props;
   const history = useHistory();
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
@@ -48,7 +50,9 @@ function ProductListing(props) {
         setSeller(data);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
 
     // eslint-disable-next-line no-underscore-dangle
@@ -64,7 +68,9 @@ function ProductListing(props) {
         history.push(productUrl);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 

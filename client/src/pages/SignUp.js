@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const registerInfo = useStoreState((state) => state.registerInfo);
   const setFirstName = useStoreActions((actions) => actions.setFirstName);
@@ -62,22 +64,30 @@ export default function SignUp() {
     const { firstName, lastName, email, password, school } = registerInfo;
 
     if (firstName === '' || lastName === '') {
-      alert('Your name cannot be empty.');
+      enqueueSnackbar('Your name cannot be empty', {
+        variant: 'error',
+      });
       return false;
     }
 
     if (!email.endsWith('.edu')) {
-      alert('Please register with your school email.');
+      enqueueSnackbar('Please register with your school email', {
+        variant: 'error',
+      });
       return false;
     }
 
     if (password === '') {
-      alert('Please enter a password.');
+      enqueueSnackbar('Please enter a password', {
+        variant: 'error',
+      });
       return false;
     }
 
     if (school === '') {
-      alert('Please enter the school you currently go to.');
+      enqueueSnackbar('Please enter the school you currently go to', {
+        variant: 'error',
+      });
       return false;
     }
     return true;
@@ -98,7 +108,9 @@ export default function SignUp() {
       })
         .then((response) => {
           if (response.status === 200) {
-            alert('You have successfully registered!');
+            enqueueSnackbar('You have successfully registered!', {
+              variant: 'success',
+            });
             window.location.href = '/signin';
           }
           return response.text();

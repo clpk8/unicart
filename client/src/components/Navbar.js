@@ -1,10 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 function Navbar() {
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
   const addSellingProducts = useStoreActions((actions) => actions.addSellingProducts);
@@ -32,7 +34,9 @@ function Navbar() {
           history.push('/account');
         })
         .catch((err) => {
-          alert(err);
+          enqueueSnackbar(err, {
+            variant: 'error',
+          });
         });
     }
   }

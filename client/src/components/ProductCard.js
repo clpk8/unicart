@@ -2,6 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -118,6 +119,7 @@ const IconEdit = withStyles(iconStyles)(({ classes }) => <EditIcon classes={clas
 export default function ProductCard(props) {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const { product } = props;
 
   const authToken = useStoreState((state) => state.authToken);
@@ -145,7 +147,9 @@ export default function ProductCard(props) {
         setSeller(data);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
 
     // eslint-disable-next-line no-underscore-dangle
@@ -161,7 +165,9 @@ export default function ProductCard(props) {
         history.push(productUrl);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 
@@ -181,7 +187,9 @@ export default function ProductCard(props) {
         history.push(editProductUrl);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 

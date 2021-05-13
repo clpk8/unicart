@@ -2,8 +2,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
-import { DropzoneArea } from 'material-ui-dropzone';
+import { useSnackbar } from 'notistack';
 
+import { DropzoneArea } from 'material-ui-dropzone';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -58,9 +59,10 @@ const useStyles = makeStyles((theme) => ({
 function Sell() {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
+
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
-
   const category = useStoreState((state) => state.category);
   const setCategory = useStoreActions((actions) => actions.setCategory);
   const condition = useStoreState((state) => state.condition);
@@ -105,7 +107,9 @@ function Sell() {
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
-      alert('Title or price cannot be empty');
+      enqueueSnackbar('Title or price cannot be empty', {
+        variant: 'error',
+      });
       return;
     }
     const userId = loggedInUser._id;
@@ -137,7 +141,9 @@ function Sell() {
         history.push('/home');
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 

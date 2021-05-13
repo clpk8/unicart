@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,6 +39,7 @@ function getProducts() {
 
 function Products() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   let products = useStoreState((state) => state.products);
   const authToken = useStoreState((state) => state.authToken);
@@ -71,7 +73,9 @@ function Products() {
         setProducts(data);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 
