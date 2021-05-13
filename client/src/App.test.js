@@ -1,5 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
 import { createStore, StoreProvider } from 'easy-peasy';
 import App from './App';
 import Navbar from './components/Navbar';
@@ -8,6 +10,10 @@ import ProductListing from './components/productListing';
 import Sell from './pages/Sell';
 import SignUp from './pages/SignUp';
 import Login from './pages/SignIn';
+import UserAccount from './pages/userAccount';
+import Account from './pages/account';
+import Item from './pages/item';
+// import router from '../../server/routes/products';
 
 const users = [
   {
@@ -19,7 +25,7 @@ const users = [
     email: 'sedasbac@andrew.cmu.edu',
     password: '$2a$10$dxW456CDlxVqkcCcRcyJPu5RMvBeJEgkloH7V7MseeWfkeYvR0KS6',
     school: 'Carnegie Mellon',
-    date: { $date: '2021-05-04T05:36:33.837Z' },
+    date: '2021-05-04T05:36:33.837Z',
     reviews: [],
     __v: 0,
   },
@@ -32,7 +38,7 @@ const products = [
     tags: [],
     category: 'TV',
     condition: 'new',
-    datePosted: { $date: '2021-04-20T18:25:43.511Z' },
+    datePosted: '2021-04-20T18:25:43.511Z',
     dateSold: null,
     description: 'A new tv',
     paidFor: false,
@@ -48,7 +54,7 @@ const products = [
     tags: [],
     category: 'Boat',
     condition: 'used',
-    datePosted: { $date: '2021-04-20T18:25:43.511Z' },
+    datePosted: '2021-04-20T18:25:43.511Z',
     dateSold: null,
     description: 'A used boatski',
     paidFor: false,
@@ -98,8 +104,8 @@ const loggedInModel = {
   sellingProducts: [],
   products,
   selectedCategory: '',
-  currItem: {},
-  seller: {},
+  currItem: products[0],
+  seller: users[0],
 };
 
 test('renders learn react link', () => {
@@ -245,5 +251,73 @@ describe('Sign in page', () => {
 
     expect(getByTestId('signin-test')).toHaveTextContent('Forgot password');
     expect(getByTestId('signin-test')).toHaveTextContent('Remember me');
+  });
+});
+
+describe('Public profile page', () => {
+  const store = createStore(loggedInModel, {
+    mockActions: true,
+  });
+
+  const userid = users[0]._id;
+
+  it('Should only list public profile details', () => {
+    const publicProfile = (
+      <StoreProvider store={store}>
+        <UserAccount userid={userid} />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(publicProfile);
+
+    waitFor(() => {
+      expect(getByTestId('public-test')).toHaveTextContent('Public Profile');
+      expect(getByTestId('public-test')).toHaveTextContent('Shane');
+      expect(getByTestId('public-test')).toHaveTextContent('sedasbac');
+    });
+  });
+});
+
+describe('User profile page', () => {
+  const store = createStore(loggedInModel, {
+    mockActions: true,
+  });
+
+  it('Should list logged user account page', () => {
+    const accountPage = (
+      <StoreProvider store={store}>
+        <Router>
+          <Account />
+        </Router>
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(accountPage);
+
+    expect(getByTestId('account-test')).toHaveTextContent('Your Account');
+    expect(getByTestId('account-test')).toHaveTextContent('Shane');
+    expect(getByTestId('account-test')).toHaveTextContent('sedasbac');
+  });
+});
+
+describe('Item page', () => {
+  const store = createStore(loggedInModel, {
+    mockActions: true,
+  });
+
+  it('Should show an item listing properly', () => {
+    const itemPage = (
+      <StoreProvider store={store}>
+        <Router>
+          <Item />
+        </Router>
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(itemPage);
+
+    expect(getByTestId('item-test')).toHaveTextContent('Panasonic');
+    expect(getByTestId('item-test')).toHaveTextContent('Description');
+    expect(getByTestId('item-test')).toHaveTextContent('A new tv');
   });
 });

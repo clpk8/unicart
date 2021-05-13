@@ -138,7 +138,7 @@ function UserAccount(props) {
   )) : <div className={classes.card}>No Product Listings</div>);
 
   return (
-    <section id="user-account">
+    <section id="user-account" data-testid="public-test">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={12} sm={4} md={4} className={classes.nav}>

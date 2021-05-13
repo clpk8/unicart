@@ -144,7 +144,7 @@ function Account() {
   }
 
   return (
-    <section id="account">
+    <section id="account" data-testid="account-test">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={2} md={2} className={classes.nav}>
