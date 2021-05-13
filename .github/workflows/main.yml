@@ -8,11 +8,20 @@ on:
   push:
     branches:
       - '*'
-      - '!main'
   pull_request:
     branches:
       - main
 
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Running manually'
+        required: true
+        default: 'Unicart'
+      home:
+        description: 'location'
+        required: false
+        default: 'Unicart'
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
 
