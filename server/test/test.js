@@ -203,8 +203,8 @@ describe('Test', () => {
             const id = res.body._id;
             request(app)
               .post(`/api/products/editListing`)
+              .set('_id', id)
               .send({
-                _id: id,
                 title: 'new title for test book',
                 price: 15,
                 description: 'this is a new test description',
