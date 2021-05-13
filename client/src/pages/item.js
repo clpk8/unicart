@@ -97,6 +97,7 @@ function Item() {
       },
       body: JSON.stringify(payload),
     })
+      .then(alert('item saved'))
       .catch((err) => {
         alert(err);
       });
@@ -151,7 +152,12 @@ function Item() {
             <Typography gutterBottom variant="h4" component="h4">
               {product.title}
             </Typography>
-            <Button className={classes.saveButton} onClick={handleSave} variant="contained" color="primary">
+            <Button
+              className={classes.saveButton}
+              onClick={handleSave}
+              variant="contained"
+              color="primary"
+            >
               Save Item
             </Button>
           </div>
@@ -182,38 +188,40 @@ function Item() {
             {product.description}
           </Typography>
 
-          {seller
-            && (
-              <>
-                <Divider orientation="horizontal" />
+          {seller && (
+            <>
+              <Divider orientation="horizontal" />
 
-                <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
-                  Seller Information
-                </Typography>
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="h6"
+                className={classes.description}
+              >
+                Seller Information
+              </Typography>
 
-                <div className="row">
-                  <div className="two columns">
-                    <Avatar
-                      className={classes.avatar}
-                    >
-                      {`${seller.firstName[0]}${seller.lastName[0]}`}
-                    </Avatar>
-                  </div>
-
-                  <div className="ten columns">
-                    <Typography variant="subtitle1" component="h6">
-                      <Link href={`/account/${seller._id}`}>
-                        {`${seller.firstName} ${seller.lastName}`}
-                      </Link>
-                    </Typography>
-
-                    <Typography variant="subtitle2" component="h6">
-                      {`Member since ${seller.date.slice(0, 10)}`}
-                    </Typography>
-                  </div>
+              <div className="row">
+                <div className="two columns">
+                  <Avatar className={classes.avatar}>
+                    {`${seller.firstName[0]}${seller.lastName[0]}`}
+                  </Avatar>
                 </div>
-              </>
-            )}
+
+                <div className="ten columns">
+                  <Typography variant="subtitle1" component="h6">
+                    <Link href={`/account/${seller._id}`}>
+                      {`${seller.firstName} ${seller.lastName}`}
+                    </Link>
+                  </Typography>
+
+                  <Typography variant="subtitle2" component="h6">
+                    {`Member since ${seller.date.slice(0, 10)}`}
+                  </Typography>
+                </div>
+              </div>
+            </>
+          )}
 
           <Button
             variant="contained"

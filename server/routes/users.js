@@ -76,7 +76,9 @@ router.post('/addToSelling', verifyToken, (req, res) => {
           console.log('Updated User : ', docs);
         }
       },
-    );
+    ).then((updatedUser) => {
+      res.status(200).json(updatedUser);
+    });
   } catch (err) {
     res.status(400).json({ message: err });
   }
@@ -100,7 +102,9 @@ router.post('/addToSaved', verifyToken, (req, res) => {
           console.log('Updated User : ', docs);
         }
       },
-    );
+    ).then((updatedUser) => {
+      res.status(200).json(updatedUser);
+    });
   } catch (err) {
     res.status(400).json({ message: err });
   }
