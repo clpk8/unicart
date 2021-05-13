@@ -202,7 +202,7 @@ describe('Test', () => {
           .then((res) => {
             const id = res.body._id;
             request(app)
-              .post(`/api/products/editListing`)
+              .post('/api/products/editListing')
               .set('_id', id)
               .send({
                 title: 'new title for test book',
@@ -211,9 +211,13 @@ describe('Test', () => {
                 sellerId: user,
               })
               .then((productResult) => {
-                expect(productResult.statusCode === 200);
-                expect(productResult.body.title === 'new title for test book');
-                expect(productResult.body.description === 'this is a new test description');
+                expect(productResult.statusCode).to.equal(200);
+                expect(productResult.body.title).to.equal(
+                  'new title for test book',
+                );
+                expect(productResult.body.description).to.equal(
+                  'this is a new test description',
+                );
                 done();
               });
           });
