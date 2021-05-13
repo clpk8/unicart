@@ -1777,10 +1777,10 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^7.28.1"
 
-"@testing-library/user-event@^13.1.8":
-  "integrity" "sha512-M04HgOlJvxILf5xyrkJaEQfFOtcvhy3usLldQIEg9zgFIYQofSmFGVfFlS7BWowqlBGLrItwGMlPXCoBgoHSiw=="
-  "resolved" "https://registry.npmjs.org/@testing-library/user-event/-/user-event-13.1.8.tgz"
-  "version" "13.1.8"
+"@testing-library/user-event@^13.1.9":
+  "integrity" "sha512-NZr0zL2TMOs2qk+dNlqrAdbaRW5dAmYwd1yuQ4r7HpkVEOj0MWuUjDWwKhcLd/atdBy8ZSMHSKp+kXSQe47ezg=="
+  "resolved" "https://registry.npmjs.org/@testing-library/user-event/-/user-event-13.1.9.tgz"
+  "version" "13.1.9"
   dependencies:
     "@babel/runtime" "^7.12.5"
 
@@ -3065,10 +3065,10 @@
   "resolved" "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz"
   "version" "1.5.0"
 
-"bootstrap@^5.0.0":
-  "integrity" "sha512-tmhPET9B9qCl8dCofvHeiIhi49iBt0EehmIsziZib65k1erBW1rHhj2s/2JsuQh5Pq+xz2E9bEbzp9B7xHG+VA=="
-  "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.0.tgz"
-  "version" "5.0.0"
+"bootstrap@^5.0.1":
+  "integrity" "sha512-Fl79+wsLOZKoiU345KeEaWD0ik8WKRI5zm0YSPj2oF1Qr+BO7z0fco6GbUtqjoG1h4VI89PeKJnMsMMVQdKKTw=="
+  "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.1.tgz"
+  "version" "5.0.1"
 
 "brace-expansion@^1.1.7":
   "integrity" "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA=="
@@ -3586,7 +3586,7 @@
     "strip-ansi" "^6.0.0"
     "wrap-ansi" "^6.2.0"
 
-"clsx@^1.0.2", "clsx@^1.0.4":
+"clsx@^1.0.2", "clsx@^1.0.4", "clsx@^1.1.0":
   "integrity" "sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA=="
   "resolved" "https://registry.npmjs.org/clsx/-/clsx-1.1.1.tgz"
   "version" "1.1.1"
@@ -5949,7 +5949,7 @@
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz"
   "version" "2.5.5"
 
-"hoist-non-react-statics@^3.0.0", "hoist-non-react-statics@^3.1.0", "hoist-non-react-statics@^3.3.2":
+"hoist-non-react-statics@^3.0.0", "hoist-non-react-statics@^3.1.0", "hoist-non-react-statics@^3.3.0", "hoist-non-react-statics@^3.3.2":
   "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   "version" "3.3.2"
@@ -8201,6 +8201,14 @@
     "prepend-http" "^1.0.0"
     "query-string" "^4.1.0"
     "sort-keys" "^1.0.0"
+
+"notistack@^1.0.7":
+  "integrity" "sha512-D6pHvYgSGmS86r8KspQb4A75DXnIRrCdmUX79Gg8eJ1/I4IMDy0DULUqjytwEkQT02naeSnTLc9WkepLjHKQug=="
+  "resolved" "https://registry.npmjs.org/notistack/-/notistack-1.0.7.tgz"
+  "version" "1.0.7"
+  dependencies:
+    "clsx" "^1.1.0"
+    "hoist-non-react-statics" "^3.3.0"
 
 "npm-run-path@^2.0.0":
   "integrity" "sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8="
@@ -10563,10 +10571,10 @@
     "@types/node" "*"
     "acorn" "^7.1.0"
 
-"rsuite-table@^3.14.6":
-  "integrity" "sha512-vXMJDfsP/ifZv9/NLSXIwAe5zWAxQKFW3h4NjsLVAcNPK2SqEz5EUWc03dKx7oRNJYfQ8PRM2StvhgjaGSfixw=="
-  "resolved" "https://registry.npmjs.org/rsuite-table/-/rsuite-table-3.15.0.tgz"
-  "version" "3.15.0"
+"rsuite-table@^3.15.1":
+  "integrity" "sha512-S31SVRsRpmy+vqEiL8S4/hEsb0fF3xGrOZN2iomrRZwPDxt4cxWgQOD7LuEyGEhxBoH/bE+jLnAV7yoqDzOfxw=="
+  "resolved" "https://registry.npmjs.org/rsuite-table/-/rsuite-table-3.15.1.tgz"
+  "version" "3.15.1"
   dependencies:
     "@babel/runtime" "^7.12.5"
     "classnames" "^2.2.5"
@@ -10574,10 +10582,10 @@
     "element-resize-event" "^3.0.2"
     "lodash" "^4.17.20"
 
-"rsuite@^4.10.0":
-  "integrity" "sha512-y2bwbp0jZJCwQtCRsM/xDELBKmSdU6T0slYKzdt7msbG7//oB0Js9xctaP+6AcH3mvqeGhrJxubuzldgXu7b2g=="
-  "resolved" "https://registry.npmjs.org/rsuite/-/rsuite-4.10.0.tgz"
-  "version" "4.10.0"
+"rsuite@^4.10.1":
+  "integrity" "sha512-8bogEx66KYw09O4Cxc0IRgQSQKCX+EbqBBmOVso5V8YmeeN3NM7H806kPQZ08bIYvaTKvFRtCe4TiriKPYcu4g=="
+  "resolved" "https://registry.npmjs.org/rsuite/-/rsuite-4.10.1.tgz"
+  "version" "4.10.1"
   dependencies:
     "@babel/runtime" "^7.8.4"
     "classnames" ">=2.0.0"
@@ -10589,7 +10597,7 @@
     "react-lifecycles-compat" "^3.0.4"
     "react-virtualized" "^9.21.0"
     "recompose" "^0.30.0"
-    "rsuite-table" "^3.14.6"
+    "rsuite-table" "^3.15.1"
     "schema-typed" "^1.5.1"
 
 "rsvp@^4.8.4":

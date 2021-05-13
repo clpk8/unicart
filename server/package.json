@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node-dev --respawn server.js",
-    "test": "mocha --recursive --exit --timeout 50000",
+    "test": "mocha --recursive --exit --timeout 100000",
     "cov": "nyc --reporter=lcov --reporter=html mocha --exit",
     "lint": "eslint"
   },
@@ -22,7 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.4.0",
     "mongodb-memory-server": "^6.9.6",
-    "mongoose": "^5.12.8",
+    "mongoose": "^5.12.9",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "node-dev": "^7.0.0",

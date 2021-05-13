@@ -1,9 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const mongoose = require('mongoose');
 const User = require('../models/User');
-const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
 /* GET users listing. */
@@ -25,37 +23,6 @@ router.get('/:userId', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err });
   }
-});
-
-/* POST a single user, allow a photo upload for profile image */
-router.post('/create', verifyToken, upload.single('photo'), (req, res) => {
-  const { email } = req.body;
-  User.findOne({ email }, (err, obj) => {
-    if (obj === null) {
-      const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        photoURL: req.file.path,
-        rating: 0,
-        reviews: [],
-        saved: [],
-        selling: [],
-      });
-      try {
-        user.save().then((savedUser) => {
-          res.status(200).json(savedUser);
-        });
-      } catch (saveErr) {
-        res.status(400).json({ message: saveErr });
-      }
-    } else {
-      res
-        .status(400)
-        .json({ message: `user with email ${email} already exist` });
-    }
-  });
 });
 
 /**

@@ -62,17 +62,7 @@ function Item() {
 
   let cardImage = <div>Image goes here</div>;
 
-  if (product.photos.length < 1) {
-    cardImage = (
-      <CardMedia
-        component="img"
-        alt="Contemplative Reptile"
-        className={classes.media}
-        image="../../assets/noImageAvailable.jpg"
-        title="Contemplative Reptile"
-      />
-    );
-  } else {
+  if (product.photos && product.photos.length > 0) {
     cardImage = (
       <Carousel>
         {product.photos.map((item, i) => (
@@ -85,6 +75,16 @@ function Item() {
           />
         ))}
       </Carousel>
+    );
+  } else {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image="../../assets/noImageAvailable.jpg"
+        title="Contemplative Reptile"
+      />
     );
   }
 
