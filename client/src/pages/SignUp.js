@@ -102,9 +102,6 @@ export default function SignUp() {
             window.location.href = '/signin';
           }
           return response.text();
-        })
-        .then((message) => {
-          alert(message);
         });
     }
   }

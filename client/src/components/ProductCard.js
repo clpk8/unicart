@@ -6,7 +6,7 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import DetailsIcon from '@material-ui/icons/Details';
-import ShareIcon from '@material-ui/icons/Share';
+import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
 
@@ -112,8 +112,8 @@ const iconStyles = {
   },
 };
 
-const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes={classes} />);
+const IconEdit = withStyles(iconStyles)(({ classes }) => <EditIcon classes={classes} />);
 
 export default function ProductCard(props) {
   const classes = useStyles();
@@ -123,9 +123,12 @@ export default function ProductCard(props) {
   const authToken = useStoreState((state) => state.authToken);
   const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
   const setSeller = useStoreActions((actions) => actions.setSeller);
+  // const setImages = useStoreActions((actions) => actions.setImages);
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
+  // eslint-disable-next-line no-underscore-dangle
+  const editProductUrl = `/EditItem/${product._id}`;
 
   let cardImage = <div>Image goes here</div>;
 
@@ -157,6 +160,27 @@ export default function ProductCard(props) {
       .then((data) => {
         setCurrItem(data);
         history.push(productUrl);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  async function handleEditListing(event) {
+    event.preventDefault();
+
+    // eslint-disable-next-line no-underscore-dangle
+    await fetch(`/api/products/${product._id}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCurrItem(data);
+        history.push(editProductUrl);
       })
       .catch((err) => {
         alert(err);
@@ -209,9 +233,14 @@ export default function ProductCard(props) {
             See Detail
           </Button>
 
-          <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-            <IconShare />
-            Share
+          <Button
+            dense
+            color="primary"
+            classes={{ root: classes.actionButton, label: classes.label }}
+            onClick={handleEditListing}
+          >
+            <IconEdit />
+            Edit Listing
           </Button>
         </div>
       </div>

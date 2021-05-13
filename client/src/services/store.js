@@ -103,6 +103,26 @@ const store = createStore(
       state.selectedCategory = '';
     }),
 
+    // Edit listing
+    editTitle: action((state, payload) => {
+      state.currItem.title = payload;
+    }),
+    editPrice: action((state, payload) => {
+      state.currItem.price = payload;
+    }),
+    editCategory: action((state, payload) => {
+      state.currItem.category = payload;
+    }),
+    editCondition: action((state, payload) => {
+      state.currItem.condition = payload;
+    }),
+    editDescription: action((state, payload) => {
+      state.currItem.description = payload;
+    }),
+    editImages: action((state, payload) => {
+      state.currItem.images = payload;
+    }),
+
     // products
     products: [],
     setProducts: action((state, payload) => {
