@@ -132,15 +132,38 @@ const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes=
 function Account() {
   const classes = useStyles();
   const history = useHistory();
-
+  const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
   const sellingProducts = useStoreState((state) => state.sellingProducts);
+  const addSavedProducts = useStoreActions((actions) => actions.addSavedProducts);
   const logout = useStoreActions((actions) => actions.logout);
 
   function handleLogout(event) {
     event.preventDefault();
     logout();
     history.push('/home');
+  }
+
+  async function handleSavedClick() {
+    for (let i = 0; i < loggedInUser.saved.length; i += 1) {
+      const id = loggedInUser.saved[i];
+
+      /* eslint-disable no-await-in-loop */
+      await fetch(`/api/products/${id}`, {
+        method: 'GET',
+        headers: {
+          'auth-token': authToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          addSavedProducts(data);
+          history.push('/accountSaved');
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   }
 
   return (
@@ -155,7 +178,12 @@ function Account() {
             Your Listings
           </Button>
 
-          <Button dense color="primary" classes={{ root: classes.button, label: classes.label }}>
+          <Button
+            dense
+            color="primary"
+            onClick={handleSavedClick}
+            classes={{ root: classes.button, label: classes.label }}
+          >
             <SavedIcon />
             Saved
           </Button>

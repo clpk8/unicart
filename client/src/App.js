@@ -9,6 +9,7 @@ import Home from './pages';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Account from './pages/account';
+import AccountSaved from './pages/accountSaved';
 import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Transactions from './pages/transactions';
@@ -40,6 +41,7 @@ function App() {
           <Route path="/forSale" component={ForSale} />
           <Route path="/account/:userid" component={UserIdRouter} />
           <Route path="/account" component={Account} />
+          <Route path="/accountSaved" component={AccountSaved} />
           <Route path="/item" component={Item} />
         </Switch>
         <Footer />

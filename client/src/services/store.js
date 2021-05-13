@@ -73,6 +73,16 @@ const store = createStore(
       }
     }),
 
+    savedProducts: [],
+    addSavedProductId: action((state, payload) => {
+      state.user.saved.push(payload);
+    }),
+    addSavedProducts: action((state, payload) => {
+      if (state.savedProducts.findIndex((x) => x._id === payload._id) === -1) {
+        state.savedProducts.push(payload);
+      }
+    }),
+
     // Sell
     setCategory: action((state, payload) => {
       state.category = payload;
