@@ -122,6 +122,12 @@ nav h5 {
   color: #4285f4;
 }
 
+nav .logo {
+  border: none;
+  padding: 3px 0 0 5px;
+  margin: 0;
+}
+
 nav .logo-img {
   height: 42px;
   width: auto;
@@ -286,7 +292,7 @@ footer .social-links li:first-child {
 
 #sell {
   text-align: left;
-  padding-top: 10vh;
+  padding-top: 5vh;
 }
 
 #sell .grid-container {
@@ -313,11 +319,8 @@ footer .social-links li:first-child {
 }
 
 #sell .preview-box {
-  margin-top: 42px;
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 15vh;
+  height: 30vh;
 }
 
 #sell .photo-preview {
@@ -328,12 +331,20 @@ footer .social-links li:first-child {
 /* Sell Page
 /* ------------------------------------------------------------------ */
 
-.temp {
-  margin-top: 100px;
+.no-border {
+  border: none;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
 }
 
 .fullrow {
-  width: 96%;
+  width: 100%;
   max-width: 95vw;
   margin: 0 auto;
 }

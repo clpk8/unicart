@@ -4,13 +4,36 @@ import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import Button from '@material-ui/core/Button';
+import CardMedia from '@material-ui/core/CardMedia';
+import DetailsIcon from '@material-ui/icons/Details';
 import ShareIcon from '@material-ui/icons/Share';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { deepOrange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+  },
+  nav: {
+    paddingLeft: '5px',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? '#FFF' : '#FFF',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  navText: {
+    paddingLeft: '5px',
+    paddingBottom: '5px',
+    marginTop: '15px',
+  },
+  selectedButton: {
+    width: '100%',
+    minWidth: '42px',
+    color: '#fff',
+    backgroundColor: '#4285F4',
+    borderBottomRightRadius: '15px',
+    justifyContent: 'flex-start',
   },
   label: {
     fontSize: '13px',
@@ -21,6 +44,24 @@ const useStyles = makeStyles((theme) => ({
     color: '#000',
     justifyContent: 'flex-start',
   },
+  background: {
+    backgroundColor:
+      theme.palette.type === 'light' ? '#F9FAFD' : '#F9FAFD',
+  },
+  mainSection: {
+    padding: '0 0 0 2vw',
+    margin: theme.spacing(7, 5),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'left',
+  },
+  subSection: {
+    padding: '0 0 0 0',
+    margin: theme.spacing(7, 3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'left',
+  },
   card: {
     backgroundColor: '#fff',
     padding: '12px',
@@ -30,11 +71,9 @@ const useStyles = makeStyles((theme) => ({
   productImage: {
     borderRadius: '12px',
   },
-  imageTag: {
-    maxHeight: '20vh',
-  },
   actionButton: {
     margin: '0 auto',
+    marginTop: '22px',
     marginRight: '24px',
     padding: theme.spacing(0, 3, 0, 3),
     width: 'auto',
@@ -42,6 +81,24 @@ const useStyles = makeStyles((theme) => ({
     color: '#4285F4',
     backgroundColor: '#e1f5fe',
     borderRadius: '12px',
+  },
+  profileButton: {
+    margin: '0 auto',
+    marginRight: '24px',
+    padding: theme.spacing(0, 3, 0, 3),
+    width: '100%',
+    minWidth: '42px',
+    color: '#4285F4',
+    backgroundColor: '#e1f5fe',
+    borderRadius: '12px',
+  },
+  avatar: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    margin: theme.spacing(0.5, 0, 5, 0),
+  },
+  media: {
+    height: 140,
   },
 }));
 
@@ -56,12 +113,12 @@ const iconStyles = {
 };
 
 const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
-const IconVisibility = withStyles(iconStyles)(({ classes }) => <VisibilityIcon classes={classes} />);
+const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes={classes} />);
 
-function UserProductListing(props) {
-  const { product } = props;
+export default function ProductCard(props) {
   const classes = useStyles();
   const history = useHistory();
+  const { product } = props;
 
   const authToken = useStoreState((state) => state.authToken);
   const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
@@ -69,7 +126,8 @@ function UserProductListing(props) {
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
-  const imgSrc = (product.photos.length > 0 ? product.photos[0] : '../../assets/noImageAvailable.jpg');
+
+  let cardImage = <div>Image goes here</div>;
 
   async function handleViewDetails(event) {
     event.preventDefault();
@@ -105,29 +163,50 @@ function UserProductListing(props) {
       });
   }
 
+  if (product.photos.length < 1) {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image="../../assets/noImageAvailable.jpg"
+        title="Contemplative Reptile"
+      />
+    );
+  } else {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image={product.photos[0]}
+        title="Contemplative Reptile"
+      />
+    );
+  }
+
   return (
     <div className={classes.card}>
       <div className="row">
         <div className="three columns">
           <div className={classes.productImage}>
-            <img src={imgSrc} className={classes.imageTag} alt="book" />
+            {cardImage}
           </div>
         </div>
 
         <div className="nine columns">
-          <h4>{product.title}</h4>
-          <h5>{`$${product.price} - ${product.condition}`}</h5>
-          <p>{product.description}</p>
+          <h4>{`${product.title} - $${product.price}`}</h4>
+          <p className="no-margin">{`Category: ${product.category}`}</p>
+          <p className="no-margin">{`Condition: ${product.condition}`}</p>
 
           <Button
             dense
             color="primary"
             classes={{ root: classes.actionButton, label: classes.label }}
-            // eslint-disable-next-line no-underscore-dangle
             onClick={handleViewDetails}
           >
-            <IconVisibility />
-            View Listing
+            <IconDetails />
+            See Detail
           </Button>
 
           <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
@@ -139,5 +218,3 @@ function UserProductListing(props) {
     </div>
   );
 }
-
-export default UserProductListing;

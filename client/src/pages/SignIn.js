@@ -44,9 +44,7 @@ export default function Login() {
   const setLoginPassword = useStoreActions(
     (actions) => actions.setLoginPassword,
   );
-  const setAuthToken = useStoreActions((actions) => actions.setAuthToken);
-  const setProducts = useStoreActions((actions) => actions.setProducts);
-  const setLoggedInUser = useStoreActions((actions) => actions.setLoggedInUser);
+  const setAuthInfo = useStoreActions((actions) => actions.setAuthInfo);
   let signedIn = false;
 
   async function handleSubmit(event) {
@@ -66,18 +64,12 @@ export default function Login() {
         } else {
           signedIn = true;
         }
-        return response.text();
+        return response.json();
       })
-      .then((text) => {
-        const data = JSON.parse(text);
-        setAuthToken(data.token);
-        setLoggedInUser(data.user);
+      .then((json) => {
+        setAuthInfo(json);
         if (signedIn) window.location.href = '/home';
       });
-
-    await fetch('/api/products/fetch')
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
   }
 
   return (

@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,17 +15,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '85vh',
+    height: '90vh',
+    paddingBottom: '120px',
   },
   title: {
     textAlign: 'left',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(4, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -55,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Sell() {
   const classes = useStyles();
+  const history = useHistory();
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   const category = useStoreState((state) => state.category);
   const setCategory = useStoreActions((actions) => actions.setCategory);
@@ -66,14 +71,13 @@ function Sell() {
   const setTitle = useStoreActions((actions) => actions.setTitle);
   const description = useStoreState((state) => state.description);
   const setDescription = useStoreActions((actions) => actions.setDescription);
-  const imagePreview = useStoreState((state) => state.imagePreview);
-  const setImagePreview = useStoreActions((actions) => actions.setImagePreview);
-  const image = useStoreState((state) => state.image);
-  const setImage = useStoreActions((actions) => actions.setImage);
+  const resetSellData = useStoreActions((actions) => actions.resetSellData);
+  const addSellingProductId = useStoreActions(
+    (actions) => actions.addSellingProductId,
+  );
+  const setImages = useStoreActions((actions) => actions.setImages);
+  const images = useStoreState((state) => state.images);
 
-  const authToken = useStoreState((state) => state.authToken);
-  const history = useHistory();
-  const loggedInUser = useStoreState((state) => state.user);
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -94,18 +98,10 @@ function Sell() {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    event.preventDefault();
-    if (event.target.files.length === 0) {
-      return;
-    }
-    const file = event.target.files[0];
-    console.log(file);
-
-    setImage(file);
-    console.log(image);
-    setImagePreview(URL.createObjectURL(file));
+  const handleImageDropZone = (files) => {
+    setImages(files);
   };
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (title === undefined || price === undefined) {
@@ -114,7 +110,12 @@ function Sell() {
     }
     const userId = loggedInUser._id;
     const formData = new FormData();
-    formData.append('photos', image);
+    if (images) {
+      images.forEach((element) => {
+        formData.append('photos', element);
+      });
+    }
+
     formData.append('category', category);
     formData.append('condition', condition);
     formData.append('price', price);
@@ -129,19 +130,17 @@ function Sell() {
       },
       body: formData,
     })
-      .then(() => {
-        setImagePreview(undefined);
-        setTitle(undefined);
-        setPrice(undefined);
-        setCategory('books');
-        setCondition('new');
-        setDescription('');
+      .then((response) => response.json())
+      .then((data) => {
+        addSellingProductId(data._id);
+        resetSellData();
         history.push('/home');
       })
       .catch((err) => {
         alert(err);
       });
   }
+
   return (
     <section id="sell">
       <div className="row">
@@ -234,21 +233,6 @@ function Sell() {
                     variant="outlined"
                     onChange={handleDescriptionChange}
                   />
-                  <div className={classes.imageUpload}>
-                    <label htmlFor="btn-upload">
-                      <input
-                        id="btn-upload"
-                        name="btn-upload"
-                        style={{ display: 'none' }}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(e)}
-                      />
-                      <Button variant="outlined" component="span">
-                        Choose Image
-                      </Button>
-                    </label>
-                  </div>
                   <Button
                     type="submit"
                     fullWidth
@@ -278,10 +262,16 @@ function Sell() {
               square
             >
               <div className="preview-box">
-                <img
-                  src={imagePreview || '/assets/Preview.png'}
-                  alt="book"
-                  className="photo-preview"
+                <DropzoneArea
+                  dropzoneClass="preview-box"
+                  onChange={handleImageDropZone}
+                  acceptedFiles={[
+                    'image/jpeg',
+                    'image/png',
+                    'image/bmp',
+                    'image/jpg',
+                  ]}
+                  maxFileSize={5000000}
                 />
               </div>
             </Grid>

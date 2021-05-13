@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Product = require('../models/Product');
+const User = require('../models/User');
 const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
@@ -17,6 +19,28 @@ router.get('/fetch', async (req, res) => {
   }
 });
 
+/* GET products listing by category */
+router.get('/fetchByCategory/:category', async (req, res) => {
+  try {
+    const products = await Product.find({ category: req.params.category });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+/**
+ * GET products by sellderID
+ */
+router.get('/fetch/:sellerId', async (req, res) => {
+  try {
+    const products = await Product.find({ sellerId: req.params.sellerId });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
 /**
  * Get a specific product based on product ID
  * Example: curl -X GET localhost:3001/products/607b36e6f153b21c4f6e7499
@@ -24,7 +48,6 @@ router.get('/fetch', async (req, res) => {
  */
 router.get('/:productId', async (req, res) => {
   try {
-    console.log(req.params.productId);
     const product = await Product.findById(req.params.productId);
     res.status(200).json(product);
   } catch (err) {
@@ -46,7 +69,7 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
   const photoPaths = [];
   if (req.files) {
     req.files.forEach((file) => {
-      photoPaths.push(file.path);
+      photoPaths.push(`/${file.path}`);
     });
   }
   const product = new Product({
@@ -65,6 +88,19 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
 
   try {
     product.save().then((savedProduct) => {
+      // update the user
+      User.findByIdAndUpdate(
+        req.body.sellerId,
+        { $push: { selling: product._id } },
+        { safe: true, upsert: true },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User : ', docs);
+          }
+        },
+      );
       res.status(200).json(savedProduct);
     });
   } catch (err) {
@@ -84,15 +120,4 @@ router.delete('/:productId', verifyToken, async (req, res) => {
   }
 });
 
-/**
- * get product by sellderID
- */
-router.get('/fetch/:sellerId', async (req, res) => {
-  try {
-    const products = await Product.find({ sellerId: req.params.sellerId });
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(400).json({ message: err });
-  }
-});
 module.exports = router;

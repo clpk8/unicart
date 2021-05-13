@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 function UserDetails(props) {
   const { user, numListings } = props;
   const userObject = user();
-  console.log('userObject:', userObject);
 
   return (
     <div id="user-details">
@@ -15,7 +14,11 @@ function UserDetails(props) {
           <Typography variant="h5">{`${userObject.firstName} ${userObject.lastName}`}</Typography>
           <Typography variant="subtitle1">{userObject.school}</Typography>
           <Typography variant="subtitle1">{userObject.email}</Typography>
-          <Typography variant="body2">{`${numListings} product(s) listed`}</Typography>
+          <Typography variant="subtitle1">
+            {numListings.length === 0
+              ? 'No Active Listings'
+              : `${numListings} Current Listings`}
+          </Typography>
         </Grid>
       </Grid>
     </div>

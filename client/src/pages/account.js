@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,15 +10,17 @@ import Avatar from '@material-ui/core/Avatar';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
 import ShareIcon from '@material-ui/icons/Share';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
+
+import ProductCard from '../components/ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '12px',
   },
   profileButton: {
-    margin: '0 auto',
+    margin: theme.spacing(1, 0, 1, 0),
     marginRight: '24px',
     padding: theme.spacing(0, 3, 0, 3),
     width: '100%',
@@ -118,15 +122,26 @@ const iconStyles = {
 
 const SellingIcon = withStyles(iconStyles)(({ classes }) => <LocalOfferIcon classes={classes} />);
 const SavedIcon = withStyles(iconStyles)(({ classes }) => <BookmarkIcon classes={classes} />);
-const PurchasedIcon = withStyles(iconStyles)(({ classes }) => <ShoppingBasketIcon classes={classes} />);
 const ResumeIcon = withStyles(iconStyles)(({ classes }) => <PlaylistAddCheckTwoToneIcon classes={classes} />);
 const EditIcon = withStyles(iconStyles)(({ classes }) => <EditTwoToneIcon classes={classes} />);
 const DeleteIcon = withStyles(iconStyles)(({ classes }) => <DeleteOutlineTwoToneIcon classes={classes} />);
 const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes={classes} />);
+const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes={classes} />);
 
 function Account() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const loggedInUser = useStoreState((state) => state.user);
+  const sellingProducts = useStoreState((state) => state.sellingProducts);
+  const logout = useStoreActions((actions) => actions.logout);
+
+  function handleLogout(event) {
+    event.preventDefault();
+    logout();
+    history.push('/home');
+  }
 
   return (
     <section id="account">
@@ -144,11 +159,6 @@ function Account() {
             <SavedIcon />
             Saved
           </Button>
-
-          <Button dense color="primary" classes={{ root: classes.button, label: classes.label }}>
-            <PurchasedIcon />
-            Purchased Orders
-          </Button>
         </Grid>
 
         <Grid
@@ -164,7 +174,18 @@ function Account() {
           <div className={classes.mainSection}>
             <div className={classes.card}>
               <h3>Your Listings</h3>
+              <h5>
+                {loggedInUser.selling.length === 0
+                  ? 'No Active Listings'
+                  : `${loggedInUser.selling.length} Current Listings`}
+              </h5>
             </div>
+
+            {sellingProducts.map((product) => (
+              <ProductCard
+                product={product}
+              />
+            ))}
 
             <div className={classes.card}>
               <div className="row">
@@ -236,17 +257,38 @@ function Account() {
 
               <div className="row">
                 <div className="two columns">
-                  <Avatar className={classes.avatar}>OP</Avatar>
+                  <Avatar
+                    className={classes.avatar}
+                  >
+                    {`${loggedInUser.firstName[0]}${loggedInUser.lastName[0]}`}
+                  </Avatar>
                 </div>
 
                 <div className="ten columns">
-                  <h5>Roy Xu</h5>
-                  <p>No Active Listings</p>
+                  <h5>{`${loggedInUser.firstName} ${loggedInUser.lastName}`}</h5>
+                  <p className="no-margin">{`${loggedInUser.email}`}</p>
+                  <p className="no-margin">{`${loggedInUser.school}`}</p>
                 </div>
 
-                <Button dense color="primary" classes={{ root: classes.profileButton, label: classes.label }}>
+                <Button
+                  dense
+                  color="primary"
+                  classes={{ root: classes.profileButton, label: classes.label }}
+                  component={RouterLink}
+                  to="/sell"
+                >
                   <AddIcon />
                   Create New Listing
+                </Button>
+
+                <Button
+                  dense
+                  color="primary"
+                  classes={{ root: classes.profileButton, label: classes.label }}
+                  onClick={handleLogout}
+                >
+                  <ExitIcon />
+                  Log Out
                 </Button>
               </div>
             </div>
