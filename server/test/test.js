@@ -58,20 +58,6 @@ describe('Test', () => {
       .catch((err) => done(err));
   });
 
-  it('OK, registered a uer and can login', (done) => {
-    request(app)
-      .post('/api/auth/login')
-      .send({
-        email: '123@andrew.cmu.edu',
-        password: 'hellohello',
-      })
-      .then((res) => {
-        expect(res.statusCode).to.equal(200);
-        done();
-      })
-      .catch((err) => done(err));
-  });
-
   it('OK, no products found', (done) => {
     request(app)
       .get('/api/products/fetch')
