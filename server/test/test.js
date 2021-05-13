@@ -60,25 +60,14 @@ describe('Test', () => {
 
   it('OK, registered a uer and can login', (done) => {
     request(app)
-      .post('/api/auth/register')
+      .post('/api/auth/login')
       .send({
-        firstName: 'test first name',
-        lastName: 'test last name',
-        email: 'abc@andrew.cmu.edu',
+        email: '123@andrew.cmu.edu',
         password: 'hellohello',
-        school: 'Carnegie Mellon University',
       })
-      .then(() => {
-        request(app)
-          .post('/api/auth/login')
-          .send({
-            email: 'abc@andrew.cmu.edu',
-            password: 'hellohello',
-          })
-          .then((res) => {
-            expect(res.statusCode).to.equal(200);
-            done();
-          });
+      .then((res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
       })
       .catch((err) => done(err));
   });
