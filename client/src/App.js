@@ -16,6 +16,7 @@ import ForSale from './pages/forSale';
 import Products from './pages/products';
 import Item from './pages/item';
 import UserAccount from './pages/userAccount';
+import EditItem from './pages/EditItem';
 
 function UserIdRouter() {
   const { userid } = useParams();
@@ -41,6 +42,7 @@ function App() {
           <Route path="/account/:userid" component={UserIdRouter} />
           <Route path="/account" component={Account} />
           <Route path="/item" component={Item} />
+          <Route path="/edititem" component={EditItem} />
         </Switch>
         <Footer />
       </Router>

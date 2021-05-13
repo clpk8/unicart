@@ -72,6 +72,9 @@ const store = createStore(
         state.sellingProducts.push(payload);
       }
     }),
+    resetSellingProducts: action((state) => {
+      state.sellingProducts = [];
+    }),
 
     // Sell
     setCategory: action((state, payload) => {
@@ -101,6 +104,26 @@ const store = createStore(
       state.imagePreview = '';
       state.image = '';
       state.selectedCategory = '';
+    }),
+
+    // Edit listing
+    editTitle: action((state, payload) => {
+      state.currItem.title = payload;
+    }),
+    editPrice: action((state, payload) => {
+      state.currItem.price = payload;
+    }),
+    editCategory: action((state, payload) => {
+      state.currItem.category = payload;
+    }),
+    editCondition: action((state, payload) => {
+      state.currItem.condition = payload;
+    }),
+    editDescription: action((state, payload) => {
+      state.currItem.description = payload;
+    }),
+    editPhotos: action((state, payload) => {
+      state.currItem.photos = payload;
     }),
 
     // products

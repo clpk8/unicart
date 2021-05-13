@@ -2,14 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { StoreProvider } from 'easy-peasy';
+import { SnackbarProvider } from 'notistack';
+import Button from '@material-ui/core/Button';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './services/store';
 
+// add action to all snackbars
+const notistackRef = React.createRef();
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key);
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider store={store}>
-      <App />
+      <SnackbarProvider
+        maxSnack={3}
+        ref={notistackRef}
+        action={(key) => (
+          <Button onClick={onClickDismiss(key)}>
+            Dismiss
+          </Button>
+        )}
+      >
+        <App />
+      </SnackbarProvider>
     </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root'),

@@ -1,21 +1,31 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { StoreProvider } from 'easy-peasy';
+import { SnackbarProvider } from 'notistack';
+import Button from '@material-ui/core/Button';
 import App from './App';
 import store from './services/store';
 
-// const model = {
-//   authToken: '',
-// };
+// add action to all snackbars
+const notistackRef = React.createRef();
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key);
+};
 
-// const store = createStore(model, {
-//   mockActions: true,
-// });
-
-test('renders learn react link', () => {
+test('renders Log In text in navbar', () => {
   const app = (
     <StoreProvider store={store}>
-      <App />
+      <SnackbarProvider
+        maxSnack={3}
+        ref={notistackRef}
+        action={(key) => (
+          <Button onClick={onClickDismiss(key)}>
+            Dismiss
+          </Button>
+        )}
+      >
+        <App />
+      </SnackbarProvider>
     </StoreProvider>
   );
 

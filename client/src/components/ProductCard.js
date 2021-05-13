@@ -2,11 +2,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import DetailsIcon from '@material-ui/icons/Details';
-import ShareIcon from '@material-ui/icons/Share';
+import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { deepOrange } from '@material-ui/core/colors';
 
@@ -112,12 +113,13 @@ const iconStyles = {
   },
 };
 
-const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 const IconDetails = withStyles(iconStyles)(({ classes }) => <DetailsIcon classes={classes} />);
+const IconEdit = withStyles(iconStyles)(({ classes }) => <EditIcon classes={classes} />);
 
 export default function ProductCard(props) {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const { product } = props;
 
   const authToken = useStoreState((state) => state.authToken);
@@ -126,6 +128,8 @@ export default function ProductCard(props) {
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
+  // eslint-disable-next-line no-underscore-dangle
+  const editProductUrl = `/EditItem/${product._id}`;
 
   let cardImage = <div>Image goes here</div>;
 
@@ -143,7 +147,9 @@ export default function ProductCard(props) {
         setSeller(data);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
 
     // eslint-disable-next-line no-underscore-dangle
@@ -159,17 +165,41 @@ export default function ProductCard(props) {
         history.push(productUrl);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 
-  if (product.photos.length < 1) {
+  async function handleEditListing(event) {
+    event.preventDefault();
+
+    // eslint-disable-next-line no-underscore-dangle
+    await fetch(`/api/products/${product._id}`, {
+      method: 'GET',
+      headers: {
+        'auth-token': authToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrItem(data);
+        history.push(editProductUrl);
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
+      });
+  }
+
+  if (product.photos && product.photos.length > 0) {
     cardImage = (
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image="../../assets/noImageAvailable.jpg"
+        image={product.photos[0]}
         title="Contemplative Reptile"
       />
     );
@@ -179,7 +209,7 @@ export default function ProductCard(props) {
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image={product.photos[0]}
+        image="../../assets/noImageAvailable.jpg"
         title="Contemplative Reptile"
       />
     );
@@ -209,9 +239,14 @@ export default function ProductCard(props) {
             See Detail
           </Button>
 
-          <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-            <IconShare />
-            Share
+          <Button
+            dense
+            color="primary"
+            classes={{ root: classes.actionButton, label: classes.label }}
+            onClick={handleEditListing}
+          >
+            <IconEdit />
+            Edit Listing
           </Button>
         </div>
       </div>
