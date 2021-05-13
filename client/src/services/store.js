@@ -72,6 +72,9 @@ const store = createStore(
         state.sellingProducts.push(payload);
       }
     }),
+    resetSellingProducts: action((state) => {
+      state.sellingProducts = [];
+    }),
 
     // Sell
     setCategory: action((state, payload) => {

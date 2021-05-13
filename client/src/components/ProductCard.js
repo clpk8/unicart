@@ -187,13 +187,13 @@ export default function ProductCard(props) {
       });
   }
 
-  if (product.photos.length < 1) {
+  if (product.photos && product.photos.length > 0) {
     cardImage = (
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image="../../assets/noImageAvailable.jpg"
+        image={product.photos[0]}
         title="Contemplative Reptile"
       />
     );
@@ -203,7 +203,7 @@ export default function ProductCard(props) {
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image={product.photos[0]}
+        image="../../assets/noImageAvailable.jpg"
         title="Contemplative Reptile"
       />
     );

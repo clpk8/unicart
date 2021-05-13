@@ -70,13 +70,13 @@ function ProductListing(props) {
 
   let cardImage = <div>Image goes here</div>;
 
-  if (product.photos.length < 1) {
+  if (product.photos && product.photos.length > 0) {
     cardImage = (
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image="../../assets/noImageAvailable.jpg"
+        image={product.photos[0]}
         title="Contemplative Reptile"
       />
     );
@@ -86,7 +86,7 @@ function ProductListing(props) {
         component="img"
         alt="Contemplative Reptile"
         className={classes.media}
-        image={product.photos[0]}
+        image="../../assets/noImageAvailable.jpg"
         title="Contemplative Reptile"
       />
     );

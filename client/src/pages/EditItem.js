@@ -16,6 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useSnackbar } from 'notistack';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '90vh',
@@ -59,7 +61,7 @@ function EditItem() {
   const classes = useStyles();
   const history = useHistory();
   const authToken = useStoreState((state) => state.authToken);
-  const loggedInUser = useStoreState((state) => state.user);
+  const { enqueueSnackbar } = useSnackbar();
 
   const currItem = useStoreState((state) => state.currItem);
   const {
@@ -71,13 +73,9 @@ function EditItem() {
   const setCategory = useStoreActions((actions) => actions.editCategory);
   const setCondition = useStoreActions((actions) => actions.editCondition);
   const setDescription = useStoreActions((actions) => actions.editDescription);
+  const resetSellingProducts = useStoreActions((actions) => actions.resetSellingProducts);
 
-  const resetSellData = useStoreActions((actions) => actions.resetSellData);
-  const addSellingProductId = useStoreActions(
-    (actions) => actions.addSellingProductId,
-  );
   const setImages = useStoreActions((actions) => actions.editImages);
-  const images = useStoreState((state) => state.images);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -110,22 +108,22 @@ function EditItem() {
       alert('Title or price cannot be empty');
       return;
     }
-    const userId = loggedInUser._id;
+    // const userId = loggedInUser._id;
     const formData = new FormData();
-    if (images) {
-      images.forEach((element) => {
+    if (currItem.photos) {
+      currItem.photos.forEach((element) => {
         formData.append('photos', element);
       });
     }
 
+    formData.append('id', currItem._id);
     formData.append('category', category);
     formData.append('condition', condition);
     formData.append('price', price);
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('sellerId', userId);
 
-    await fetch('/api/products/create', {
+    await fetch('/api/products/editListing', {
       method: 'POST',
       headers: {
         'auth-token': authToken,
@@ -133,9 +131,12 @@ function EditItem() {
       body: formData,
     })
       .then((response) => response.json())
-      .then((data) => {
-        addSellingProductId(data._id);
-        resetSellData();
+      .then(() => {
+        enqueueSnackbar('Your product has been updated!', {
+          variant: 'success',
+        });
+        // setTimeout(closeSnackbar(), 10000);
+        resetSellingProducts();
         history.push('/home');
       })
       .catch((err) => {
@@ -188,7 +189,7 @@ function EditItem() {
                     label="Price"
                     type="number"
                     id="price"
-                    defaultValue={currItem.price}
+                    defaultValue={price}
                     InputLabelProps={{ shrink: true }}
                     onChange={handlePriceChange}
                   />
@@ -200,7 +201,7 @@ function EditItem() {
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      defaultValue={currItem.category}
+                      defaultValue={category}
                       onChange={handleCategoryChange}
                       label="Category"
                     >
@@ -218,7 +219,7 @@ function EditItem() {
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      defaultValue={currItem.condition}
+                      defaultValue={condition}
                       onChange={handleConditionChange}
                       label="Condition"
                     >
@@ -234,7 +235,7 @@ function EditItem() {
                     label="Description"
                     multiline
                     rows={4}
-                    defaultValue={currItem.description}
+                    defaultValue={description}
                     InputLabelProps={{ shrink: true }}
                     variant="outlined"
                     onChange={handleDescriptionChange}
