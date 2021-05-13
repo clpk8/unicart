@@ -211,9 +211,7 @@ describe('Test', () => {
                 sellerId: user,
               })
               .then((productResult) => {
-                expect(productResult.statusCode === 200);
-                expect(productResult.body.title === 'new title for test book');
-                expect(productResult.body.description === 'this is a new test description');
+                expect(productResult.statusCode).to.equal(200);
                 done();
               });
           });
