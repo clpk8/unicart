@@ -202,7 +202,7 @@ describe('Test', () => {
           .then((res) => {
             const id = res.body._id;
             request(app)
-              .post(`/api/products/editListing`)
+              .post('/api/products/editListing')
               .set('_id', id)
               .send({
                 title: 'new title for test book',
