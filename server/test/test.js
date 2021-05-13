@@ -25,6 +25,7 @@ describe('Test', () => {
       .then(() => done())
       .catch((err) => done(err));
   });
+
   it('OK, no users found', (done) => {
     request(app)
       .get('/api/users/fetch')
@@ -69,7 +70,7 @@ describe('Test', () => {
       .catch((err) => done(err));
   });
 
-  it('OK, created a product and getting the product', (done) => {
+  it('OK, created a product and getting all products', (done) => {
     request(app)
       .post('/api/products/create')
       .send({
@@ -89,7 +90,7 @@ describe('Test', () => {
       .catch((err) => done(err));
   });
 
-  it('OK, created a product and the product by id', (done) => {
+  it('OK, created a product and find the product by id', (done) => {
     request(app)
       .post('/api/products/create')
       .send(testProduct)
@@ -99,22 +100,6 @@ describe('Test', () => {
           .get(`/api/products/${id}`)
           .then((productResult) => {
             expect(productResult.body === testProduct);
-            done();
-          });
-      })
-      .catch((err) => done(err));
-  });
-
-  it('OK, created a product and delete the product', (done) => {
-    request(app)
-      .post('/api/products/create')
-      .send(testProduct)
-      .then((res) => {
-        const id = res.body._id;
-        request(app)
-          .delete(`/api/products/${id}`)
-          .then((deleteResponse) => {
-            expect(deleteResponse.statusCode === 200);
             done();
           });
       })
@@ -153,7 +138,7 @@ describe('Test', () => {
       .catch((err) => done(err));
   });
 
-  it('ON, create a product and the product is stored in selling', (done) => {
+  it('OK, create a product and the product is stored in selling', (done) => {
     request(app)
       .post('/api/auth/register')
       .send({
@@ -187,6 +172,49 @@ describe('Test', () => {
                     expect(body.selling.length).to.equal(1);
                     done();
                   });
+              });
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, create a product and then edit the product', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        firstName: 'test first name',
+        lastName: 'test last name',
+        email: '1234@andrew.cmu.edu',
+        password: 'hellohello',
+        school: 'Carnegie Mellon University',
+      })
+      .then((response) => {
+        const { user } = response.body;
+
+        request(app)
+          .post('/api/products/create')
+          .send({
+            title: 'test book for sale',
+            price: 15,
+            description: 'this is a test',
+            sellerId: user,
+          })
+          .then((res) => {
+            const id = res.body._id;
+            request(app)
+              .post(`/api/products/editListing`)
+              .send({
+                _id: id,
+                title: 'new title for test book',
+                price: 15,
+                description: 'this is a new test description',
+                sellerId: user,
+              })
+              .then((productResult) => {
+                expect(productResult.statusCode === 200);
+                expect(productResult.body.title === 'new title for test book');
+                expect(productResult.body.description === 'this is a new test description');
+                done();
               });
           });
       })
