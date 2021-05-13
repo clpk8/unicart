@@ -5,6 +5,9 @@ import App from './App';
 import Navbar from './components/Navbar';
 import Products from './pages/products';
 import ProductListing from './components/productListing';
+import Sell from './pages/Sell';
+import SignUp from './pages/SignUp';
+import Login from './pages/SignIn';
 
 const users = [
   {
@@ -186,5 +189,61 @@ describe('Home page', () => {
 
     expect(getByTestId('product-listing-test')).toHaveTextContent('Panasonic TV');
     expect(getByTestId('product-listing-test')).toHaveTextContent('100');
+  });
+});
+
+describe('Sell page', () => {
+  const loggedInStore = createStore(loggedInModel, {
+    mockActions: true,
+  });
+
+  it('Should ask for the title', () => {
+    const sellPage = (
+      <StoreProvider store={loggedInStore}>
+        <Sell />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(sellPage);
+
+    expect(getByTestId('sell-test')).toHaveTextContent('Title');
+  });
+});
+
+describe('Sign up page', () => {
+  const store = createStore(model, {
+    mockActions: true,
+  });
+
+  it('Should ask to sign up and if they already have an account', () => {
+    const signUpPage = (
+      <StoreProvider store={store}>
+        <SignUp />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(signUpPage);
+
+    expect(getByTestId('signup-test')).toHaveTextContent('Sign Up');
+    expect(getByTestId('signup-test')).toHaveTextContent('Already have an account');
+  });
+});
+
+describe('Sign in page', () => {
+  const store = createStore(model, {
+    mockActions: true,
+  });
+
+  it('Should have the correct tabs in the nav bar for not logged in', () => {
+    const signUpPage = (
+      <StoreProvider store={store}>
+        <Login />
+      </StoreProvider>
+    );
+
+    const { getByTestId } = render(signUpPage);
+
+    expect(getByTestId('signin-test')).toHaveTextContent('Forgot password');
+    expect(getByTestId('signin-test')).toHaveTextContent('Remember me');
   });
 });
