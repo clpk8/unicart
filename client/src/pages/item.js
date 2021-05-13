@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
-import Carousel from 'react-material-ui-carousel';
+import { useSnackbar } from 'notistack';
 
+import Carousel from 'react-material-ui-carousel';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Item() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
@@ -97,9 +99,13 @@ function Item() {
       },
       body: JSON.stringify(payload),
     })
-      .then(alert('item saved'))
+      .then(enqueueSnackbar('Listing saved!', {
+        variant: 'success',
+      }))
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 
