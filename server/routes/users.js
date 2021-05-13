@@ -58,7 +58,7 @@ router.post('/addToSaved', verifyToken, (req, res) => {
   try {
     User.findByIdAndUpdate(
       userId,
-      { $push: { saved: itemId } },
+      { $addToSet: { saved: itemId } },
       { safe: true, upsert: true },
       (err, docs) => {
         if (err) {
