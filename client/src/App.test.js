@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { StoreProvider } from 'easy-peasy';
 import { SnackbarProvider } from 'notistack';
+import Button from '@material-ui/core/Button';
 import App from './App';
 import store from './services/store';
 
