@@ -16,6 +16,10 @@ function Navbar() {
   }
 
   async function handleProfileClick() {
+    if (loggedInUser.selling.length === 0) {
+      history.push('/account');
+    }
+
     for (let i = 0; i < loggedInUser.selling.length; i += 1) {
       const id = loggedInUser.selling[i];
 
