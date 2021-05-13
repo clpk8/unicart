@@ -11,6 +11,7 @@ const testProduct = {
   price: 15,
   title: 'test book for sale',
   description: 'this is a test',
+  sellerId: 1,
 };
 describe('Test', () => {
   mocha.before((done) => {
@@ -115,6 +116,78 @@ describe('Test', () => {
           .then((deleteResponse) => {
             expect(deleteResponse.statusCode === 200);
             done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and delete the product', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const id = res.body._id;
+        request(app)
+          .delete(`/api/products/${id}`)
+          .then((deleteResponse) => {
+            expect(deleteResponse.statusCode === 200);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('OK, created a product and get the product by userId', (done) => {
+    request(app)
+      .post('/api/products/create')
+      .send(testProduct)
+      .then((res) => {
+        const { sellerId } = res.body;
+        request(app)
+          .get(`/api/products/fetch/${sellerId}`)
+          .then((productResponse) => {
+            expect(productResponse.statusCode === 200);
+            done();
+          });
+      })
+      .catch((err) => done(err));
+  });
+
+  it('ON, create a product and the product is stored in selling', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        firstName: 'test first name',
+        lastName: 'test last name',
+        email: '1234@andrew.cmu.edu',
+        password: 'hellohello',
+        school: 'Carnegie Mellon University',
+      })
+      .then((response) => {
+        const { user } = response.body;
+
+        request(app)
+          .post('/api/products/create')
+          .send({
+            price: 15,
+            title: 'test book for sale',
+            description: 'this is a test',
+            sellerId: user,
+          })
+          .then((res) => {
+            const id = res.body._id;
+            request(app)
+              .get(`/api/products/${id}`)
+              .then((productResult) => {
+                expect(productResult.body === testProduct);
+                request(app)
+                  .get(`/api/users/${user}`)
+                  .then((userResponse) => {
+                    const { body } = userResponse;
+                    expect(body.selling.length).to.equal(1);
+                    done();
+                  });
+              });
           });
       })
       .catch((err) => done(err));
