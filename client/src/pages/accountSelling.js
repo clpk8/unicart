@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -132,6 +133,8 @@ const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes=
 function AccountSelling() {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
+
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
   const sellingProducts = useStoreState((state) => state.sellingProducts);
@@ -145,6 +148,10 @@ function AccountSelling() {
   }
 
   async function handleSavedClick() {
+    if (loggedInUser.saved.length === 0) {
+      history.push('/accountSaved');
+    }
+
     for (let i = 0; i < loggedInUser.saved.length; i += 1) {
       const id = loggedInUser.saved[i];
 
@@ -161,7 +168,9 @@ function AccountSelling() {
           history.push('/accountSaved');
         })
         .catch((err) => {
-          alert(err);
+          enqueueSnackbar(err, {
+            variant: 'error',
+          });
         });
     }
   }
@@ -214,6 +223,10 @@ function AccountSelling() {
                 product={product}
               />
             ))}
+
+            <div className={classes.card}>
+              <h5>Example Listings</h5>
+            </div>
 
             <div className={classes.card}>
               <div className="row">

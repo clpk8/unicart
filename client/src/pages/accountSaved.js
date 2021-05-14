@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -128,6 +129,7 @@ const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes=
 function Account() {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
@@ -142,6 +144,10 @@ function Account() {
   }
 
   async function handleSellingClick() {
+    if (loggedInUser.selling.length === 0) {
+      history.push('/account');
+    }
+
     for (let i = 0; i < loggedInUser.selling.length; i += 1) {
       const id = loggedInUser.selling[i];
 
@@ -155,10 +161,12 @@ function Account() {
         .then((response) => response.json())
         .then((data) => {
           addSellingProducts(data);
-          history.push('/accountSelling');
+          history.push('/account');
         })
         .catch((err) => {
-          alert(err);
+          enqueueSnackbar(err, {
+            variant: 'error',
+          });
         });
     }
   }

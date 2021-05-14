@@ -41,7 +41,7 @@ function App() {
           <Route path="/transactions" component={Transactions} />
           <Route path="/forSale" component={ForSale} />
           <Route path="/account/:userid" component={UserIdRouter} />
-          <Route path="/accountSelling" component={AccountSelling} />
+          <Route path="/account" component={AccountSelling} />
           <Route path="/accountSaved" component={AccountSaved} />
           <Route path="/item" component={Item} />
           <Route path="/edititem" component={EditItem} />
