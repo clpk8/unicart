@@ -2,6 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -23,9 +24,10 @@ const useStyles = makeStyles({
 });
 
 function ProductListing(props) {
-  const { product } = props;
+  const { key, product } = props;
   const history = useHistory();
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   // eslint-disable-next-line no-underscore-dangle
   const productUrl = `/Item/${product._id}`;
@@ -48,7 +50,9 @@ function ProductListing(props) {
         setSeller(data);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
 
     // eslint-disable-next-line no-underscore-dangle
@@ -64,23 +68,15 @@ function ProductListing(props) {
         history.push(productUrl);
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
       });
   }
 
   let cardImage = <div>Image goes here</div>;
 
-  if (product.photos.length < 1) {
-    cardImage = (
-      <CardMedia
-        component="img"
-        alt="Contemplative Reptile"
-        className={classes.media}
-        image="../../assets/noImageAvailable.jpg"
-        title="Contemplative Reptile"
-      />
-    );
-  } else {
+  if (product.photos && product.photos.length > 0) {
     cardImage = (
       <CardMedia
         component="img"
@@ -90,10 +86,20 @@ function ProductListing(props) {
         title="Contemplative Reptile"
       />
     );
+  } else {
+    cardImage = (
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        className={classes.media}
+        image="../../assets/noImageAvailable.jpg"
+        title="Contemplative Reptile"
+      />
+    );
   }
 
   return (
-    <Grid item xs={3} className="productListing" data-testid="product-listing-test">
+    <Grid item xs={3} id={key} className="productListing" data-testid="product-listing-test">
       <Card variant="outlined" className={classes.root}>
         <CardActionArea>
           {cardImage}

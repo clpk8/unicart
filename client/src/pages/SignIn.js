@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
-// import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const loginInfo = useStoreState((state) => state.loginInfo);
   const setLoginEmail = useStoreActions((actions) => actions.setLoginEmail);
@@ -60,7 +61,9 @@ export default function Login() {
     })
       .then((response) => {
         if (response.status !== 200) {
-          alert('Please check your email and password.');
+          enqueueSnackbar('Please check your email and password', {
+            variant: 'error',
+          });
         } else {
           signedIn = true;
         }

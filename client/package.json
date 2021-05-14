@@ -15,6 +15,7 @@
     "easy-peasy": "^5.0.3",
     "enzyme": "^3.11.0",
     "material-ui-dropzone": "^3.5.0",
+    "notistack": "^1.0.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",

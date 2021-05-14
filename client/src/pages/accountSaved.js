@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,10 +11,10 @@ import Avatar from '@material-ui/core/Avatar';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
-import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
-import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
-import ShareIcon from '@material-ui/icons/Share';
+// import PlaylistAddCheckTwoToneIcon from '@material-ui/icons/PlaylistAddCheckTwoTone';
+// import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
+// import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
+
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -122,19 +123,18 @@ const iconStyles = {
 
 const SellingIcon = withStyles(iconStyles)(({ classes }) => <LocalOfferIcon classes={classes} />);
 const SavedIcon = withStyles(iconStyles)(({ classes }) => <BookmarkIcon classes={classes} />);
-const ResumeIcon = withStyles(iconStyles)(({ classes }) => <PlaylistAddCheckTwoToneIcon classes={classes} />);
-const EditIcon = withStyles(iconStyles)(({ classes }) => <EditTwoToneIcon classes={classes} />);
-const DeleteIcon = withStyles(iconStyles)(({ classes }) => <DeleteOutlineTwoToneIcon classes={classes} />);
-const IconShare = withStyles(iconStyles)(({ classes }) => <ShareIcon classes={classes} />);
 const AddIcon = withStyles(iconStyles)(({ classes }) => <AddTwoToneIcon classes={classes} />);
 const ExitIcon = withStyles(iconStyles)(({ classes }) => <ExitToAppIcon classes={classes} />);
 
 function Account() {
   const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
+  const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
-  const sellingProducts = useStoreState((state) => state.sellingProducts);
+  const savedProducts = useStoreState((state) => state.savedProducts);
+  const addSellingProducts = useStoreActions((actions) => actions.addSellingProducts);
   const logout = useStoreActions((actions) => actions.logout);
 
   function handleLogout(event) {
@@ -143,19 +143,52 @@ function Account() {
     history.push('/home');
   }
 
+  async function handleSellingClick() {
+    if (loggedInUser.selling.length === 0) {
+      history.push('/account');
+    }
+
+    for (let i = 0; i < loggedInUser.selling.length; i += 1) {
+      const id = loggedInUser.selling[i];
+
+      /* eslint-disable no-await-in-loop */
+      await fetch(`/api/products/${id}`, {
+        method: 'GET',
+        headers: {
+          'auth-token': authToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          addSellingProducts(data);
+          history.push('/account');
+        })
+        .catch((err) => {
+          enqueueSnackbar(err, {
+            variant: 'error',
+          });
+        });
+    }
+  }
+
   return (
-    <section id="account" data-testid="account-test">
+    <section id="account">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={2} md={2} className={classes.nav}>
           <h3 className={classes.navText}>Your Account</h3>
 
-          <Button dense color="primary" classes={{ root: classes.selectedButton, label: classes.label }}>
+          <Button
+            dense
+            color="primary"
+            onClick={handleSellingClick}
+            classes={{ root: classes.button, label: classes.label }}
+          >
             <SellingIcon />
             Your Listings
           </Button>
 
-          <Button dense color="primary" classes={{ root: classes.button, label: classes.label }}>
+          <Button dense color="primary" classes={{ root: classes.selectedButton, label: classes.label }}>
             <SavedIcon />
             Saved
           </Button>
@@ -176,68 +209,16 @@ function Account() {
               <h3>Your Listings</h3>
               <h5>
                 {loggedInUser.selling.length === 0
-                  ? 'No Active Listings'
-                  : `${loggedInUser.selling.length} Current Listings`}
+                  ? 'No Saved Items'
+                  : `${loggedInUser.selling.length} Saved Items`}
               </h5>
             </div>
 
-            {sellingProducts.map((product) => (
+            {savedProducts.map((product) => (
               <ProductCard
                 product={product}
               />
             ))}
-
-            <div className={classes.card}>
-              <div className="row">
-                <div className="three columns">
-                  <div className={classes.productImage}>
-                    <img src="/assets/book.jpg" alt="book" />
-                  </div>
-                </div>
-
-                <div className="nine columns">
-                  <h4>Calculus Textbook</h4>
-                  <h5>$12</h5>
-                  <p>Sold &middot; Posted 05/01/2021</p>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <ResumeIcon />
-                    Mark as Available
-                  </Button>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <IconShare />
-                    Share
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className={classes.card}>
-              <div className="row">
-                <div className="three columns">
-                  <div className={classes.productImage}>
-                    <img src="/assets/book.jpg" alt="book" />
-                  </div>
-                </div>
-
-                <div className="nine columns">
-                  <h4>Calculus Textbook</h4>
-                  <h5>$12</h5>
-                  <p>Draft</p>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <EditIcon />
-                    Continue
-                  </Button>
-
-                  <Button dense color="primary" classes={{ root: classes.actionButton, label: classes.label }}>
-                    <DeleteIcon />
-                    Delete Draft
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
         </Grid>
 

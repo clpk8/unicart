@@ -3,6 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import { createStore, StoreProvider } from 'easy-peasy';
+import { SnackbarProvider } from 'notistack';
+
+import Button from '@material-ui/core/Button';
 import App from './App';
 import Navbar from './components/Navbar';
 import Products from './pages/products';
@@ -11,9 +14,9 @@ import Sell from './pages/Sell';
 import SignUp from './pages/SignUp';
 import Login from './pages/SignIn';
 import UserAccount from './pages/userAccount';
-import Account from './pages/account';
+import AccountSelling from './pages/accountSelling';
+// import AccountSaved from './pages/accountSaved';
 import Item from './pages/item';
-// import router from '../../server/routes/products';
 
 const users = [
   {
@@ -108,14 +111,30 @@ const loggedInModel = {
   seller: users[0],
 };
 
-test('renders learn react link', () => {
+// add action to all snackbars
+const notistackRef = React.createRef();
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key);
+};
+
+test('renders Log In text in navbar', () => {
   const store = createStore(model, {
     mockActions: true,
   });
 
   const app = (
     <StoreProvider store={store}>
-      <App />
+      <SnackbarProvider
+        maxSnack={3}
+        ref={notistackRef}
+        action={(key) => (
+          <Button onClick={onClickDismiss(key)}>
+            Dismiss
+          </Button>
+        )}
+      >
+        <App />
+      </SnackbarProvider>
     </StoreProvider>
   );
 
@@ -136,7 +155,17 @@ describe('Home page', () => {
   it('Should have the correct tabs in the nav bar for not logged in', () => {
     const navbar = (
       <StoreProvider store={store}>
-        <Navbar />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Navbar />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -149,7 +178,17 @@ describe('Home page', () => {
   it('Should have the correct tabs in the nav bar for logged in', () => {
     const navbar = (
       <StoreProvider store={loggedInStore}>
-        <Navbar />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Navbar />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -161,7 +200,17 @@ describe('Home page', () => {
   it('Should list the products', () => {
     const productsPage = (
       <StoreProvider store={loggedInStore}>
-        <Products />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Products />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -174,7 +223,17 @@ describe('Home page', () => {
   it('Should show the products component', () => {
     const productsPage = (
       <StoreProvider store={loggedInStore}>
-        <Products />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Products />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -187,7 +246,17 @@ describe('Home page', () => {
   it('Should list a product properly', () => {
     const productListing = (
       <StoreProvider store={loggedInStore}>
-        <ProductListing product={products[0]} />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <ProductListing product={products[0]} />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -206,7 +275,17 @@ describe('Sell page', () => {
   it('Should ask for the title', () => {
     const sellPage = (
       <StoreProvider store={loggedInStore}>
-        <Sell />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Sell />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -224,7 +303,17 @@ describe('Sign up page', () => {
   it('Should ask to sign up and if they already have an account', () => {
     const signUpPage = (
       <StoreProvider store={store}>
-        <SignUp />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <SignUp />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -243,7 +332,17 @@ describe('Sign in page', () => {
   it('Should have the correct tabs in the nav bar for not logged in', () => {
     const signUpPage = (
       <StoreProvider store={store}>
-        <Login />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Login />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -264,7 +363,17 @@ describe('Public profile page', () => {
   it('Should only list public profile details', () => {
     const publicProfile = (
       <StoreProvider store={store}>
-        <UserAccount userid={userid} />
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <UserAccount userid={userid} />
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -286,9 +395,19 @@ describe('User profile page', () => {
   it('Should list logged user account page', () => {
     const accountPage = (
       <StoreProvider store={store}>
-        <Router>
-          <Account />
-        </Router>
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Router>
+            <AccountSelling />
+          </Router>
+        </SnackbarProvider>
       </StoreProvider>
     );
 
@@ -308,9 +427,19 @@ describe('Item page', () => {
   it('Should show an item listing properly', () => {
     const itemPage = (
       <StoreProvider store={store}>
-        <Router>
+        <SnackbarProvider
+          maxSnack={3}
+          ref={notistackRef}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)}>
+              Dismiss
+            </Button>
+          )}
+        >
+          <Router>
           <Item />
-        </Router>
+          </Router>
+        </SnackbarProvider>
       </StoreProvider>
     );
 

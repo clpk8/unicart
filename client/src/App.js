@@ -8,10 +8,13 @@ import Footer from './components/Footer';
 import Home from './pages';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
-import Account from './pages/account';
+import AccountSelling from './pages/accountSelling';
+import AccountSaved from './pages/accountSaved';
+import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Item from './pages/item';
 import UserAccount from './pages/userAccount';
+import EditItem from './pages/EditItem';
 
 function UserIdRouter() {
   const { userid } = useParams();
@@ -31,8 +34,10 @@ function App() {
           <Route path="/signin" component={SignIn} />
           <Route path="/sell" component={Sell} />
           <Route path="/account/:userid" component={UserIdRouter} />
-          <Route path="/account" component={Account} />
+          <Route path="/account" component={AccountSelling} />
+          <Route path="/accountSaved" component={AccountSaved} />
           <Route path="/item" component={Item} />
+          <Route path="/edititem" component={EditItem} />
         </Switch>
         <Footer />
       </Router>

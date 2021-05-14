@@ -56,29 +56,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Sell() {
+function EditItem() {
   const classes = useStyles();
   const history = useHistory();
+  const authToken = useStoreState((state) => state.authToken);
   const { enqueueSnackbar } = useSnackbar();
 
-  const authToken = useStoreState((state) => state.authToken);
-  const loggedInUser = useStoreState((state) => state.user);
-  const category = useStoreState((state) => state.category);
-  const setCategory = useStoreActions((actions) => actions.setCategory);
-  const condition = useStoreState((state) => state.condition);
-  const setCondition = useStoreActions((actions) => actions.setCondition);
-  const price = useStoreState((state) => state.price);
-  const setPrice = useStoreActions((actions) => actions.setPrice);
-  const title = useStoreState((state) => state.title);
-  const setTitle = useStoreActions((actions) => actions.setTitle);
-  const description = useStoreState((state) => state.description);
-  const setDescription = useStoreActions((actions) => actions.setDescription);
-  const resetSellData = useStoreActions((actions) => actions.resetSellData);
-  const addSellingProductId = useStoreActions(
-    (actions) => actions.addSellingProductId,
-  );
-  const setImages = useStoreActions((actions) => actions.setImages);
-  const images = useStoreState((state) => state.images);
+  const currItem = useStoreState((state) => state.currItem);
+  const {
+    title, price, category, condition, description, photos,
+  } = currItem;
+
+  const setTitle = useStoreActions((actions) => actions.editTitle);
+  const setPrice = useStoreActions((actions) => actions.editPrice);
+  const setCategory = useStoreActions((actions) => actions.editCategory);
+  const setCondition = useStoreActions((actions) => actions.editCondition);
+  const setDescription = useStoreActions((actions) => actions.editDescription);
+  const resetSellingProducts = useStoreActions((actions) => actions.resetSellingProducts);
+  const editPhotos = useStoreActions((actions) => actions.editPhotos);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -101,33 +96,34 @@ function Sell() {
   };
 
   const handleImageDropZone = (files) => {
-    setImages(files);
+    editPhotos(files);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     if (title === undefined || price === undefined) {
       enqueueSnackbar('Title or price cannot be empty', {
         variant: 'error',
       });
       return;
     }
-    const userId = loggedInUser._id;
+
     const formData = new FormData();
-    if (images) {
-      images.forEach((element) => {
+    if (photos) {
+      photos.forEach((element) => {
         formData.append('photos', element);
       });
     }
 
+    formData.append('id', currItem._id);
     formData.append('category', category);
     formData.append('condition', condition);
     formData.append('price', price);
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('sellerId', userId);
 
-    await fetch('/api/products/create', {
+    await fetch('/api/products/editListing', {
       method: 'POST',
       headers: {
         'auth-token': authToken,
@@ -135,9 +131,12 @@ function Sell() {
       body: formData,
     })
       .then((response) => response.json())
-      .then((data) => {
-        addSellingProductId(data._id);
-        resetSellData();
+      .then(() => {
+        enqueueSnackbar('Your product has been updated!', {
+          variant: 'success',
+        });
+        // setTimeout(closeSnackbar(), 10000);
+        resetSellingProducts();
         history.push('/home');
       })
       .catch((err) => {
@@ -148,7 +147,7 @@ function Sell() {
   }
 
   return (
-    <section id="sell" data-testid="sell-test">
+    <section id="sell">
       <div className="row">
         <div className="five columns">
           <Grid container component="main" className={classes.root}>
@@ -168,7 +167,7 @@ function Sell() {
                   component="h1"
                   variant="h5"
                 >
-                  Item For Sale
+                  Edit Listing
                 </Typography>
                 <form className={classes.form} noValidate>
                   <TextField
@@ -179,7 +178,8 @@ function Sell() {
                     id="title"
                     label="Title"
                     name="title"
-                    autoFocus
+                    defaultValue={title}
+                    InputLabelProps={{ shrink: true }}
                     onChange={handleTitleChange}
                   />
                   <TextField
@@ -191,6 +191,8 @@ function Sell() {
                     label="Price"
                     type="number"
                     id="price"
+                    defaultValue={price}
+                    InputLabelProps={{ shrink: true }}
                     onChange={handlePriceChange}
                   />
                   <FormControl
@@ -201,7 +203,7 @@ function Sell() {
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      value={category ?? ''}
+                      defaultValue={category}
                       onChange={handleCategoryChange}
                       label="Category"
                     >
@@ -219,7 +221,7 @@ function Sell() {
                     <Select
                       labelId="category-select-label"
                       id="category-select"
-                      value={condition ?? ''}
+                      defaultValue={condition}
                       onChange={handleConditionChange}
                       label="Condition"
                     >
@@ -235,7 +237,8 @@ function Sell() {
                     label="Description"
                     multiline
                     rows={4}
-                    defaultValue=""
+                    defaultValue={description}
+                    InputLabelProps={{ shrink: true }}
                     variant="outlined"
                     onChange={handleDescriptionChange}
                   />
@@ -247,7 +250,7 @@ function Sell() {
                     className={classes.submit}
                     onClick={handleSubmit}
                   >
-                    Post Listing
+                    Confirm
                   </Button>
                 </form>
               </div>
@@ -271,6 +274,7 @@ function Sell() {
                 <DropzoneArea
                   dropzoneClass="preview-box"
                   onChange={handleImageDropZone}
+                  onDelete={handleImageDropZone}
                   acceptedFiles={[
                     'image/jpeg',
                     'image/png',
@@ -278,6 +282,7 @@ function Sell() {
                     'image/jpg',
                   ]}
                   maxFileSize={5000000}
+                  initialFiles={currItem.photos}
                 />
               </div>
             </Grid>
@@ -288,4 +293,4 @@ function Sell() {
   );
 }
 
-export default Sell;
+export default EditItem;

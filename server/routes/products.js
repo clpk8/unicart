@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Product = require('../models/Product');
+const User = require('../models/User');
 const upload = require('./fileUpload');
 const verifyToken = require('./verifyToken');
 
@@ -86,8 +88,53 @@ router.post('/create', verifyToken, upload.array('photos'), (req, res) => {
 
   try {
     product.save().then((savedProduct) => {
+      // update the user
+      User.findByIdAndUpdate(
+        req.body.sellerId,
+        { $push: { selling: product._id } },
+        { safe: true, upsert: true },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User : ', docs);
+          }
+        },
+      );
       res.status(200).json(savedProduct);
     });
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+/**
+ * Edit a listing
+ */
+router.options('/editListing', cors());
+router.post('/editListing', verifyToken, upload.array('photos'), async (req, res) => {
+  const photoPaths = [];
+  if (req.files) {
+    req.files.forEach((file) => {
+      photoPaths.push(`/${file.path}`);
+    });
+  }
+
+  try {
+    await Product.updateOne(
+      { _id: req.body.id },
+      {
+        title: req.body.title,
+        price: req.body.price,
+        category: req.body.category,
+        condition: req.body.condition,
+        description: req.body.description,
+        photos: photoPaths,
+      },
+    );
+
+    const product = await Product.findById(req.body.id);
+    res.status(200).json(product);
   } catch (err) {
     res.status(400).json({ message: err });
   }
