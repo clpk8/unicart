@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreState, useStoreActions } from 'easy-peasy';
@@ -122,6 +123,7 @@ export default function ProductCard(props) {
   const { enqueueSnackbar } = useSnackbar();
   const { product } = props;
 
+  const user = useStoreState((state) => state.user);
   const authToken = useStoreState((state) => state.authToken);
   const setCurrItem = useStoreActions((actions) => actions.setCurrItem);
   const setSeller = useStoreActions((actions) => actions.setSeller);
@@ -239,15 +241,17 @@ export default function ProductCard(props) {
             See Detail
           </Button>
 
-          <Button
-            dense
-            color="primary"
-            classes={{ root: classes.actionButton, label: classes.label }}
-            onClick={handleEditListing}
-          >
-            <IconEdit />
-            Edit Listing
-          </Button>
+          { product.sellerId === user._id && (
+            <Button
+              dense
+              color="primary"
+              classes={{ root: classes.actionButton, label: classes.label }}
+              onClick={handleEditListing}
+            >
+              <IconEdit />
+              Edit Listing
+            </Button>
+          )}
         </div>
       </div>
     </div>

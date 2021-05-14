@@ -277,8 +277,15 @@ function Sell() {
                     'image/bmp',
                     'image/jpg',
                   ]}
-                  maxFileSize={5000000}
+                  maxFileSize={2000000}
                 />
+                <Typography
+                  className={classes.title}
+                  component="h1"
+                  variant="body1"
+                >
+                  Maximum image size: 2MB
+                </Typography>
               </div>
             </Grid>
           </Grid>

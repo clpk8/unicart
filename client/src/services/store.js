@@ -51,6 +51,8 @@ const store = createStore(
       state.currItem = {};
       state.seller = {};
       state.images = [];
+      state.savedProducts = [];
+      state.sellingProducts = [];
     }),
 
     // NOT USED
@@ -78,7 +80,9 @@ const store = createStore(
 
     savedProducts: [],
     addSavedProductId: action((state, payload) => {
-      state.user.saved.push(payload);
+      if (state.user.saved.findIndex((x) => x === payload) === -1) {
+        state.user.saved.push(payload);
+      }
     }),
     addSavedProducts: action((state, payload) => {
       if (state.savedProducts.findIndex((x) => x._id === payload._id) === -1) {
