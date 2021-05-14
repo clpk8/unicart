@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { useStoreState } from 'easy-peasy';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 import { useSnackbar } from 'notistack';
 
 import Carousel from 'react-material-ui-carousel';
@@ -59,6 +59,7 @@ function Item() {
   const seller = useStoreState((state) => state.seller);
   const authToken = useStoreState((state) => state.authToken);
   const loggedInUser = useStoreState((state) => state.user);
+  const addSavedProductId = useStoreActions((actions) => actions.addSavedProductId);
 
   // const preventDefault = (event) => event.preventDefault();
 
@@ -113,6 +114,8 @@ function Item() {
     event.preventDefault();
     const userId = loggedInUser._id;
     const productId = product._id;
+
+    addSavedProductId(productId);
     addProductToSaved({
       userId,
       itemId: productId,

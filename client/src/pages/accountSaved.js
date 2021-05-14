@@ -208,9 +208,9 @@ function Account() {
             <div className={classes.card}>
               <h3>Your Listings</h3>
               <h5>
-                {loggedInUser.selling.length === 0
+                {loggedInUser.saved.length === 0
                   ? 'No Saved Items'
-                  : `${loggedInUser.selling.length} Saved Items`}
+                  : `${loggedInUser.saved.length} Saved Items`}
               </h5>
             </div>
 
