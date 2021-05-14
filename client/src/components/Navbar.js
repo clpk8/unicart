@@ -35,7 +35,7 @@ function Navbar() {
         .then((response) => response.json())
         .then((data) => {
           addSellingProducts(data);
-          history.push('/account');
+          history.push('/accountSelling');
         })
         .catch((err) => {
           enqueueSnackbar(err, {
