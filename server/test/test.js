@@ -178,6 +178,49 @@ describe('Test', () => {
       .catch((err) => done(err));
   });
 
+  it('OK, create a product and the product can be added to saved', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        firstName: 'test first name',
+        lastName: 'test last name',
+        email: 'saving@andrew.cmu.edu',
+        password: 'hellohello',
+        school: 'Carnegie Mellon University',
+      })
+      .then((response) => {
+        const { user } = response.body;
+
+        request(app)
+          .post('/api/products/create')
+          .send({
+            price: 15,
+            title: 'test book for sale',
+            description: 'this is a test',
+            sellerId: user,
+          })
+          .then((res) => {
+            const itemId = res.body._id;
+            const userId = user;
+
+            request(app)
+              .post('/api/users/addToSaved')
+              .send({ userId, itemId })
+              .then((addToSavedResponse) => {
+                expect(addToSavedResponse.statusCode).to.equal(200);
+                request(app)
+                  .post('/api/users/addToSelling')
+                  .send({ userId, itemId })
+                  .then((addToSellingResponse) => {
+                    expect(addToSellingResponse.statusCode).to.equal(200);
+                    done();
+                  });
+              });
+          });
+      })
+      .catch((err) => done(err));
+  });
+
   it('OK, create a product and then edit the product', (done) => {
     request(app)
       .post('/api/auth/register')
