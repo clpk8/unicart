@@ -46,7 +46,7 @@ function Navbar() {
   }
 
   return (
-    <nav id="nav-wrap">
+    <nav id="nav-wrap" data-testid="navbar-test">
       <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
       <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
 

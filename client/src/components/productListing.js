@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 function ProductListing(props) {
-  const { product } = props;
+  const { key, product } = props;
   const history = useHistory();
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
@@ -99,7 +99,7 @@ function ProductListing(props) {
   }
 
   return (
-    <Grid item xs={3} className="productListing">
+    <Grid item xs={3} id={key} className="productListing" data-testid="product-listing-test">
       <Card variant="outlined" className={classes.root}>
         <CardActionArea>
           {cardImage}

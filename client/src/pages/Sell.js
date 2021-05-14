@@ -148,7 +148,7 @@ function Sell() {
   }
 
   return (
-    <section id="sell">
+    <section id="sell" data-testid="sell-test">
       <div className="row">
         <div className="five columns">
           <Grid container component="main" className={classes.root}>

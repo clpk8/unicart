@@ -10,11 +10,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AccountSelling from './pages/accountSelling';
 import AccountSaved from './pages/accountSaved';
-import Buy from './pages/buy';
 import Sell from './pages/Sell';
-import Transactions from './pages/transactions';
-import ForSale from './pages/forSale';
-import Products from './pages/products';
 import Item from './pages/item';
 import UserAccount from './pages/userAccount';
 import EditItem from './pages/EditItem';
@@ -32,14 +28,10 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/products" component={Products} />
           <Route path="/home" component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
-          <Route path="/buy" component={Buy} />
           <Route path="/sell" component={Sell} />
-          <Route path="/transactions" component={Transactions} />
-          <Route path="/forSale" component={ForSale} />
           <Route path="/account/:userid" component={UserIdRouter} />
           <Route path="/account" component={AccountSelling} />
           <Route path="/accountSaved" component={AccountSaved} />

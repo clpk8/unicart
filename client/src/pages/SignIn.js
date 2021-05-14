@@ -76,7 +76,7 @@ export default function Login() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" data-testid="signin-test">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
