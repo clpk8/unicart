@@ -437,7 +437,7 @@ describe('Item page', () => {
           )}
         >
           <Router>
-          <Item />
+            <Item />
           </Router>
         </SnackbarProvider>
       </StoreProvider>

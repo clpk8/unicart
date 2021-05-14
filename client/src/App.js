@@ -10,7 +10,6 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AccountSelling from './pages/accountSelling';
 import AccountSaved from './pages/accountSaved';
-import Buy from './pages/buy';
 import Sell from './pages/Sell';
 import Item from './pages/item';
 import UserAccount from './pages/userAccount';
