@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
-import Carousel from 'react-material-ui-carousel';
+import { useSnackbar } from 'notistack';
 
+import Carousel from 'react-material-ui-carousel';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -34,8 +35,14 @@ const useStyles = makeStyles((theme) => ({
   description: {
     margin: theme.spacing(2, 0),
   },
-  button: {
+  sellerButton: {
     margin: theme.spacing(2, 0),
+  },
+  saveButton: {
+    marginLeft: theme.spacing(5),
+  },
+  container: {
+    display: 'flex',
   },
   avatar: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -46,9 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Item() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const product = useStoreState((state) => state.currItem);
   const seller = useStoreState((state) => state.seller);
+  const authToken = useStoreState((state) => state.authToken);
+  const loggedInUser = useStoreState((state) => state.user);
 
   // const preventDefault = (event) => event.preventDefault();
 
@@ -78,6 +88,35 @@ function Item() {
         title="Contemplative Reptile"
       />
     );
+  }
+
+  async function addProductToSaved(payload) {
+    await fetch('/api/users/addToSaved', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(enqueueSnackbar('Listing saved!', {
+        variant: 'success',
+      }))
+      .catch((err) => {
+        enqueueSnackbar(err, {
+          variant: 'error',
+        });
+      });
+  }
+
+  async function handleSave(event) {
+    event.preventDefault();
+    const userId = loggedInUser._id;
+    const productId = product._id;
+    addProductToSaved({
+      userId,
+      itemId: productId,
+    });
   }
 
   return (
@@ -115,10 +154,19 @@ function Item() {
           justify="center"
           className={classes.info}
         >
-          <Typography gutterBottom variant="h4" component="h4">
-            {product.title}
-          </Typography>
-
+          <div className={classes.container}>
+            <Typography gutterBottom variant="h4" component="h4">
+              {product.title}
+            </Typography>
+            <Button
+              className={classes.saveButton}
+              onClick={handleSave}
+              variant="contained"
+              color="primary"
+            >
+              Save Item
+            </Button>
+          </div>
           <Typography gutterBottom variant="h5" component="h5">
             {`$${product.price}`}
           </Typography>
@@ -146,38 +194,40 @@ function Item() {
             {product.description}
           </Typography>
 
-          {seller
-            && (
-              <>
-                <Divider orientation="horizontal" />
+          {seller && (
+            <>
+              <Divider orientation="horizontal" />
 
-                <Typography gutterBottom variant="h6" component="h6" className={classes.description}>
-                  Seller Information
-                </Typography>
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="h6"
+                className={classes.description}
+              >
+                Seller Information
+              </Typography>
 
-                <div className="row">
-                  <div className="two columns">
-                    <Avatar
-                      className={classes.avatar}
-                    >
-                      {`${seller.firstName[0]}${seller.lastName[0]}`}
-                    </Avatar>
-                  </div>
-
-                  <div className="ten columns">
-                    <Typography variant="subtitle1" component="h6">
-                      <Link href={`/account/${seller._id}`}>
-                        {`${seller.firstName} ${seller.lastName}`}
-                      </Link>
-                    </Typography>
-
-                    <Typography variant="subtitle2" component="h6">
-                      {`Member since ${seller.date.slice(0, 10)}`}
-                    </Typography>
-                  </div>
+              <div className="row">
+                <div className="two columns">
+                  <Avatar className={classes.avatar}>
+                    {`${seller.firstName[0]}${seller.lastName[0]}`}
+                  </Avatar>
                 </div>
-              </>
-            )}
+
+                <div className="ten columns">
+                  <Typography variant="subtitle1" component="h6">
+                    <Link href={`/account/${seller._id}`}>
+                      {`${seller.firstName} ${seller.lastName}`}
+                    </Link>
+                  </Typography>
+
+                  <Typography variant="subtitle2" component="h6">
+                    {`Member since ${seller.date.slice(0, 10)}`}
+                  </Typography>
+                </div>
+              </div>
+            </>
+          )}
 
           <Button
             variant="contained"
